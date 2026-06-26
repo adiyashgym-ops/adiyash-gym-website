@@ -25,7 +25,7 @@ const Footer = () => {
           <a href={siteConfig.social.youtube} target="_blank" rel="noopener noreferrer" className="text-offwhite/60 hover:text-purple transition-colors">
             YouTube
           </a>
-          <a href={siteConfig.social.whatsapp} target="_blank" rel="noopener noreferrer" className="text-offwhite/60 hover:text-purple transition-colors">
+          <a href={`https://wa.me/${siteConfig.mainPhone}`} target="_blank" rel="noopener noreferrer" className="text-offwhite/60 hover:text-purple transition-colors">
             WhatsApp
           </a>
         </div>
@@ -42,7 +42,7 @@ const Footer = () => {
 
         {/* Locations */}
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-sm">
-          {siteConfig.locations.map((loc, index) => (
+          {siteConfig.branches.map((loc, index) => (
             <span key={index} className="text-offwhite/40">{loc.name}</span>
           ))}
         </div>

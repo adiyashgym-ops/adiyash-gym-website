@@ -1,4 +1,5 @@
 import { siteConfig } from '../content/siteData'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -15,15 +16,26 @@ const Navbar = () => {
             </span>
           </div>
 
-          {/* CTA Button */}
-          <a
-            href={siteConfig.whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-purple text-offwhite px-6 py-2 rounded-full font-heading text-sm uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-105"
-          >
-            Join Now
-          </a>
+          {/* Right side */}
+          <div className="flex items-center gap-4">
+            {/* Admin Login Link */}
+            <Link
+              to="/admin"
+              className="text-offwhite/40 hover:text-offwhite text-sm font-body transition-colors"
+            >
+              Admin
+            </Link>
+
+            {/* CTA Button */}
+            <a
+              href={siteConfig.whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-purple text-offwhite px-6 py-2 rounded-full font-heading text-sm uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-105"
+            >
+              Join Now
+            </a>
+          </div>
         </div>
       </div>
     </nav>

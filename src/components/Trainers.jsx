@@ -1,6 +1,13 @@
 import { siteConfig } from '../content/siteData'
 
 const Trainers = () => {
+  const allTrainers = siteConfig.branches.flatMap(branch =>
+    branch.trainers.map(trainer => ({
+      ...trainer,
+      branch: branch.name
+    }))
+  )
+
   return (
     <section className="py-16 md:py-24 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -12,7 +19,7 @@ const Trainers = () => {
         </p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {siteConfig.trainers.map((trainer, index) => (
+          {allTrainers.map((trainer, index) => (
             <div key={index} className="bg-black/30 border border-offwhite/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02]">
               <div className="aspect-square bg-purple/20 flex items-center justify-center">
                 <span className="text-6xl">🏋️</span>
@@ -20,6 +27,7 @@ const Trainers = () => {
               <div className="p-4 text-center">
                 <h3 className="font-heading text-offwhite text-xl">{trainer.name}</h3>
                 <p className="font-body text-purple text-sm">{trainer.specialty}</p>
+                <p className="font-body text-offwhite/40 text-xs mt-1">{trainer.branch}</p>
               </div>
             </div>
           ))}

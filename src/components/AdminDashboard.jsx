@@ -5,6 +5,7 @@ const AdminDashboard = () => {
   const [offers, setOffers] = useState([])
   const [newOffer, setNewOffer] = useState({
     image: '',
+    imageFile: null,
     branch: 'all',
     title: '',
     description: '',
@@ -35,6 +36,17 @@ const AdminDashboard = () => {
     'vfour9'
   ]
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setNewOffer({ ...newOffer, image: reader.result, imageFile: file })
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   const handleAddOffer = (e) => {
     e.preventDefault()
     if (newOffer.image && newOffer.branch) {
@@ -44,7 +56,7 @@ const AdminDashboard = () => {
         createdAt: new Date().toISOString(),
       }
       setOffers([...offers, offer])
-      setNewOffer({ image: '', branch: 'all', title: '', description: '' })
+      setNewOffer({ image: '', imageFile: null, branch: 'all', title: '', description: '' })
     }
   }
 
@@ -55,7 +67,7 @@ const AdminDashboard = () => {
   }
 
   const handleLogout = () => {
-    navigate('/admin')
+    navigate('/')  // ← Redirects to homepage
   }
 
   return (
@@ -77,15 +89,17 @@ const AdminDashboard = () => {
           <h2 className="font-heading text-2xl text-offwhite mb-4">Add New Offer</h2>
           <form onSubmit={handleAddOffer} className="space-y-4">
             <div>
-              <label className="font-body text-offwhite/60 text-sm block mb-1">Image URL</label>
+              <label className="font-body text-offwhite/60 text-sm block mb-1">Upload Image</label>
               <input
-                type="text"
-                placeholder="https://example.com/offer-image.jpg"
-                value={newOffer.image}
-                onChange={(e) => setNewOffer({ ...newOffer, image: e.target.value })}
-                className="w-full bg-black/50 border border-offwhite/10 rounded-lg px-4 py-2 text-offwhite font-body focus:outline-none focus:border-purple"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="w-full bg-black/50 border border-offwhite/10 rounded-lg px-4 py-2 text-offwhite font-body file:bg-purple file:text-offwhite file:border-0 file:px-4 file:py-2 file:rounded-lg file:cursor-pointer hover:file:bg-purple-light transition-all"
                 required
               />
+              {newOffer.image && (
+                <img src={newOffer.image} alt="Preview" className="mt-2 h-20 object-cover rounded-lg" />
+              )}
             </div>
             <div>
               <label className="font-body text-offwhite/60 text-sm block mb-1">Branch</label>

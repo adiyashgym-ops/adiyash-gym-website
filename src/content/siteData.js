@@ -20,6 +20,39 @@ export const siteConfig = {
     facebook: 'https://facebook.com/adiyashgym',
   },
   
+  // ----- STATS -----
+  stats: [
+    { number: '500+', label: 'Transformations' },
+    { number: '7', label: 'Locations' },
+    { number: '12+', label: 'Years of Excellence' },
+    { number: '25+', label: 'Certified Trainers' },
+  ],
+  
+  // ----- STORIES (Before & After) -----
+  stories: [
+    { 
+      id: 'story1', 
+      title: "Rahul's 6-Month Transformation", 
+      tagline: 'Lost 20kg and gained confidence', 
+      videoId: 'dQw4w9WgXcQ', 
+      thumbnail: '/stories/rahul.jpg' 
+    },
+    { 
+      id: 'story2', 
+      title: "Priya's Strength Journey", 
+      tagline: 'From beginner to powerlifter', 
+      videoId: 'dQw4w9WgXcQ', 
+      thumbnail: '/stories/priya.jpg' 
+    },
+    { 
+      id: 'story3', 
+      title: "Amit's Body Transformation", 
+      tagline: 'Built muscle and changed his life', 
+      videoId: 'dQw4w9WgXcQ', 
+      thumbnail: '/stories/amit.jpg' 
+    },
+  ],
+  
   // ----- BRANCHES (7 locations) -----
   branches: [
     {

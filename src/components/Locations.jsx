@@ -12,10 +12,11 @@ const Locations = () => {
         </p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {siteConfig.locations.map((location, index) => (
+          {siteConfig.branches.map((location, index) => (
             <div key={index} className="bg-black/30 border border-offwhite/10 rounded-lg p-6 hover:border-purple/50 transition-all hover:scale-[1.02]">
               <h3 className="font-heading text-offwhite text-xl mb-2">{location.name}</h3>
-              <p className="font-body text-offwhite/60 text-sm mb-3">{location.address}</p>
+              <p className="font-body text-offwhite/60 text-sm mb-2">{location.address}</p>
+              <p className="font-body text-purple text-xs mb-3">⏰ {location.timings}</p>
               <a
                 href={location.mapLink}
                 target="_blank"
