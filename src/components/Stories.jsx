@@ -14,8 +14,15 @@ const Stories = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {siteConfig.stories.map((story) => (
             <div key={story.id} className="bg-black/30 border border-offwhite/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02]">
-              <div className="aspect-video bg-purple/20 flex items-center justify-center">
-                <span className="text-5xl">▶️</span>
+              <div className="aspect-video w-full">
+                <iframe
+                  className="w-full h-full"
+                  src={`https://www.youtube.com/embed/${story.videoId}`}
+                  title={story.title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
               </div>
               <div className="p-4">
                 <h3 className="font-heading text-offwhite text-lg">{story.title}</h3>

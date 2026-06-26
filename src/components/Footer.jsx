@@ -30,6 +30,16 @@ const Footer = () => {
           </a>
         </div>
 
+        {/* Legal Links */}
+        <div className="flex justify-center gap-6 mb-8">
+          <a href="/privacy" className="text-offwhite/40 hover:text-purple transition-colors text-sm">
+            Privacy Policy
+          </a>
+          <a href="/terms" className="text-offwhite/40 hover:text-purple transition-colors text-sm">
+            Terms & Conditions
+          </a>
+        </div>
+
         {/* Locations */}
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8 text-sm">
           {siteConfig.locations.map((loc, index) => (

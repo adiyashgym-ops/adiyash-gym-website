@@ -2,9 +2,23 @@ import { siteConfig } from '../content/siteData'
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden pt-20">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple/20 via-black/50 to-black"></div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        poster="/hero-poster.jpg"
+      >
+        <source src="/hero-video.mp4" type="video/mp4" />
+        {/* Fallback image if video doesn't load */}
+        <img src="/hero-fallback.jpg" alt="Adiyash Gym" className="w-full h-full object-cover" />
+      </video>
+      
+      {/* Dark Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/80"></div>
       
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
