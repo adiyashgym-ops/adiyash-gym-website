@@ -6,105 +6,147 @@
 export const siteConfig = {
   // ----- BASIC INFO -----
   gymName: 'Adiyash Gym',
-  tagline: 'Train Harder. Live Better.',
+  tagline: 'We Make Your Life Fitter and Better',
   description: 'Premium fitness studio in Mumbai. Transform your body with expert trainers and world-class facilities.',
   
   // ----- CONTACT -----
-  phone: '+919876543210',
-  whatsappNumber: '919876543210',
-  whatsappLink: 'https://wa.me/919876543210',
-  email: 'info@adiyashgym.com',
+  email: 'adiyashgym.mail@gmail.com',
+  mainPhone: '9076336653',
   
   // ----- SOCIAL LINKS -----
   social: {
-    instagram: 'https://instagram.com/adiyashgym',
+    instagram: 'https://instagram.com/adiyashgymkurla',
+    youtube: 'https://youtube.com/@adiyashgym',
     facebook: 'https://facebook.com/adiyashgym',
-    youtube: 'https://youtube.com/adiyashgym',
-    whatsapp: 'https://wa.me/919876543210',
   },
   
-  // ----- STATS -----
-  stats: [
-    { number: '500+', label: 'Transformations' },
-    { number: '7', label: 'Locations' },
-    { number: '12+', label: 'Years of Excellence' },
-    { number: '25+', label: 'Certified Trainers' },
+  // ----- BRANCHES (7 locations) -----
+  branches: [
+    {
+      id: 'kurla',
+      name: 'Kurla',
+      whatsapp: '918291743902',
+      phone: '+91 82917 43902',
+      address: 'Khushiram Estate, Opp Pearl Hans Residency Near Pheonix Marketcity, Lbs Road, Sunder Baug Ln, Kurla, Mumbai - 400070',
+      timings: '24/7',
+      mapLink: 'https://maps.google.com/?q=Kurla+Mumbai',
+      instagram: 'adiyashgymkurla',
+      trainers: [
+        { name: 'Rehemat Khan', specialty: 'Head Trainer' },
+        { name: 'Sahil Shaikh', specialty: 'Strength & Conditioning' },
+        { name: 'Aisha Khan', specialty: 'Nutrition & Wellness' },
+      ],
+    },
+    {
+      id: 'vikhroli',
+      name: 'Vikhroli',
+      whatsapp: '918291432839',
+      phone: '+91 82914 32839',
+      address: '4W8Q+262, Kannamwar Nagar II, Vikhroli East, Mumbai - 400083',
+      timings: '24/7',
+      mapLink: 'https://maps.google.com/?q=Vikhroli+Mumbai',
+      instagram: 'adiyashgymvikhroli',
+      trainers: [
+        { name: 'Vikram Singh', specialty: 'Personal Training' },
+        { name: 'Neha Sharma', specialty: 'Yoga & Mobility' },
+      ],
+    },
+    {
+      id: 'kandivali',
+      name: 'Kandivali',
+      whatsapp: '919324337728',
+      phone: '+91 93243 37728',
+      address: '29, Road No. 1, Kandivali, Ashok Nagar, Kandivali East, Mumbai - 400101',
+      timings: '24/7',
+      mapLink: 'https://maps.google.com/?q=Kandivali+Mumbai',
+      instagram: 'adiyashgymkandivali',
+      trainers: [
+        { name: 'Rahul Singh', specialty: 'CrossFit & Strength' },
+        { name: 'Priya Jain', specialty: 'Spinning & Cardio' },
+      ],
+    },
+    {
+      id: 'asalfa-unisex',
+      name: 'Asalfa Unisex',
+      whatsapp: '918268652812',
+      phone: '+91 82686 52812',
+      address: 'Shop no 3, Dhumal Estate, A Link Road Asalfa, Ghatkopar West, Mumbai - 400084',
+      timings: '24/7',
+      mapLink: 'https://maps.google.com/?q=Ghatkopar+Mumbai',
+      instagram: 'adiyashgymasalfa',
+      trainers: [
+        { name: 'Suresh Patil', specialty: 'General Fitness' },
+        { name: 'Deepika Reddy', specialty: 'Nutrition Counselling' },
+      ],
+    },
+    {
+      id: 'asalfa-ladies',
+      name: 'Asalfa Ladies',
+      whatsapp: '919869565863',
+      phone: '+91 98695 65863',
+      address: 'Shop no 3, Dhumal Estate, A Link Road Asalfa, Ghatkopar West, Mumbai - 400084',
+      timings: '5:00 AM - 10:00 PM',
+      mapLink: 'https://maps.google.com/?q=Ghatkopar+Mumbai',
+      instagram: 'adiyashladisegym',
+      trainers: [
+        { name: 'Shweta Nair', specialty: 'Ladies Fitness' },
+        { name: 'Kavita Sharma', specialty: 'Yoga & Wellness' },
+      ],
+    },
+    {
+      id: 'marol',
+      name: 'Marol',
+      whatsapp: '918104579053',
+      phone: '+91 81045 79053',
+      address: 'A Wing, Twin Arcade, Orchid Business Park, Building C, Military Rd, Marol, Mumbai - 400059',
+      timings: '5:00 AM - 12:00 PM',
+      mapLink: 'https://maps.google.com/?q=Marol+Mumbai',
+      instagram: 'adiyashgymmarol',
+      trainers: [
+        { name: 'Ajay Yadav', specialty: 'Personal Training' },
+        { name: 'Mrunal Desai', specialty: 'Strength & Conditioning' },
+      ],
+    },
+    {
+      id: 'vfour9',
+      name: 'Vfour9',
+      whatsapp: '918879410763',
+      phone: '+91 88794 10763',
+      address: '4W8Q+262, Kannamwar Nagar II, Vikhroli East, Mumbai - 400083',
+      timings: '24/7',
+      mapLink: 'https://maps.google.com/?q=Vikhroli+Mumbai',
+      instagram: 'adiyashgymvfour9',
+      trainers: [
+        { name: 'Rohan Patil', specialty: 'CrossFit' },
+        { name: 'Sneha Menon', specialty: 'Nutrition & Wellness' },
+      ],
+    },
   ],
   
-  // ----- LOCATIONS (7 Mumbai locations) -----
-  locations: [
-    { 
-      name: 'Andheri West', 
-      address: '123, Linking Road, Andheri West, Mumbai - 400053',
-      mapLink: 'https://maps.google.com/?q=Andheri+West+Mumbai',
-    },
-    { 
-      name: 'Bandra', 
-      address: '45, Hill Road, Bandra West, Mumbai - 400050',
-      mapLink: 'https://maps.google.com/?q=Bandra+Mumbai',
-    },
-    { 
-      name: 'Juhu', 
-      address: '78, Juhu Tara Road, Juhu, Mumbai - 400049',
-      mapLink: 'https://maps.google.com/?q=Juhu+Mumbai',
-    },
-    { 
-      name: 'Dadar', 
-      address: '56, Gokhale Road, Dadar West, Mumbai - 400028',
-      mapLink: 'https://maps.google.com/?q=Dadar+Mumbai',
-    },
-    { 
-      name: 'Powai', 
-      address: '90, Hiranandani Gardens, Powai, Mumbai - 400076',
-      mapLink: 'https://maps.google.com/?q=Powai+Mumbai',
-    },
-    { 
-      name: 'Malad', 
-      address: '34, Link Road, Malad West, Mumbai - 400064',
-      mapLink: 'https://maps.google.com/?q=Malad+Mumbai',
-    },
-    { 
-      name: 'Thane', 
-      address: '12, Ghodbunder Road, Thane West - 400607',
-      mapLink: 'https://maps.google.com/?q=Thane+Mumbai',
-    },
-  ],
-  
-  // ----- PROGRAMS -----
+  // ----- PROGRAMS / FACILITIES -----
   programs: [
     { id: 'strength', title: 'Strength Training', description: 'Build muscle and increase power with expert-guided weight training.', icon: '🏋️' },
-    { id: 'personal', title: 'Personal Training', description: 'One-on-one coaching customized to your fitness goals.', icon: '👤' },
-    { id: 'group', title: 'Group Classes', description: 'High-energy group workouts led by certified instructors.', icon: '👥' },
-    { id: 'nutrition', title: 'Nutrition Coaching', description: 'Personalized meal plans and dietary guidance for optimal results.', icon: '🥗' },
-    { id: 'yoga', title: 'Yoga & Mobility', description: 'Improve flexibility, balance, and mental wellness.', icon: '🧘' },
-    { id: 'cardio', title: 'Cardio Conditioning', description: 'Boost endurance and heart health with structured cardio sessions.', icon: '🏃' },
-  ],
-  
-  // ----- TRAINERS -----
-  trainers: [
-    { name: 'Rahul Sharma', specialty: 'Strength & Conditioning', image: '/trainers/rahul.jpg' },
-    { name: 'Priya Patel', specialty: 'Yoga & Mobility', image: '/trainers/priya.jpg' },
-    { name: 'Amit Kumar', specialty: 'Personal Training', image: '/trainers/amit.jpg' },
-    { name: 'Sneha Reddy', specialty: 'Nutrition & Wellness', image: '/trainers/sneha.jpg' },
-    { name: 'Vikram Singh', specialty: 'Cardio & Endurance', image: '/trainers/vikram.jpg' },
-    { name: 'Neha Joshi', specialty: 'Group Fitness', image: '/trainers/neha.jpg' },
-  ],
-  
-  // ----- YOUTUBE STORIES -----
-  stories: [
-    { id: 'story1', title: "Rahul's 6-Month Transformation", tagline: 'Lost 20kg and gained confidence', videoId: 'dQw4w9WgXcQ', thumbnail: '/stories/rahul.jpg' },
-    { id: 'story2', title: "Priya's Strength Journey", tagline: 'From beginner to powerlifter', videoId: 'dQw4w9WgXcQ', thumbnail: '/stories/priya.jpg' },
-    { id: 'story3', title: "Amit's Body Transformation", tagline: 'Built muscle and changed his life', videoId: 'dQw4w9WgXcQ', thumbnail: '/stories/amit.jpg' },
+    { id: 'cardio', title: 'Cardio', description: 'Boost endurance and heart health with structured cardio sessions.', icon: '🏃' },
+    { id: 'crossfit', title: 'CrossFit', description: 'High-intensity functional fitness for all levels.', icon: '💪' },
+    { id: 'general-trainer', title: "General Trainer's", description: 'Expert guidance from certified trainers.', icon: '👨‍🏫' },
+    { id: 'spinning', title: 'Spinning', description: 'High-energy indoor cycling classes.', icon: '🚴' },
+    { id: 'personal-training', title: 'Personal Training', description: 'One-on-one coaching customized to your fitness goals.', icon: '👤' },
+    { id: 'lockers', title: 'Lockers', description: 'Secure locker facilities for your belongings.', icon: '🔒' },
+    { id: 'steam-shower', title: 'Steam & Shower', description: 'Relax and refresh with steam and shower facilities.', icon: '🚿' },
+    { id: 'nutrition-counselling', title: 'Nutrition Counselling', description: 'Personalized meal plans and dietary guidance.', icon: '🥗' },
+    { id: 'parking', title: 'Parking', description: 'Ample parking space for members.', icon: '🅿️' },
+    { id: 'transfer', title: 'Transfer', description: 'Flexible membership transfer between branches.', icon: '🔄' },
+    { id: 'cafeteria', title: 'Cafeteria', description: 'Healthy food and beverages at our in-house cafeteria.', icon: '☕' },
   ],
   
   // ----- FAQ -----
   faqs: [
-    { question: 'What are your gym timings?', answer: 'We are open 5:00 AM to 11:00 PM, 7 days a week.' },
-    { question: 'How do I book a free trial?', answer: 'Click the "Join Now" button and send us a WhatsApp message. We\'ll schedule your free trial within 24 hours.' },
-    { question: 'What\'s included in the membership?', answer: 'Full access to all gym equipment, group classes, changing rooms, and complimentary fitness assessment.' },
-    { question: 'Do I need to bring my own equipment?', answer: 'We provide all necessary equipment. Just bring your workout clothes, shoes, and a water bottle!' },
+    { question: 'What are your gym timings?', answer: 'Most branches are open 24/7. Asalfa Ladies: 5:00 AM - 10:00 PM. Marol: 5:00 AM - 12:00 PM.' },
+    { question: 'How do I book a free trial?', answer: 'Click the "Join Now" button on any branch page and send us a WhatsApp message. We\'ll schedule your free trial within 24 hours.' },
+    { question: 'What\'s included in the membership?', answer: 'Full access to gym equipment, group classes, lockers, steam & shower, and complimentary fitness assessment.' },
+    { question: 'Do I need to bring my own equipment?', answer: 'We provide all necessary equipment including weights, mats, and accessories. Just bring your workout clothes, shoes, and a water bottle!' },
     { question: 'Are there different membership plans?', answer: 'Yes! We offer flexible monthly, quarterly, and annual plans. Contact us on WhatsApp for details.' },
-    { question: 'How do I cancel my membership?', answer: 'Membership cancellations can be done at the end of your billing cycle. Contact us on WhatsApp for assistance.' },
+    { question: 'Can I transfer my membership between branches?', answer: 'Yes! We offer flexible transfer options between all 7 branches.' },
   ],
   
   // ----- CTA -----
@@ -112,7 +154,7 @@ export const siteConfig = {
     title: 'Your Transformation Starts Here',
     subtitle: 'Join Adiyash Gym today and train with Mumbai\'s best fitness experts.',
     buttonText: 'Join Now',
-    buttonLink: 'https://wa.me/919876543210',
+    buttonLink: 'https://wa.me/919076633653',
   },
   
   // ----- FOOTER -----
@@ -121,12 +163,17 @@ export const siteConfig = {
     credit: 'Designed & Developed by Tozi',
     creditLink: 'https://tozi.dev',
   },
+  
+  // ----- OFFERS (will be managed via admin) -----
+  offers: [
+    // Admin will add these dynamically
+  ],
 }
 
 // ----- SEO -----
 export const seo = {
   title: 'Adiyash Gym Mumbai - Premium Fitness Studio',
-  description: 'Transform your body at Mumbai\'s premium gym. Expert trainers, 7 locations, and state-of-the-art facilities.',
+  description: 'Transform your body at Mumbai\'s premium gym. Expert trainers, 7 locations, and state-of-the-art facilities. Join now!',
   ogImage: '/og-image.jpg',
-  keywords: 'gym Mumbai, fitness studio, personal training, weight loss, strength training',
+  keywords: 'gym Mumbai, fitness studio, personal training, weight loss, strength training, Adiyash Gym',
 }

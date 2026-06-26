@@ -11,6 +11,10 @@ import CTA from './components/CTA'
 import Footer from './components/Footer'
 import Privacy from './components/Privacy'
 import Terms from './components/Terms'
+import OfferSlideshow from './components/OfferSlideshow'
+import OfferForm from './components/OfferForm'
+import AdminLogin from './components/AdminLogin'
+import AdminDashboard from './components/AdminDashboard'
 
 function App() {
   return (
@@ -20,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={
             <>
+              <OfferSlideshow />
               <Hero />
               <Stats />
               <Stories />
@@ -30,6 +35,9 @@ function App() {
               <CTA />
             </>
           } />
+          <Route path="/offer/:id" element={<OfferForm />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
         </Routes>
