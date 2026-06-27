@@ -4,13 +4,18 @@ import Hero from './components/Hero'
 import Stats from './components/Stats'
 import Stories from './components/Stories'
 import Programs from './components/Programs'
+import AllPrograms from './components/AllPrograms'
 import Trainers from './components/Trainers'
+import AllTrainers from './components/AllTrainers'
 import Locations from './components/Locations'
+import AllLocations from './components/AllLocations'
 import FAQ from './components/FAQ'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
 import Privacy from './components/Privacy'
 import Terms from './components/Terms'
+import About from './components/About'
+import Contact from './components/Contact'
 import OfferSlideshow from './components/OfferSlideshow'
 import OfferForm from './components/OfferForm'
 import AdminLogin from './components/AdminLogin'
@@ -36,6 +41,11 @@ function App() {
               <CTA />
             </>
           } />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/programs" element={<AllPrograms />} />
+          <Route path="/trainers" element={<AllTrainers />} />
+          <Route path="/locations" element={<AllLocations />} />
           <Route path="/offer/:id" element={<OfferForm />} />
           <Route path="/select-branch" element={<SelectBranch />} />
           <Route path="/admin" element={<AdminLogin />} />

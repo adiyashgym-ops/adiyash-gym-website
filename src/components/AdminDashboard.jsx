@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
 
 const AdminDashboard = () => {
   const [offers, setOffers] = useState([])
@@ -12,18 +13,31 @@ const AdminDashboard = () => {
     title: '',
     description: '',
   })
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
+  // Load offers from Supabase
   useEffect(() => {
-    const savedOffers = localStorage.getItem('adiyashOffers')
-    if (savedOffers) {
-      setOffers(JSON.parse(savedOffers))
+    const loadOffers = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('offers')
+          .select('*')
+          .order('created_at', { ascending: false })
+        
+        if (error) {
+          console.error('Error loading offers:', error)
+        } else {
+          setOffers(data || [])
+        }
+      } catch (err) {
+        console.error('Error:', err)
+      } finally {
+        setLoading(false)
+      }
     }
+    loadOffers()
   }, [])
-
-  useEffect(() => {
-    localStorage.setItem('adiyashOffers', JSON.stringify(offers))
-  }, [offers])
 
   const branches = [
     { id: 'all', name: 'All Branches' },
@@ -59,20 +73,45 @@ const AdminDashboard = () => {
       setPendingOffers([...pendingOffers, { 
         ...newOffer, 
         id: Date.now(),
-        createdAt: new Date().toISOString() 
+        created_at: new Date().toISOString() 
       }])
       setNewOffer({ image: '', imageFile: null, branch: 'all', title: '', description: '' })
     }
   }
 
-  const handlePublishAll = () => {
+  const handlePublishAll = async () => {
     if (pendingOffers.length === 0) {
       alert('No offers to publish!')
       return
     }
-    setOffers([...offers, ...pendingOffers])
-    setPendingOffers([])
-    setShowPublishSuccess(true)
+
+    setLoading(true)
+    
+    try {
+      const offersToInsert = pendingOffers.map(o => ({
+        image: o.image,
+        branch: o.branch,
+        title: o.title || '',
+        description: o.description || '',
+      }))
+
+      const { data, error } = await supabase
+        .from('offers')
+        .insert(offersToInsert)
+        .select()
+
+      if (error) {
+        alert('Error publishing offers: ' + error.message)
+      } else {
+        setOffers([...offers, ...data])
+        setPendingOffers([])
+        setShowPublishSuccess(true)
+      }
+    } catch (err) {
+      alert('Error: ' + err.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleRemovePending = (index) => {
@@ -81,9 +120,25 @@ const AdminDashboard = () => {
     setPendingOffers(updated)
   }
 
-  const handleDeleteOffer = (id) => {
-    if (window.confirm('Delete this offer?')) {
-      setOffers(offers.filter(offer => offer.id !== id))
+  const handleDeleteOffer = async (id) => {
+    if (!window.confirm('Delete this offer?')) return
+
+    setLoading(true)
+    try {
+      const { error } = await supabase
+        .from('offers')
+        .delete()
+        .eq('id', id)
+
+      if (error) {
+        alert('Error deleting offer: ' + error.message)
+      } else {
+        setOffers(offers.filter(offer => offer.id !== id))
+      }
+    } catch (err) {
+      alert('Error: ' + err.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -93,6 +148,14 @@ const AdminDashboard = () => {
 
   const getBranchName = (id) => {
     return branches.find(b => b.id === id)?.name || id
+  }
+
+  if (loading && offers.length === 0) {
+    return (
+      <section className="min-h-screen bg-cream flex items-center justify-center">
+        <div className="text-ink font-body">Loading offers...</div>
+      </section>
+    )
   }
 
   return (
@@ -164,6 +227,7 @@ const AdminDashboard = () => {
             <button
               type="submit"
               className="bg-purple text-white px-6 py-2 rounded-lg font-heading uppercase tracking-wider hover:bg-purple-light transition-all"
+              disabled={loading}
             >
               Add to List
             </button>
@@ -178,8 +242,9 @@ const AdminDashboard = () => {
               <button
                 onClick={handlePublishAll}
                 className="bg-green-500 text-white px-6 py-2 rounded-lg font-heading uppercase tracking-wider hover:bg-green-400 transition-all"
+                disabled={loading}
               >
-                Publish All Offers
+                {loading ? 'Publishing...' : 'Publish All Offers'}
               </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -241,6 +306,7 @@ const AdminDashboard = () => {
                       <button
                         onClick={() => handleDeleteOffer(offer.id)}
                         className="text-red-400 hover:text-red-300 font-body text-sm"
+                        disabled={loading}
                       >
                         ✕
                       </button>

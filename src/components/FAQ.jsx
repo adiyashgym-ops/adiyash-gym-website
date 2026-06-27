@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { siteConfig } from '../content/siteData'
+import { motion } from 'framer-motion'
+import AnimatedSection from './AnimatedSection'
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null)
@@ -11,16 +13,28 @@ const FAQ = () => {
   return (
     <section className="py-16 md:py-24 bg-cream">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl uppercase tracking-wider text-ink text-center mb-4">
-          Frequently Asked Questions
-        </h2>
-        <p className="font-body text-lg md:text-xl text-ink/60 text-center max-w-2xl mx-auto mb-12">
-          Everything you need to know before joining
-        </p>
+        <AnimatedSection>
+          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl uppercase tracking-wider text-ink text-center mb-4">
+            Frequently Asked Questions
+          </h2>
+        </AnimatedSection>
+        
+        <AnimatedSection delay={0.2}>
+          <p className="font-body text-lg md:text-xl text-ink/60 text-center max-w-2xl mx-auto mb-12">
+            Everything you need to know before joining
+          </p>
+        </AnimatedSection>
         
         <div className="space-y-4">
           {siteConfig.faqs.map((faq, index) => (
-            <div key={index} className="bg-white border border-ink/10 rounded-lg overflow-hidden shadow-sm">
+            <motion.div 
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              viewport={{ once: true }}
+              className="bg-white border border-ink/10 rounded-lg overflow-hidden shadow-sm"
+            >
               <button
                 onClick={() => toggleFAQ(index)}
                 className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-cream/50 transition-colors"
@@ -31,11 +45,16 @@ const FAQ = () => {
                 </span>
               </button>
               {openIndex === index && (
-                <div className="px-6 pb-4">
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  transition={{ duration: 0.3 }}
+                  className="px-6 pb-4"
+                >
                   <p className="font-body text-ink/60">{faq.answer}</p>
-                </div>
+                </motion.div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

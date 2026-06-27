@@ -65,7 +65,7 @@ export const siteConfig = {
       mapLink: 'https://maps.google.com/?q=Kurla+Mumbai',
       instagram: 'adiyashgymkurla',
       trainers: [
-        { name: 'Rehemat Khan', specialty: 'Head Trainer' },
+        { name: 'Rehemat Khan', specialty: 'Head Trainer', featured: true },
         { name: 'Sahil Shaikh', specialty: 'Strength & Conditioning' },
         { name: 'Aisha Khan', specialty: 'Nutrition & Wellness' },
       ],
@@ -80,7 +80,7 @@ export const siteConfig = {
       mapLink: 'https://maps.google.com/?q=Vikhroli+Mumbai',
       instagram: 'adiyashgymvikhroli',
       trainers: [
-        { name: 'Vikram Singh', specialty: 'Personal Training' },
+        { name: 'Vikram Singh', specialty: 'Personal Training', featured: true },
         { name: 'Neha Sharma', specialty: 'Yoga & Mobility' },
       ],
     },
@@ -94,7 +94,7 @@ export const siteConfig = {
       mapLink: 'https://maps.google.com/?q=Kandivali+Mumbai',
       instagram: 'adiyashgymkandivali',
       trainers: [
-        { name: 'Rahul Singh', specialty: 'CrossFit & Strength' },
+        { name: 'Rahul Singh', specialty: 'CrossFit & Strength', featured: true },
         { name: 'Priya Jain', specialty: 'Spinning & Cardio' },
       ],
     },
@@ -109,7 +109,7 @@ export const siteConfig = {
       instagram: 'adiyashgymasalfa',
       trainers: [
         { name: 'Suresh Patil', specialty: 'General Fitness' },
-        { name: 'Deepika Reddy', specialty: 'Nutrition Counselling' },
+        { name: 'Deepika Reddy', specialty: 'Nutrition Counselling', featured: true },
       ],
     },
     {
@@ -158,18 +158,90 @@ export const siteConfig = {
   
   // ----- PROGRAMS / FACILITIES -----
   programs: [
-    { id: 'strength', title: 'Strength Training', description: 'Build muscle and increase power with expert-guided weight training.', icon: '🏋️' },
-    { id: 'cardio', title: 'Cardio', description: 'Boost endurance and heart health with structured cardio sessions.', icon: '🏃' },
-    { id: 'crossfit', title: 'CrossFit', description: 'High-intensity functional fitness for all levels.', icon: '💪' },
-    { id: 'general-trainer', title: "General Trainer's", description: 'Expert guidance from certified trainers.', icon: '👨‍🏫' },
-    { id: 'spinning', title: 'Spinning', description: 'High-energy indoor cycling classes.', icon: '🚴' },
-    { id: 'personal-training', title: 'Personal Training', description: 'One-on-one coaching customized to your fitness goals.', icon: '👤' },
-    { id: 'lockers', title: 'Lockers', description: 'Secure locker facilities for your belongings.', icon: '🔒' },
-    { id: 'steam-shower', title: 'Steam & Shower', description: 'Relax and refresh with steam and shower facilities.', icon: '🚿' },
-    { id: 'nutrition-counselling', title: 'Nutrition Counselling', description: 'Personalized meal plans and dietary guidance.', icon: '🥗' },
-    { id: 'parking', title: 'Parking', description: 'Ample parking space for members.', icon: '🅿️' },
-    { id: 'transfer', title: 'Transfer', description: 'Flexible membership transfer between branches.', icon: '🔄' },
-    { id: 'cafeteria', title: 'Cafeteria', description: 'Healthy food and beverages at our in-house cafeteria.', icon: '☕' },
+    { 
+      id: 'strength', 
+      title: 'Strength Training', 
+      description: 'Build muscle and increase power with expert-guided weight training.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Strength',
+      featured: true 
+    },
+    { 
+      id: 'cardio', 
+      title: 'Cardio', 
+      description: 'Boost endurance and heart health with structured cardio sessions.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Cardio',
+      featured: true 
+    },
+    { 
+      id: 'crossfit', 
+      title: 'CrossFit', 
+      description: 'High-intensity functional fitness for all levels.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=CrossFit',
+      featured: true 
+    },
+    { 
+      id: 'personal-training', 
+      title: 'Personal Training', 
+      description: 'One-on-one coaching customized to your fitness goals.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Personal+Training',
+      featured: true 
+    },
+    { 
+      id: 'nutrition-counselling', 
+      title: 'Nutrition Counselling', 
+      description: 'Personalized meal plans and dietary guidance.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Nutrition',
+      featured: true 
+    },
+    { 
+      id: 'general-trainer', 
+      title: "General Trainer's", 
+      description: 'Expert guidance from certified trainers.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Trainer',
+      featured: false 
+    },
+    { 
+      id: 'spinning', 
+      title: 'Spinning', 
+      description: 'High-energy indoor cycling classes.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Spinning',
+      featured: false 
+    },
+    { 
+      id: 'lockers', 
+      title: 'Lockers', 
+      description: 'Secure locker facilities for your belongings.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Lockers',
+      featured: false 
+    },
+    { 
+      id: 'steam-shower', 
+      title: 'Steam & Shower', 
+      description: 'Relax and refresh with steam and shower facilities.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Steam+Shower',
+      featured: false 
+    },
+    { 
+      id: 'parking', 
+      title: 'Parking', 
+      description: 'Ample parking space for members.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Parking',
+      featured: false 
+    },
+    { 
+      id: 'transfer', 
+      title: 'Transfer', 
+      description: 'Flexible membership transfer between branches.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Transfer',
+      featured: false 
+    },
+    { 
+      id: 'cafeteria', 
+      title: 'Cafeteria', 
+      description: 'Healthy food and beverages at our in-house cafeteria.', 
+      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Cafeteria',
+      featured: false 
+    },
   ],
   
   // ----- FAQ -----
