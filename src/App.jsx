@@ -24,8 +24,8 @@ function App() {
         <Routes>
           <Route path="/" element={
             <>
-              <OfferSlideshow />
               <Hero />
+              <OfferSlideshow />
               <Stats />
               <Stories />
               <Programs />

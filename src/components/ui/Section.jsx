@@ -4,9 +4,9 @@ import Container from './Container'
 const Section = ({ 
   children, 
   className = '',
-  dark = true,
+  light = true,
 }) => {
-  const bgClass = dark ? 'bg-black' : 'bg-offwhite/5'
+  const bgClass = light ? 'bg-cream' : 'bg-cream/80'
   
   return (
     <section className={`py-16 md:py-24 ${bgClass} ${className}`}>

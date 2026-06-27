@@ -13,9 +13,9 @@ const Button = ({
   const baseStyles = 'inline-flex items-center justify-center font-heading uppercase tracking-wider transition-all duration-300 font-bold'
   
   const variants = {
-    primary: 'bg-purple text-offwhite hover:bg-purple-light hover:scale-105',
-    secondary: 'bg-transparent border-2 border-offwhite text-offwhite hover:bg-offwhite hover:text-black hover:scale-105',
-    outline: 'bg-transparent border-2 border-purple text-purple hover:bg-purple hover:text-offwhite hover:scale-105',
+    primary: 'bg-purple text-white hover:bg-purple-light hover:scale-105',
+    secondary: 'bg-transparent border-2 border-ink text-ink hover:bg-ink hover:text-cream hover:scale-105',
+    outline: 'bg-transparent border-2 border-purple text-purple hover:bg-purple hover:text-white hover:scale-105',
   }
   
   const sizes = {
