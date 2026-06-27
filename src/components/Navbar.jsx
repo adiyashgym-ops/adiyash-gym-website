@@ -22,14 +22,12 @@ const Navbar = () => {
             >
               Admin
             </Link>
-            <a
-              href={siteConfig.whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/select-branch"
               className="bg-purple text-white px-6 py-2 rounded-full font-heading text-sm uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-105"
             >
               Join Now
-            </a>
+            </Link>
           </div>
         </div>
       </div>

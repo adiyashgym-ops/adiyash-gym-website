@@ -15,11 +15,12 @@ import OfferSlideshow from './components/OfferSlideshow'
 import OfferForm from './components/OfferForm'
 import AdminLogin from './components/AdminLogin'
 import AdminDashboard from './components/AdminDashboard'
+import SelectBranch from './components/SelectBranch'
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="bg-black min-h-screen">
+      <div className="bg-cream min-h-screen">
         <Navbar />
         <Routes>
           <Route path="/" element={
@@ -36,6 +37,7 @@ function App() {
             </>
           } />
           <Route path="/offer/:id" element={<OfferForm />} />
+          <Route path="/select-branch" element={<SelectBranch />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/privacy" element={<Privacy />} />

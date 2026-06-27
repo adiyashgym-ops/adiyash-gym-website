@@ -32,24 +32,24 @@ export const siteConfig = {
   stories: [
     { 
       id: 'story1', 
-      title: "Rahul's 6-Month Transformation", 
-      tagline: 'Lost 20kg and gained confidence', 
-      videoId: 'dQw4w9WgXcQ', 
-      thumbnail: '/stories/rahul.jpg' 
+      title: 'Adiyash Gym | Before & After Stories | Ep 5 | Kandivali', 
+      tagline: 'A powerful transformation journey of a strong woman', 
+      videoId: 'ZRRQor-5eOE', 
+      thumbnail: '/stories/ep5.jpg' 
     },
     { 
       id: 'story2', 
-      title: "Priya's Strength Journey", 
-      tagline: 'From beginner to powerlifter', 
-      videoId: 'dQw4w9WgXcQ', 
-      thumbnail: '/stories/priya.jpg' 
+      title: 'Adiyash Gym | Before & After Stories | Ep 4 | Kandivali', 
+      tagline: 'From overweight to transformation — real journey', 
+      videoId: 'c2blybicHac', 
+      thumbnail: '/stories/ep4.jpg' 
     },
     { 
       id: 'story3', 
-      title: "Amit's Body Transformation", 
-      tagline: 'Built muscle and changed his life', 
-      videoId: 'dQw4w9WgXcQ', 
-      thumbnail: '/stories/amit.jpg' 
+      title: 'Adiyash Gym | Before & After Stories | Ep 8 | Kurla', 
+      tagline: 'Weight loss journey with dedication and consistency', 
+      videoId: 'XivOEGm-1rE', 
+      thumbnail: '/stories/ep8.jpg' 
     },
   ],
   
