@@ -18,11 +18,13 @@ const OfferSlideshow = () => {
         
         if (error) {
           console.error('Error loading offers:', error)
+          setOffers([])
         } else {
           setOffers(data || [])
         }
       } catch (err) {
         console.error('Error:', err)
+        setOffers([])
       } finally {
         setLoading(false)
       }

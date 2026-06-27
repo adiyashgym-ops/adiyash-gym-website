@@ -27,9 +27,16 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="font-heading text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-wider text-white leading-[1.1] mb-4"
+          className="font-['Anton'] text-[#832D81] text-5xl sm:text-7xl md:text-8xl lg:text-9xl flex items-center justify-center gap-1 flex-wrap"
         >
-          {siteConfig.gymName}
+          <span>AD</span>
+          <img 
+            src="/red-mark.png" 
+            alt="" 
+            className="h-[0.85em] inline-block align-middle" 
+          />
+          <span>YASH</span>
+          <span className="text-white">GYM</span>
         </motion.h1>
         
         <motion.p 

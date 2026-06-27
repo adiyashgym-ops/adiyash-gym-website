@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 
 const AdminDashboard = () => {
   const [offers, setOffers] = useState([])
   const [pendingOffers, setPendingOffers] = useState([])
-  const [showPublishSuccess, setShowPublishSuccess] = useState(false)
+  const [toast, setToast] = useState(null)
   const [newOffer, setNewOffer] = useState({
     image: '',
     imageFile: null,
@@ -14,6 +15,7 @@ const AdminDashboard = () => {
     description: '',
   })
   const [loading, setLoading] = useState(true)
+  const [publishing, setPublishing] = useState(false)
   const navigate = useNavigate()
 
   // Load offers from Supabase
@@ -66,26 +68,38 @@ const AdminDashboard = () => {
     if (newOffer.image && newOffer.branch) {
       const existing = pendingOffers.find(o => o.branch === newOffer.branch)
       if (existing) {
-        alert(`You already have an offer for ${branches.find(b => b.id === newOffer.branch)?.name}. Remove it first if you want to change.`)
+        setToast({
+          type: 'error',
+          message: `You already have an offer for ${branches.find(b => b.id === newOffer.branch)?.name}. Remove it first.`
+        })
+        setTimeout(() => setToast(null), 3000)
         return
       }
       
       setPendingOffers([...pendingOffers, { 
         ...newOffer, 
-        id: Date.now(),
-        created_at: new Date().toISOString() 
+        createdAt: new Date().toISOString() 
       }])
       setNewOffer({ image: '', imageFile: null, branch: 'all', title: '', description: '' })
+      setToast({
+        type: 'success',
+        message: '✅ Added to list!'
+      })
+      setTimeout(() => setToast(null), 2000)
     }
   }
 
   const handlePublishAll = async () => {
     if (pendingOffers.length === 0) {
-      alert('No offers to publish!')
+      setToast({
+        type: 'error',
+        message: '❌ No offers to publish!'
+      })
+      setTimeout(() => setToast(null), 3000)
       return
     }
 
-    setLoading(true)
+    setPublishing(true)
     
     try {
       const offersToInsert = pendingOffers.map(o => ({
@@ -101,16 +115,31 @@ const AdminDashboard = () => {
         .select()
 
       if (error) {
-        alert('Error publishing offers: ' + error.message)
+        setToast({
+          type: 'error',
+          message: '❌ Failed to Publish — Please Try Again'
+        })
+        setTimeout(() => setToast(null), 3000)
       } else {
         setOffers([...offers, ...data])
         setPendingOffers([])
-        setShowPublishSuccess(true)
+        setToast({
+          type: 'success',
+          message: '✅ Offer Published Successfully'
+        })
+        setTimeout(() => {
+          setToast(null)
+          navigate('/')
+        }, 3000)
       }
     } catch (err) {
-      alert('Error: ' + err.message)
+      setToast({
+        type: 'error',
+        message: '❌ Failed to Publish — Please Try Again'
+      })
+      setTimeout(() => setToast(null), 3000)
     } finally {
-      setLoading(false)
+      setPublishing(false)
     }
   }
 
@@ -131,9 +160,18 @@ const AdminDashboard = () => {
         .eq('id', id)
 
       if (error) {
-        alert('Error deleting offer: ' + error.message)
+        setToast({
+          type: 'error',
+          message: '❌ Failed to delete offer'
+        })
+        setTimeout(() => setToast(null), 3000)
       } else {
         setOffers(offers.filter(offer => offer.id !== id))
+        setToast({
+          type: 'success',
+          message: '✅ Offer deleted successfully'
+        })
+        setTimeout(() => setToast(null), 2000)
       }
     } catch (err) {
       alert('Error: ' + err.message)
@@ -150,7 +188,7 @@ const AdminDashboard = () => {
     return branches.find(b => b.id === id)?.name || id
   }
 
-  if (loading && offers.length === 0) {
+  if (loading) {
     return (
       <section className="min-h-screen bg-cream flex items-center justify-center">
         <div className="text-ink font-body">Loading offers...</div>
@@ -161,6 +199,23 @@ const AdminDashboard = () => {
   return (
     <section className="min-h-screen bg-cream py-24 px-4">
       <div className="max-w-6xl mx-auto">
+        {/* Toast Notification */}
+        <AnimatePresence>
+          {toast && (
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.3 }}
+              className={`fixed top-6 left-1/2 transform -translate-x-1/2 z-50 px-6 py-4 rounded-lg shadow-lg font-body text-white text-sm ${
+                toast.type === 'success' ? 'bg-green-500' : 'bg-red-500'
+              }`}
+            >
+              {toast.message}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <h1 className="font-heading text-4xl text-ink">Admin Dashboard</h1>
@@ -175,6 +230,18 @@ const AdminDashboard = () => {
         {/* Add Offer Form */}
         <div className="bg-white border border-ink/10 rounded-lg p-6 mb-8 shadow-sm">
           <h2 className="font-heading text-2xl text-ink mb-4">Add Offer to List</h2>
+          
+          {/* Image Guidelines */}
+          <div className="bg-purple/5 border border-purple/20 rounded-lg p-4 mb-4 text-sm font-body text-ink/70">
+            <p className="font-semibold text-ink mb-1">📋 Image Guidelines:</p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Recommended size: 1200 x 500px (landscape banner)</li>
+              <li>Format: JPG or PNG</li>
+              <li>Max file size: 2MB</li>
+              <li>Keep important text/offer details centered — edges may get cropped on mobile</li>
+            </ul>
+          </div>
+
           <form onSubmit={handleAddToList} className="space-y-4">
             <div>
               <label className="font-body text-ink/60 text-sm block mb-1">Upload Image</label>
@@ -184,6 +251,7 @@ const AdminDashboard = () => {
                 onChange={handleImageUpload}
                 className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-2 text-ink font-body file:bg-purple file:text-white file:border-0 file:px-4 file:py-2 file:rounded-lg file:cursor-pointer hover:file:bg-purple-light transition-all"
                 required
+                disabled={publishing}
               />
               {newOffer.image && (
                 <img src={newOffer.image} alt="Preview" className="mt-2 h-20 object-cover rounded-lg" />
@@ -196,6 +264,7 @@ const AdminDashboard = () => {
                 onChange={(e) => setNewOffer({ ...newOffer, branch: e.target.value })}
                 className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-2 text-ink font-body focus:outline-none focus:border-purple"
                 required
+                disabled={publishing}
               >
                 {branches.map((branch) => (
                   <option key={branch.id} value={branch.id}>
@@ -212,6 +281,7 @@ const AdminDashboard = () => {
                 value={newOffer.title}
                 onChange={(e) => setNewOffer({ ...newOffer, title: e.target.value })}
                 className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-2 text-ink font-body focus:outline-none focus:border-purple"
+                disabled={publishing}
               />
             </div>
             <div>
@@ -222,12 +292,13 @@ const AdminDashboard = () => {
                 value={newOffer.description}
                 onChange={(e) => setNewOffer({ ...newOffer, description: e.target.value })}
                 className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-2 text-ink font-body focus:outline-none focus:border-purple"
+                disabled={publishing}
               />
             </div>
             <button
               type="submit"
-              className="bg-purple text-white px-6 py-2 rounded-lg font-heading uppercase tracking-wider hover:bg-purple-light transition-all"
-              disabled={loading}
+              className="bg-purple text-white px-6 py-2 rounded-lg font-heading uppercase tracking-wider hover:bg-purple-light transition-all disabled:opacity-50"
+              disabled={publishing}
             >
               Add to List
             </button>
@@ -241,10 +312,10 @@ const AdminDashboard = () => {
               <h2 className="font-heading text-2xl text-ink">Pending Offers ({pendingOffers.length})</h2>
               <button
                 onClick={handlePublishAll}
-                className="bg-green-500 text-white px-6 py-2 rounded-lg font-heading uppercase tracking-wider hover:bg-green-400 transition-all"
-                disabled={loading}
+                className="bg-green-500 text-white px-6 py-2 rounded-lg font-heading uppercase tracking-wider hover:bg-green-400 transition-all disabled:opacity-50"
+                disabled={publishing}
               >
-                {loading ? 'Publishing...' : 'Publish All Offers'}
+                {publishing ? 'Publishing...' : 'Publish All Offers'}
               </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -260,6 +331,7 @@ const AdminDashboard = () => {
                       <button
                         onClick={() => handleRemovePending(index)}
                         className="text-red-400 hover:text-red-300 text-sm"
+                        disabled={publishing}
                       >
                         ✕
                       </button>
@@ -268,20 +340,6 @@ const AdminDashboard = () => {
                 </div>
               ))}
             </div>
-          </div>
-        )}
-
-        {/* Publish Success Message */}
-        {showPublishSuccess && (
-          <div className="bg-green-500/20 border border-green-500/50 rounded-lg p-6 mb-8 text-center">
-            <h2 className="font-heading text-2xl text-ink mb-2">✅ Offers Published Successfully!</h2>
-            <p className="font-body text-ink/60 mb-4">All your offers are now live on the homepage.</p>
-            <button
-              onClick={() => navigate('/')}
-              className="bg-purple text-white px-8 py-3 rounded-lg font-heading uppercase tracking-wider hover:bg-purple-light transition-all"
-            >
-              Go to Homepage
-            </button>
           </div>
         )}
 
@@ -306,7 +364,7 @@ const AdminDashboard = () => {
                       <button
                         onClick={() => handleDeleteOffer(offer.id)}
                         className="text-red-400 hover:text-red-300 font-body text-sm"
-                        disabled={loading}
+                        disabled={publishing}
                       >
                         ✕
                       </button>

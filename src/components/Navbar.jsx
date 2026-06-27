@@ -24,11 +24,17 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-2">
             <img src="/logo.png" alt="Adiyash Gym" className="h-12 w-auto" />
-            <span className="text-ink font-heading text-xl tracking-wider hidden sm:block">
-              {siteConfig.gymName}
-            </span>
+            <div className="flex items-center gap-0.5">
+              <span className="text-ink font-heading text-xl tracking-wider hidden sm:block">AD</span>
+              <img 
+                src="/red-mark.png" 
+                alt="" 
+                className="h-5 w-auto hidden sm:inline-block" 
+              />
+              <span className="text-ink font-heading text-xl tracking-wider hidden sm:block">YASH GYM</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}

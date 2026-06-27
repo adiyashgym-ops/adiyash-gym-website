@@ -1,8 +1,9 @@
 import { siteConfig } from '../content/siteData'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import AnimatedCard from './AnimatedCard'
 
 const AllTrainers = () => {
-  // Get all trainers grouped by branch
   const allTrainers = []
   
   siteConfig.branches.forEach(branch => {
@@ -15,7 +16,6 @@ const AllTrainers = () => {
     })
   })
 
-  // Group trainers by branch
   const groupedTrainers = {}
   allTrainers.forEach(trainer => {
     if (!groupedTrainers[trainer.branchName]) {
@@ -31,12 +31,30 @@ const AllTrainers = () => {
           ← Back to Home
         </Link>
         
-        <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl uppercase tracking-wider text-ink text-center mb-4">
-          All Trainers
-        </h1>
-        <p className="font-body text-lg md:text-xl text-ink/60 text-center max-w-2xl mx-auto mb-12">
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="font-['Anton'] text-[#832D81] text-4xl md:text-6xl lg:text-7xl flex items-center justify-center gap-1 flex-wrap mb-4"
+        >
+          <span>AD</span>
+          <img 
+            src="/red-mark.png" 
+            alt="" 
+            className="h-[0.85em] inline-block align-middle" 
+          />
+          <span>YASH</span>
+          <span className="text-ink">TRAINERS</span>
+        </motion.h1>
+        
+        <motion.p 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="font-body text-lg md:text-xl text-ink/60 text-center max-w-2xl mx-auto mb-12"
+        >
           Meet our expert coaches from all 7 branches
-        </p>
+        </motion.p>
         
         {Object.keys(groupedTrainers).map((branchName) => (
           <div key={branchName} className="mb-12">
@@ -45,20 +63,22 @@ const AllTrainers = () => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {groupedTrainers[branchName].map((trainer, index) => (
-                <div key={index} className="bg-white border border-ink/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm">
-                  <div className="aspect-square bg-purple/10 flex items-center justify-center">
-                    <span className="text-6xl">🏋️</span>
+                <AnimatedCard key={index} delay={index * 0.1}>
+                  <div className="bg-white border border-ink/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm">
+                    <div className="aspect-square bg-purple/10 flex items-center justify-center">
+                      <span className="text-6xl">🏋️</span>
+                    </div>
+                    <div className="p-4 text-center">
+                      <h3 className="font-heading text-ink text-xl">{trainer.name}</h3>
+                      <p className="font-body text-purple text-sm">{trainer.specialty}</p>
+                      {trainer.featured && (
+                        <span className="inline-block bg-purple/10 text-purple text-xs px-2 py-1 rounded-full mt-1">
+                          Featured Trainer
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <div className="p-4 text-center">
-                    <h3 className="font-heading text-ink text-xl">{trainer.name}</h3>
-                    <p className="font-body text-purple text-sm">{trainer.specialty}</p>
-                    {trainer.featured && (
-                      <span className="inline-block bg-purple/10 text-purple text-xs px-2 py-1 rounded-full mt-1">
-                        Featured Trainer
-                      </span>
-                    )}
-                  </div>
-                </div>
+                </AnimatedCard>
               ))}
             </div>
           </div>

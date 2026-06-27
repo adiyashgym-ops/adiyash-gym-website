@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { siteConfig } from '../content/siteData'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import AnimatedCard from './AnimatedCard'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +18,6 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Send to WhatsApp
     const message = `Hi! I have a question.%0A%0AName: ${formData.name}%0AEmail: ${formData.email}%0AMessage: ${formData.message}`
     window.open(`https://wa.me/${siteConfig.mainPhone}?text=${message}`, '_blank')
     setSubmitted(true)
@@ -30,43 +31,69 @@ const Contact = () => {
           ← Back to Home
         </Link>
         
-        <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl uppercase tracking-wider text-ink text-center mb-4">
-          Contact Us
-        </h1>
-        <p className="font-body text-lg md:text-xl text-ink/60 text-center max-w-2xl mx-auto mb-12">
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="font-['Anton'] text-[#832D81] text-4xl md:text-6xl lg:text-7xl flex items-center justify-center gap-1 flex-wrap mb-4"
+        >
+          <span>AD</span>
+          <img 
+            src="/red-mark.png" 
+            alt="" 
+            className="h-[0.85em] inline-block align-middle" 
+          />
+          <span>YASH</span>
+          <span className="text-ink">CONTACT</span>
+        </motion.h1>
+        
+        <motion.p 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="font-body text-lg md:text-xl text-ink/60 text-center max-w-2xl mx-auto mb-12"
+        >
           Reach out to any of our 7 branches across Mumbai
-        </p>
+        </motion.p>
 
         {/* Branches Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {siteConfig.branches.map((branch) => (
-            <div key={branch.id} className="bg-white border border-ink/10 rounded-lg p-6 hover:border-purple/50 transition-all shadow-sm">
-              <h3 className="font-heading text-xl text-ink mb-2">{branch.name}</h3>
-              <p className="font-body text-ink/60 text-sm mb-2">{branch.address}</p>
-              <p className="font-body text-purple text-xs mb-3">⏰ {branch.timings}</p>
-              <div className="flex flex-wrap gap-2">
-                <a
-                  href={`tel:${branch.phone}`}
-                  className="text-ink/60 hover:text-purple text-sm font-body transition-colors"
-                >
-                  📞 {branch.phone}
-                </a>
-                <span className="text-ink/20">|</span>
-                <a
-                  href={`https://wa.me/${branch.whatsapp}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-ink/60 hover:text-purple text-sm font-body transition-colors"
-                >
-                  💬 WhatsApp
-                </a>
+          {siteConfig.branches.map((branch, index) => (
+            <AnimatedCard key={branch.id} delay={index * 0.1}>
+              <div className="bg-white border border-ink/10 rounded-lg p-6 hover:border-purple/50 transition-all shadow-sm">
+                <h3 className="font-heading text-xl text-ink mb-2">{branch.name}</h3>
+                <p className="font-body text-ink/60 text-sm mb-2">{branch.address}</p>
+                <p className="font-body text-purple text-xs mb-3">⏰ {branch.timings}</p>
+                <div className="flex flex-wrap gap-2">
+                  <a
+                    href={`tel:${branch.phone}`}
+                    className="text-ink/60 hover:text-purple text-sm font-body transition-colors"
+                  >
+                    📞 {branch.phone}
+                  </a>
+                  <span className="text-ink/20">|</span>
+                  <a
+                    href={`https://wa.me/${branch.whatsapp}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-ink/60 hover:text-purple text-sm font-body transition-colors"
+                  >
+                    💬 WhatsApp
+                  </a>
+                </div>
               </div>
-            </div>
+            </AnimatedCard>
           ))}
         </div>
 
         {/* Contact Form */}
-        <div className="max-w-2xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="max-w-2xl mx-auto"
+        >
           <h2 className="font-heading text-2xl text-ink text-center mb-6">Send Us a Message</h2>
           <form onSubmit={handleSubmit} className="bg-white border border-ink/10 rounded-lg p-8 shadow-sm">
             <div className="mb-4">
@@ -112,7 +139,7 @@ const Contact = () => {
               We'll respond within 24 hours via WhatsApp
             </p>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

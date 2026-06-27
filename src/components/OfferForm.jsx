@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
 
 const OfferForm = () => {
   const location = useLocation()
@@ -8,11 +9,8 @@ const OfferForm = () => {
 
   const [selectedBranch, setSelectedBranch] = useState('')
   const [submitted, setSubmitted] = useState(false)
-
-  if (!offer) {
-    navigate('/')
-    return null
-  }
+  const [branchesWithOffers, setBranchesWithOffers] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const allBranches = [
     { id: 'kurla', name: 'Kurla', whatsapp: '918291743902' },
@@ -24,20 +22,54 @@ const OfferForm = () => {
     { id: 'vfour9', name: 'Vfour9', whatsapp: '918879410763' },
   ]
 
-  const allOffers = JSON.parse(localStorage.getItem('adiyashOffers') || '[]')
-  const branchesWithOffers = [...new Set(allOffers.map(o => o.branch))]
+  // Fetch branches that have offers
+  useEffect(() => {
+    const fetchBranchesWithOffers = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('offers')
+          .select('branch')
+        
+        if (error) {
+          console.error('Error fetching branches:', error)
+          setBranchesWithOffers([])
+        } else {
+          // Get unique branch IDs
+          const uniqueBranches = [...new Set(data.map(item => item.branch))]
+          setBranchesWithOffers(uniqueBranches)
+        }
+      } catch (err) {
+        console.error('Error:', err)
+        setBranchesWithOffers([])
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchBranchesWithOffers()
+  }, [])
 
+  if (!offer) {
+    navigate('/')
+    return null
+  }
+
+  // Determine which branches to show
   let availableBranches = []
 
   if (offer.branch === 'all') {
+    // Show only branches that have offers
     availableBranches = allBranches.filter(b => branchesWithOffers.includes(b.id))
   } else {
+    // Show only the specific branch
     availableBranches = allBranches.filter(b => b.id === offer.branch)
   }
 
-  if (availableBranches.length === 1 && !selectedBranch) {
-    setSelectedBranch(availableBranches[0].id)
-  }
+  // Auto-select if only one branch
+  useEffect(() => {
+    if (availableBranches.length === 1 && !selectedBranch) {
+      setSelectedBranch(availableBranches[0].id)
+    }
+  }, [availableBranches, selectedBranch])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -56,6 +88,14 @@ const OfferForm = () => {
     }
   }
 
+  if (loading) {
+    return (
+      <section className="min-h-screen bg-cream flex items-center justify-center px-4 py-20">
+        <div className="text-ink font-body">Loading...</div>
+      </section>
+    )
+  }
+
   return (
     <section className="min-h-screen bg-cream flex items-center justify-center px-4 py-20">
       <div className="bg-white border border-ink/10 rounded-lg p-8 max-w-md w-full shadow-sm">
@@ -71,7 +111,7 @@ const OfferForm = () => {
           {offer.branch === 'all' && (
             <p className="font-body text-purple text-xs mt-1">Available at selected branches</p>
           )}
-          {offer.branch !== 'all' && (
+          {offer.branch !== 'all' && availableBranches.length === 1 && (
             <p className="font-body text-purple text-xs mt-1">Available at {availableBranches[0]?.name}</p>
           )}
         </div>
@@ -87,6 +127,10 @@ const OfferForm = () => {
                   <div className="bg-cream border border-purple/30 rounded-lg px-4 py-3 text-ink font-body">
                     {availableBranches[0].name}
                     <input type="hidden" value={availableBranches[0].id} />
+                  </div>
+                ) : availableBranches.length === 0 ? (
+                  <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-red-600 font-body">
+                    No branches currently have active offers. Please check back later.
                   </div>
                 ) : (
                   <>
@@ -108,22 +152,24 @@ const OfferForm = () => {
                     </select>
                   </>
                 )}
-                {!selectedBranch && (
+                {!selectedBranch && availableBranches.length > 1 && (
                   <p className="text-purple text-xs mt-1">Please select a branch to continue</p>
                 )}
               </div>
 
-              <button
-                type="submit"
-                disabled={!selectedBranch}
-                className={`w-full py-3 rounded-lg font-heading uppercase tracking-wider transition-all ${
-                  selectedBranch 
-                    ? 'bg-purple text-white hover:bg-purple-light hover:scale-[1.02]' 
-                    : 'bg-purple/30 text-white/50 cursor-not-allowed'
-                }`}
-              >
-                {selectedBranch ? 'Chat on WhatsApp' : 'Select a branch first'}
-              </button>
+              {availableBranches.length > 0 && (
+                <button
+                  type="submit"
+                  disabled={!selectedBranch}
+                  className={`w-full py-3 rounded-lg font-heading uppercase tracking-wider transition-all ${
+                    selectedBranch 
+                      ? 'bg-purple text-white hover:bg-purple-light hover:scale-[1.02]' 
+                      : 'bg-purple/30 text-white/50 cursor-not-allowed'
+                  }`}
+                >
+                  {selectedBranch ? 'Chat on WhatsApp' : 'Select a branch first'}
+                </button>
+              )}
             </form>
           </>
         ) : (
