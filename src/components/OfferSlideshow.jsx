@@ -56,13 +56,21 @@ const OfferSlideshow = () => {
     return branchMap[branchId] || branchId
   }
 
-  // If loading
+  // Skeleton loading state
   if (loading) {
     return (
       <section className="relative w-full bg-cream py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="rounded-xl overflow-hidden border border-ink/10 shadow-sm bg-white p-12 text-center">
-            <p className="font-body text-ink/60">Loading offers...</p>
+          <div className="rounded-xl overflow-hidden border border-ink/10 shadow-sm bg-white p-12 text-center animate-pulse">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-full h-64 md:h-96 bg-ink/5 rounded-lg"></div>
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="h-6 w-20 bg-ink/5 rounded-full"></div>
+                <div className="h-8 w-40 bg-ink/5 rounded"></div>
+              </div>
+              <div className="h-4 w-48 bg-ink/5 rounded"></div>
+              <div className="h-10 w-32 bg-ink/5 rounded-full"></div>
+            </div>
           </div>
         </div>
       </section>

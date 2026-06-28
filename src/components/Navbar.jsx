@@ -1,6 +1,7 @@
 import { siteConfig } from '../content/siteData'
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 const Navbar = () => {
   const location = useLocation()
@@ -23,10 +24,15 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-ink/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+          {/* Logo with Animation */}
           <Link to="/" className="flex items-center gap-2">
             <img src="/logo.png" alt="Adiyash Gym" className="h-12 w-auto" />
-            <div className="flex items-center gap-0.5">
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-0.5"
+            >
               <span className="text-ink font-heading text-xl tracking-wider hidden sm:block">AD</span>
               <img 
                 src="/red-mark.png" 
@@ -34,7 +40,7 @@ const Navbar = () => {
                 className="h-5 w-auto hidden sm:inline-block" 
               />
               <span className="text-ink font-heading text-xl tracking-wider hidden sm:block">YASH GYM</span>
-            </div>
+            </motion.div>
           </Link>
 
           {/* Desktop Navigation */}
