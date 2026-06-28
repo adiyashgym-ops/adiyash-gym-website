@@ -65,9 +65,11 @@ const AllTrainers = () => {
               {groupedTrainers[branchName].map((trainer, index) => (
                 <AnimatedCard key={index} delay={index * 0.1}>
                   <div className="bg-white border border-ink/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm">
-                    <div className="aspect-square bg-purple/10 flex items-center justify-center">
-                      <span className="text-6xl">🏋️</span>
-                    </div>
+                    <img 
+                      src={trainer.image || '/placeholder-trainer.jpg'} 
+                      alt={trainer.name} 
+                      className="w-full aspect-square object-cover"
+                    />
                     <div className="p-4 text-center">
                       <h3 className="font-heading text-ink text-xl">{trainer.name}</h3>
                       <p className="font-body text-purple text-sm">{trainer.specialty}</p>

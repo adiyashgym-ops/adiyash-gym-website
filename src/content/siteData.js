@@ -64,8 +64,9 @@ export const siteConfig = {
       timings: '24/7',
       mapLink: 'https://maps.google.com/?q=Kurla+Mumbai',
       instagram: 'adiyashgymkurla',
+      image: '/locations/kurla.jpg',
       trainers: [
-        { name: 'Rehemat Khan', specialty: 'Head Trainer', featured: true },
+        { name: 'Rehemat Khan', specialty: 'Head Trainer', image: '/trainers/rehemat-khan.jpg' },
         { name: 'Sahil Shaikh', specialty: 'Strength & Conditioning' },
         { name: 'Aisha Khan', specialty: 'Nutrition & Wellness' },
       ],
@@ -79,8 +80,9 @@ export const siteConfig = {
       timings: '24/7',
       mapLink: 'https://maps.google.com/?q=Vikhroli+Mumbai',
       instagram: 'adiyashgymvikhroli',
+      image: '/locations/vikhroli.jpg',
       trainers: [
-        { name: 'Vikram Singh', specialty: 'Personal Training', featured: true },
+        { name: 'Vikram Singh', specialty: 'Personal Training', image: '/trainers/vikram-singh.jpg' },
         { name: 'Neha Sharma', specialty: 'Yoga & Mobility' },
       ],
     },
@@ -93,8 +95,9 @@ export const siteConfig = {
       timings: '24/7',
       mapLink: 'https://maps.google.com/?q=Kandivali+Mumbai',
       instagram: 'adiyashgymkandivali',
+      image: '/locations/kandivali.jpg',
       trainers: [
-        { name: 'Rahul Singh', specialty: 'CrossFit & Strength', featured: true },
+        { name: 'Rahul Singh', specialty: 'CrossFit & Strength', image: '/trainers/rahul-singh.jpg' },
         { name: 'Priya Jain', specialty: 'Spinning & Cardio' },
       ],
     },
@@ -107,9 +110,10 @@ export const siteConfig = {
       timings: '24/7',
       mapLink: 'https://maps.google.com/?q=Ghatkopar+Mumbai',
       instagram: 'adiyashgymasalfa',
+      image: '/locations/asalfa-unisex.jpg',
       trainers: [
         { name: 'Suresh Patil', specialty: 'General Fitness' },
-        { name: 'Deepika Reddy', specialty: 'Nutrition Counselling', featured: true },
+        { name: 'Deepika Reddy', specialty: 'Nutrition Counselling', image: '/trainers/deepika-reddy.jpg' },
       ],
     },
     {
@@ -121,6 +125,7 @@ export const siteConfig = {
       timings: '5:00 AM - 10:00 PM',
       mapLink: 'https://maps.google.com/?q=Ghatkopar+Mumbai',
       instagram: 'adiyashladisegym',
+      image: '/locations/asalfa-ladies.jpg',
       trainers: [
         { name: 'Shweta Nair', specialty: 'Ladies Fitness' },
         { name: 'Kavita Sharma', specialty: 'Yoga & Wellness' },
@@ -135,6 +140,7 @@ export const siteConfig = {
       timings: '5:00 AM - 12:00 PM',
       mapLink: 'https://maps.google.com/?q=Marol+Mumbai',
       instagram: 'adiyashgymmarol',
+      image: '/locations/marol.jpg',
       trainers: [
         { name: 'Ajay Yadav', specialty: 'Personal Training' },
         { name: 'Mrunal Desai', specialty: 'Strength & Conditioning' },
@@ -149,6 +155,7 @@ export const siteConfig = {
       timings: '24/7',
       mapLink: 'https://maps.google.com/?q=Vikhroli+Mumbai',
       instagram: 'adiyashgymvfour9',
+      image: '/locations/vfour9.jpg',
       trainers: [
         { name: 'Rohan Patil', specialty: 'CrossFit' },
         { name: 'Sneha Menon', specialty: 'Nutrition & Wellness' },
@@ -156,90 +163,90 @@ export const siteConfig = {
     },
   ],
   
-  // ----- PROGRAMS / FACILITIES -----
+  // ----- PROGRAMS / FACILITIES (WITH LOCAL IMAGES) -----
   programs: [
     { 
       id: 'strength', 
       title: 'Strength Training', 
       description: 'Build muscle and increase power with expert-guided weight training.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Strength',
+      image: '/programs/strength-training.jpg',
       featured: true 
     },
     { 
       id: 'cardio', 
       title: 'Cardio', 
       description: 'Boost endurance and heart health with structured cardio sessions.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Cardio',
+      image: '/programs/cardio.jpg',
       featured: true 
     },
     { 
       id: 'crossfit', 
       title: 'CrossFit', 
       description: 'High-intensity functional fitness for all levels.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=CrossFit',
+      image: '/programs/crossfit.jpg',
       featured: true 
     },
     { 
       id: 'personal-training', 
       title: 'Personal Training', 
       description: 'One-on-one coaching customized to your fitness goals.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Personal+Training',
+      image: '/programs/personal-training.jpg',
       featured: true 
     },
     { 
       id: 'nutrition-counselling', 
       title: 'Nutrition Counselling', 
       description: 'Personalized meal plans and dietary guidance.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Nutrition',
+      image: '/programs/nutrition-counselling.jpg',
       featured: true 
     },
     { 
       id: 'general-trainer', 
       title: "General Trainer's", 
       description: 'Expert guidance from certified trainers.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Trainer',
+      image: '/programs/general-trainer.jpg',
       featured: false 
     },
     { 
       id: 'spinning', 
       title: 'Spinning', 
       description: 'High-energy indoor cycling classes.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Spinning',
+      image: '/programs/spinning.jpg',
       featured: false 
     },
     { 
       id: 'lockers', 
       title: 'Lockers', 
       description: 'Secure locker facilities for your belongings.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Lockers',
+      image: '/programs/lockers.jpg',
       featured: false 
     },
     { 
       id: 'steam-shower', 
       title: 'Steam & Shower', 
       description: 'Relax and refresh with steam and shower facilities.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Steam+Shower',
+      image: '/programs/steam-shower.jpg',
       featured: false 
     },
     { 
       id: 'parking', 
       title: 'Parking', 
       description: 'Ample parking space for members.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Parking',
+      image: '/programs/parking.jpg',
       featured: false 
     },
     { 
       id: 'transfer', 
       title: 'Transfer', 
       description: 'Flexible membership transfer between branches.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Transfer',
+      image: '/programs/transfer.jpg',
       featured: false 
     },
     { 
       id: 'cafeteria', 
       title: 'Cafeteria', 
       description: 'Healthy food and beverages at our in-house cafeteria.', 
-      image: 'https://placehold.co/400x300/5B1F6E/FFFFFF?text=Cafeteria',
+      image: '/programs/cafeteria.jpg',
       featured: false 
     },
   ],

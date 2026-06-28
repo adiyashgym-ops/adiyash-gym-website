@@ -38,21 +38,18 @@ const About = () => {
           </motion.p>
         </div>
 
-        {/* Story Section */}
+        {/* Our Story Section */}
         <AnimatedSection delay={0.2}>
           <div className="max-w-4xl mx-auto mb-16">
             <h2 className="font-heading text-3xl text-ink mb-4">Our Story</h2>
             <p className="font-body text-ink/70 text-lg leading-relaxed mb-4">
-              Adiyash Gym was founded with a simple mission: to make fitness accessible, 
-              effective, and life-changing for everyone in Mumbai. What started as a single 
-              location has grown into 7 branches across the city, each one built on the same 
-              core values of excellence, community, and transformation.
+              Established in the year 2014, Adiyash Gym in Asalfa-Ghatkopar West, Mumbai is a top player in the category Gyms in Mumbai. This well-known establishment acts as a one-stop destination servicing customers both local and from other parts of Mumbai. Over the course of its journey, this business has established a firm foothold in its industry.
+            </p>
+            <p className="font-body text-ink/70 text-lg leading-relaxed mb-4">
+              The belief that customer satisfaction is as important as their products and services has helped this establishment garner a vast base of customers, which continues to grow by the day. This business employs individuals that are dedicated towards their respective roles and put in a lot of effort to achieve the common vision and larger goals of the company.
             </p>
             <p className="font-body text-ink/70 text-lg leading-relaxed">
-              Our approach is different. We combine world-class facilities with expert 
-              coaching and a supportive environment that pushes you to become the best 
-              version of yourself. Whether you're taking your first step or preparing for 
-              a competition, Adiyash Gym is your home for fitness.
+              In the near future, this business aims to expand its line of products and services and cater to a larger client base. In Mumbai, this establishment occupies a prominent location in Asalfa-Ghatkopar West. It is at A G Link Road, Near Sainath Wine Shop, which makes it easy for first-time visitors in locating this establishment.
             </p>
           </div>
         </AnimatedSection>
@@ -78,20 +75,51 @@ const About = () => {
           ))}
         </div>
 
-        {/* Mission Section */}
+        {/* Team Section */}
         <AnimatedSection delay={0.6}>
+          <div className="max-w-4xl mx-auto mb-16">
+            <h2 className="font-heading text-3xl text-ink mb-6 text-center">Our Team</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white border border-ink/10 rounded-lg p-6 text-center shadow-sm hover:border-purple/50 transition-all">
+                <div className="w-24 h-24 bg-purple/10 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
+                  👨‍💼
+                </div>
+                <h3 className="font-heading text-ink text-xl">Vilas Kamthe</h3>
+                <p className="font-body text-purple text-sm">Owner And Founder</p>
+              </div>
+              <div className="bg-white border border-ink/10 rounded-lg p-6 text-center shadow-sm hover:border-purple/50 transition-all">
+                <div className="w-24 h-24 bg-purple/10 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
+                  👩‍💼
+                </div>
+                <h3 className="font-heading text-ink text-xl">Sheetal Kamble</h3>
+                <p className="font-body text-purple text-sm">Managing Director</p>
+              </div>
+              <div className="bg-white border border-ink/10 rounded-lg p-6 text-center shadow-sm hover:border-purple/50 transition-all">
+                <div className="w-24 h-24 bg-purple/10 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
+                  📱
+                </div>
+                <h3 className="font-heading text-ink text-xl">Ajit Roundhal</h3>
+                <p className="font-body text-purple text-sm">Social Media & Marketing</p>
+              </div>
+            </div>
+          </div>
+        </AnimatedSection>
+
+        {/* Mission Section */}
+        <AnimatedSection delay={0.8}>
           <div className="max-w-4xl mx-auto mb-16">
             <h2 className="font-heading text-3xl text-ink mb-4">Our Mission</h2>
             <p className="font-body text-ink/70 text-lg leading-relaxed">
               To make every individual's life fitter and better by providing premium 
               fitness experiences, expert guidance, and a community that inspires 
-              transformation every single day.
+              transformation every single day. We are dedicated to providing top 
+              service in Gyms, Fitness Centres, and Gym Personal Trainers.
             </p>
           </div>
         </AnimatedSection>
 
         {/* CTA */}
-        <AnimatedSection delay={0.8}>
+        <AnimatedSection delay={1.0}>
           <div className="text-center">
             <Link
               to="/select-branch"

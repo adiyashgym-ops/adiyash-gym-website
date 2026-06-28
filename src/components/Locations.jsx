@@ -33,18 +33,25 @@ const Locations = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {homeLocations.map((location, index) => (
             <AnimatedCard key={index} delay={index * 0.1}>
-              <div className="bg-white border border-ink/10 rounded-lg p-6 hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm">
-                <h3 className="font-heading text-ink text-xl mb-2">{location.name}</h3>
-                <p className="font-body text-ink/60 text-sm mb-2">{location.address}</p>
-                <p className="font-body text-purple text-xs mb-3">⏰ {location.timings}</p>
-                <a
-                  href={location.mapLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-purple text-sm font-body hover:text-purple-light transition-colors"
-                >
-                  Get Directions →
-                </a>
+              <div className="bg-white border border-ink/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm">
+                <img 
+                  src={location.image} 
+                  alt={location.name} 
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-heading text-ink text-xl mb-2">{location.name}</h3>
+                  <p className="font-body text-ink/60 text-sm mb-2">{location.address}</p>
+                  <p className="font-body text-purple text-xs mb-3">⏰ {location.timings}</p>
+                  <a
+                    href={location.mapLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-purple text-sm font-body hover:text-purple-light transition-colors"
+                  >
+                    Get Directions →
+                  </a>
+                </div>
               </div>
             </AnimatedCard>
           ))}

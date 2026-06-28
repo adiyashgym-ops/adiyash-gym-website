@@ -40,10 +40,11 @@ const AllLocations = () => {
           {siteConfig.branches.map((location, index) => (
             <AnimatedCard key={location.id} delay={index * 0.1}>
               <div className="bg-white border border-ink/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm">
-                <div className="w-full h-48 bg-purple/10 flex items-center justify-center">
-                  <span className="text-4xl">📍</span>
-                </div>
-                
+                <img 
+                  src={location.image} 
+                  alt={location.name} 
+                  className="w-full h-48 object-cover"
+                />
                 <div className="p-6">
                   <h3 className="font-heading text-2xl text-ink mb-2">{location.name}</h3>
                   <p className="font-body text-ink/60 text-sm mb-2">{location.address}</p>
