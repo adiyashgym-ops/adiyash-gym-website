@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Stats from './components/Stats'
@@ -21,8 +22,13 @@ import OfferForm from './components/OfferForm'
 import AdminLogin from './components/AdminLogin'
 import AdminDashboard from './components/AdminDashboard'
 import SelectBranch from './components/SelectBranch'
+import { trackPageVisit } from './lib/tracking'
 
 function App() {
+  useEffect(() => {
+    trackPageVisit()
+  }, [])
+
   return (
     <BrowserRouter>
       <div className="bg-cream min-h-screen">

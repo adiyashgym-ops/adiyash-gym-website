@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { trackWhatsAppLead } from '../lib/tracking'
 
 const SelectBranch = () => {
   const [selectedBranch, setSelectedBranch] = useState('')
@@ -19,6 +20,10 @@ const SelectBranch = () => {
     e.preventDefault()
     if (selectedBranch) {
       const branch = branches.find(b => b.id === selectedBranch)
+      
+      // Track the lead
+      trackWhatsAppLead(selectedBranch, 'select_branch_page')
+      
       const message = `Hi! I'm interested in joining Adiyash Gym`
       window.open(`https://wa.me/${branch.whatsapp}?text=${message}`, '_blank')
       navigate('/')

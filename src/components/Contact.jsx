@@ -3,6 +3,7 @@ import { siteConfig } from '../content/siteData'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import AnimatedCard from './AnimatedCard'
+import { trackWhatsAppLead } from '../lib/tracking'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -16,8 +17,13 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
+  const handleWhatsAppClick = (branchId, source) => {
+    trackWhatsAppLead(branchId, source)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
+    trackWhatsAppLead('all', 'contact_form')
     const message = `Hi! I have a question.%0A%0AName: ${formData.name}%0AEmail: ${formData.email}%0AMessage: ${formData.message}`
     window.open(`https://wa.me/${siteConfig.mainPhone}?text=${message}`, '_blank')
     setSubmitted(true)
@@ -76,6 +82,7 @@ const Contact = () => {
                     href={`https://wa.me/${branch.whatsapp}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => handleWhatsAppClick(branch.id, 'contact_page_branch')}
                     className="text-ink/60 hover:text-purple text-sm font-body transition-colors"
                   >
                     💬 WhatsApp

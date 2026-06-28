@@ -2,10 +2,15 @@ import { siteConfig } from '../content/siteData'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import AnimatedCard from './AnimatedCard'
+import { trackWhatsAppLead } from '../lib/tracking'
 
 const Locations = () => {
   // Show only first 6 locations on homepage
   const homeLocations = siteConfig.branches.slice(0, 6)
+
+  const handleWhatsAppClick = (branchId) => {
+    trackWhatsAppLead(branchId, 'locations_page')
+  }
 
   return (
     <section className="py-16 md:py-24 bg-cream/80">
@@ -43,14 +48,25 @@ const Locations = () => {
                   <h3 className="font-heading text-ink text-xl mb-2">{location.name}</h3>
                   <p className="font-body text-ink/60 text-sm mb-2">{location.address}</p>
                   <p className="font-body text-purple text-xs mb-3">⏰ {location.timings}</p>
-                  <a
-                    href={location.mapLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-purple text-sm font-body hover:text-purple-light transition-colors"
-                  >
-                    Get Directions →
-                  </a>
+                  <div className="flex flex-wrap gap-3">
+                    <a
+                      href={location.mapLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple text-sm font-body hover:text-purple-light transition-colors"
+                    >
+                      Get Directions →
+                    </a>
+                    <a
+                      href={`https://wa.me/${location.whatsapp}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => handleWhatsAppClick(location.id)}
+                      className="bg-green-500/10 text-green-600 text-sm font-body px-3 py-1 rounded-full hover:bg-green-500/20 transition-colors"
+                    >
+                      💬 WhatsApp
+                    </a>
+                  </div>
                 </div>
               </div>
             </AnimatedCard>

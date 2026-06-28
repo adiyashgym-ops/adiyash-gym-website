@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import { trackWhatsAppLead } from '../lib/tracking'
 
 const OfferForm = () => {
   const location = useLocation()
@@ -34,7 +35,6 @@ const OfferForm = () => {
           console.error('Error fetching branches:', error)
           setBranchesWithOffers([])
         } else {
-          // Get unique branch IDs
           const uniqueBranches = [...new Set(data.map(item => item.branch))]
           setBranchesWithOffers(uniqueBranches)
         }
@@ -57,10 +57,8 @@ const OfferForm = () => {
   let availableBranches = []
 
   if (offer.branch === 'all') {
-    // Show only branches that have offers
     availableBranches = allBranches.filter(b => branchesWithOffers.includes(b.id))
   } else {
-    // Show only the specific branch
     availableBranches = allBranches.filter(b => b.id === offer.branch)
   }
 
@@ -76,6 +74,10 @@ const OfferForm = () => {
     
     if (selectedBranch) {
       const branch = allBranches.find(b => b.id === selectedBranch)
+      
+      // Track the lead
+      trackWhatsAppLead(selectedBranch, 'offer_get_this_offer')
+      
       const whatsappNumber = branch.whatsapp
       const message = `Hi! I'm interested in this offer: ${offer.title || 'Special Offer'}`
       

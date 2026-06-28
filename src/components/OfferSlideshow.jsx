@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 
 const OfferSlideshow = () => {
@@ -77,32 +78,54 @@ const OfferSlideshow = () => {
     )
   }
 
-  // If no offers, show "Coming Soon" placeholder
+  // If no offers, show text-only placeholder with color-changing effect
   if (offers.length === 0) {
     return (
-      <section className="relative w-full bg-cream py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="relative rounded-xl overflow-hidden border border-ink/10 shadow-sm">
-            <img 
-              src="/offers-coming-soon.jpg" 
-              alt="Offers Coming Soon" 
-              className="w-full h-64 md:h-96 object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-              <h2 className="font-heading text-3xl md:text-5xl text-white">
-                Offers Coming Soon
-              </h2>
-              <p className="font-body text-white/70 text-lg mt-2">
-                Stay tuned for exciting deals and discounts!
-              </p>
-              <div className="mt-4">
-                <span className="inline-block bg-purple text-white px-6 py-2 rounded-full font-heading text-sm uppercase tracking-wider">
-                  Join Now
-                </span>
-              </div>
-            </div>
-          </div>
+      <section className="relative w-full bg-gradient-to-br from-purple/5 via-white to-purple/5 py-20 md:py-28 border-y border-purple/10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.h2 
+              className="font-['Anton'] text-5xl md:text-7xl lg:text-8xl uppercase tracking-wider mb-4"
+              animate={{
+                color: ['#5B1F6E', '#7B2D8E', '#9B4DAE', '#5B1F6E'],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: 'easeInOut'
+              }}
+            >
+              New Offers Loading
+            </motion.h2>
+            
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="font-body text-lg md:text-xl text-ink/50 max-w-xl mx-auto mb-8 leading-relaxed"
+            >
+              We're crafting exclusive deals for you.
+              <br />
+              Join now and be the first to grab them.
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.4 }}
+            >
+              <Link
+                to="/select-branch"
+                className="inline-block bg-purple text-white px-10 py-4 rounded-full font-heading text-base uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-105 shadow-lg shadow-purple/20"
+              >
+                Join Now
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     )

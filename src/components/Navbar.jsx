@@ -2,6 +2,7 @@ import { siteConfig } from '../content/siteData'
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { trackWhatsAppLead } from '../lib/tracking'
 
 const Navbar = () => {
   const location = useLocation()
@@ -20,11 +21,15 @@ const Navbar = () => {
     { name: 'Contact', path: '/contact' },
   ]
 
+  const handleJoinNow = () => {
+    trackWhatsAppLead('all', 'navbar_join_now')
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-ink/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
-          {/* Logo with Animation */}
+          {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img src="/logo.png" alt="Adiyash Gym" className="h-12 w-auto" />
             <motion.div 
@@ -70,6 +75,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/select-branch"
+              onClick={handleJoinNow}
               className="bg-purple text-white px-6 py-2 rounded-full font-heading text-sm uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-105"
             >
               Join Now
@@ -119,7 +125,10 @@ const Navbar = () => {
             </Link>
             <Link
               to="/select-branch"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false)
+                handleJoinNow()
+              }}
               className="bg-purple text-white px-6 py-2 rounded-full font-heading text-sm uppercase tracking-wider text-center hover:bg-purple-light transition-all"
             >
               Join Now

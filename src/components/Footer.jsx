@@ -1,7 +1,12 @@
 import { siteConfig } from '../content/siteData'
 import { motion } from 'framer-motion'
+import { trackWhatsAppLead } from '../lib/tracking'
 
 const Footer = () => {
+  const handleWhatsAppClick = () => {
+    trackWhatsAppLead('all', 'footer_whatsapp')
+  }
+
   return (
     <footer className="bg-cream border-t border-ink/5 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -36,7 +41,13 @@ const Footer = () => {
           <a href={siteConfig.social.youtube} target="_blank" rel="noopener noreferrer" className="text-ink/60 hover:text-purple transition-colors">
             YouTube
           </a>
-          <a href={`https://wa.me/${siteConfig.mainPhone}`} target="_blank" rel="noopener noreferrer" className="text-ink/60 hover:text-purple transition-colors">
+          <a 
+            href={`https://wa.me/${siteConfig.mainPhone}`} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            onClick={handleWhatsAppClick}
+            className="text-ink/60 hover:text-purple transition-colors"
+          >
             WhatsApp
           </a>
         </motion.div>

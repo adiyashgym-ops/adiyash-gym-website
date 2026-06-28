@@ -1,8 +1,13 @@
 import { siteConfig } from '../content/siteData'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { trackWhatsAppLead } from '../lib/tracking'
 
 const Hero = () => {
+  const handleBookTrial = () => {
+    trackWhatsAppLead('all', 'hero_book_trial')
+  }
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background Video */}
@@ -55,6 +60,7 @@ const Hero = () => {
         >
           <Link
             to="/select-branch"
+            onClick={handleBookTrial}
             className="inline-block bg-purple text-white px-12 py-5 rounded-full font-heading text-lg uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-105 shadow-2xl"
           >
             Book a Free Trial

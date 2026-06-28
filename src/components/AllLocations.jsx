@@ -2,8 +2,13 @@ import { siteConfig } from '../content/siteData'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import AnimatedCard from './AnimatedCard'
+import { trackWhatsAppLead } from '../lib/tracking'
 
 const AllLocations = () => {
+  const handleWhatsAppClick = (branchId) => {
+    trackWhatsAppLead(branchId, 'all_locations_page')
+  }
+
   return (
     <section className="min-h-screen bg-cream py-24 px-4">
       <div className="max-w-7xl mx-auto">
@@ -63,6 +68,7 @@ const AllLocations = () => {
                       href={`https://wa.me/${location.whatsapp}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => handleWhatsAppClick(location.id)}
                       className="bg-green-500 text-white px-4 py-2 rounded-lg font-body text-sm hover:bg-green-400 transition-all"
                     >
                       💬 Chat on WhatsApp
