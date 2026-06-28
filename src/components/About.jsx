@@ -81,23 +81,29 @@ const About = () => {
             <h2 className="font-heading text-3xl text-ink mb-6 text-center">Our Team</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white border border-ink/10 rounded-lg p-6 text-center shadow-sm hover:border-purple/50 transition-all">
-                <div className="w-24 h-24 bg-purple/10 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
-                  👨‍💼
-                </div>
+                <img 
+                  src="/team/vilas-kamthe.jpg" 
+                  alt="Vilas Kamthe" 
+                  className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-purple/20"
+                />
                 <h3 className="font-heading text-ink text-xl">Vilas Kamthe</h3>
                 <p className="font-body text-purple text-sm">Owner And Founder</p>
               </div>
               <div className="bg-white border border-ink/10 rounded-lg p-6 text-center shadow-sm hover:border-purple/50 transition-all">
-                <div className="w-24 h-24 bg-purple/10 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
-                  👩‍💼
-                </div>
+                <img 
+                  src="/team/sheetal-kamble.jpg" 
+                  alt="Sheetal Kamble" 
+                  className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-purple/20"
+                />
                 <h3 className="font-heading text-ink text-xl">Sheetal Kamble</h3>
                 <p className="font-body text-purple text-sm">Managing Director</p>
               </div>
               <div className="bg-white border border-ink/10 rounded-lg p-6 text-center shadow-sm hover:border-purple/50 transition-all">
-                <div className="w-24 h-24 bg-purple/10 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
-                  📱
-                </div>
+                <img 
+                  src="/team/ajit-roundhal.jpg" 
+                  alt="Ajit Roundhal" 
+                  className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-purple/20"
+                />
                 <h3 className="font-heading text-ink text-xl">Ajit Roundhal</h3>
                 <p className="font-body text-purple text-sm">Social Media & Marketing</p>
               </div>
