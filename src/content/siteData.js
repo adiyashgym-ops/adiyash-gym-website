@@ -65,11 +65,6 @@ export const siteConfig = {
       mapLink: 'https://maps.google.com/?q=Kurla+Mumbai',
       instagram: 'adiyashgymkurla',
       image: '/locations/kurla.jpg',
-      trainers: [
-        { name: 'Rehemat Khan', specialty: 'Head Trainer', image: '/trainers/rehemat-khan.jpg' },
-        { name: 'Sahil Shaikh', specialty: 'Strength & Conditioning' },
-        { name: 'Aisha Khan', specialty: 'Nutrition & Wellness' },
-      ],
     },
     {
       id: 'vikhroli',
@@ -81,10 +76,6 @@ export const siteConfig = {
       mapLink: 'https://maps.google.com/?q=Vikhroli+Mumbai',
       instagram: 'adiyashgymvikhroli',
       image: '/locations/vikhroli.jpg',
-      trainers: [
-        { name: 'Vikram Singh', specialty: 'Personal Training', image: '/trainers/vikram-singh.jpg' },
-        { name: 'Neha Sharma', specialty: 'Yoga & Mobility' },
-      ],
     },
     {
       id: 'kandivali',
@@ -96,10 +87,6 @@ export const siteConfig = {
       mapLink: 'https://maps.google.com/?q=Kandivali+Mumbai',
       instagram: 'adiyashgymkandivali',
       image: '/locations/kandivali.jpg',
-      trainers: [
-        { name: 'Rahul Singh', specialty: 'CrossFit & Strength', image: '/trainers/rahul-singh.jpg' },
-        { name: 'Priya Jain', specialty: 'Spinning & Cardio' },
-      ],
     },
     {
       id: 'asalfa-unisex',
@@ -111,10 +98,6 @@ export const siteConfig = {
       mapLink: 'https://maps.google.com/?q=Ghatkopar+Mumbai',
       instagram: 'adiyashgymasalfa',
       image: '/locations/asalfa-unisex.jpg',
-      trainers: [
-        { name: 'Suresh Patil', specialty: 'General Fitness' },
-        { name: 'Deepika Reddy', specialty: 'Nutrition Counselling', image: '/trainers/deepika-reddy.jpg' },
-      ],
     },
     {
       id: 'asalfa-ladies',
@@ -126,10 +109,6 @@ export const siteConfig = {
       mapLink: 'https://maps.google.com/?q=Ghatkopar+Mumbai',
       instagram: 'adiyashladisegym',
       image: '/locations/asalfa-ladies.jpg',
-      trainers: [
-        { name: 'Shweta Nair', specialty: 'Ladies Fitness' },
-        { name: 'Kavita Sharma', specialty: 'Yoga & Wellness' },
-      ],
     },
     {
       id: 'marol',
@@ -141,10 +120,6 @@ export const siteConfig = {
       mapLink: 'https://maps.google.com/?q=Marol+Mumbai',
       instagram: 'adiyashgymmarol',
       image: '/locations/marol.jpg',
-      trainers: [
-        { name: 'Ajay Yadav', specialty: 'Personal Training' },
-        { name: 'Mrunal Desai', specialty: 'Strength & Conditioning' },
-      ],
     },
     {
       id: 'vfour9',
@@ -156,14 +131,10 @@ export const siteConfig = {
       mapLink: 'https://maps.google.com/?q=Vikhroli+Mumbai',
       instagram: 'adiyashgymvfour9',
       image: '/locations/vfour9.jpg',
-      trainers: [
-        { name: 'Rohan Patil', specialty: 'CrossFit' },
-        { name: 'Sneha Menon', specialty: 'Nutrition & Wellness' },
-      ],
     },
   ],
   
-  // ----- PROGRAMS / FACILITIES (WITH LOCAL IMAGES) -----
+  // ----- PROGRAMS / FACILITIES -----
   programs: [
     { 
       id: 'strength', 

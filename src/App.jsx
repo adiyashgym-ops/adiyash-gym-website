@@ -6,8 +6,6 @@ import Stats from './components/Stats'
 import Stories from './components/Stories'
 import Programs from './components/Programs'
 import AllPrograms from './components/AllPrograms'
-import Trainers from './components/Trainers'
-import AllTrainers from './components/AllTrainers'
 import Locations from './components/Locations'
 import AllLocations from './components/AllLocations'
 import FAQ from './components/FAQ'
@@ -41,7 +39,6 @@ function App() {
               <Stats />
               <Stories />
               <Programs />
-              <Trainers />
               <Locations />
               <FAQ />
               <CTA />
@@ -50,7 +47,6 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/programs" element={<AllPrograms />} />
-          <Route path="/trainers" element={<AllTrainers />} />
           <Route path="/locations" element={<AllLocations />} />
           <Route path="/offer/:id" element={<OfferForm />} />
           <Route path="/select-branch" element={<SelectBranch />} />
