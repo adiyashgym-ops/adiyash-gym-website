@@ -32,20 +32,14 @@ const Programs = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredPrograms.map((program, index) => (
             <AnimatedCard key={program.id} delay={index * 0.1}>
-              <div className="bg-white border border-ink/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm">
-                <img 
-                  src={program.image} 
-                  alt={program.title} 
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6 text-center">
-                  <h3 className="font-heading text-ink text-xl uppercase tracking-wider mb-2">
-                    {program.title}
-                  </h3>
-                  <p className="font-body text-ink/60 text-sm">
-                    {program.description}
-                  </p>
-                </div>
+              <div className="bg-white border border-ink/10 rounded-lg p-8 text-center hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm">
+                <div className="text-6xl mb-4">{program.icon || '🏋️'}</div>
+                <h3 className="font-heading text-ink text-xl uppercase tracking-wider mb-2">
+                  {program.title}
+                </h3>
+                <p className="font-body text-ink/60 text-sm">
+                  {program.description}
+                </p>
               </div>
             </AnimatedCard>
           ))}

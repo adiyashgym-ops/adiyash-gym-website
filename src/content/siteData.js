@@ -214,90 +214,90 @@ export const siteConfig = {
     },
   ],
   
-  // ----- PROGRAMS / FACILITIES -----
+  // ----- PROGRAMS / FACILITIES (WITH ICONS) -----
   programs: [
     { 
       id: 'strength', 
       title: 'Strength Training', 
-      description: 'Build muscle and increase power with expert-guided weight training.', 
-      image: '/programs/strength-training.jpg',
+      description: 'Build muscle and increase power with expert-guided weight training.',
+      icon: '🏋️',
       featured: true 
     },
     { 
       id: 'cardio', 
       title: 'Cardio', 
-      description: 'Boost endurance and heart health with structured cardio sessions.', 
-      image: '/programs/cardio.jpg',
+      description: 'Boost endurance and heart health with structured cardio sessions.',
+      icon: '🏃',
       featured: true 
     },
     { 
       id: 'crossfit', 
       title: 'CrossFit', 
-      description: 'High-intensity functional fitness for all levels.', 
-      image: '/programs/crossfit.jpg',
+      description: 'High-intensity functional fitness for all levels.',
+      icon: '💪',
       featured: true 
     },
     { 
       id: 'personal-training', 
       title: 'Personal Training', 
-      description: 'One-on-one coaching customized to your fitness goals.', 
-      image: '/programs/personal-training.jpg',
+      description: 'One-on-one coaching customized to your fitness goals.',
+      icon: '👤',
       featured: true 
     },
     { 
       id: 'nutrition-counselling', 
       title: 'Nutrition Counselling', 
-      description: 'Personalized meal plans and dietary guidance.', 
-      image: '/programs/nutrition-counselling.jpg',
+      description: 'Personalized meal plans and dietary guidance.',
+      icon: '🥗',
       featured: true 
     },
     { 
       id: 'general-trainer', 
       title: "General Trainer's", 
-      description: 'Expert guidance from certified trainers.', 
-      image: '/programs/general-trainer.jpg',
+      description: 'Expert guidance from certified trainers.',
+      icon: '👨‍🏫',
       featured: false 
     },
     { 
       id: 'spinning', 
       title: 'Spinning', 
-      description: 'High-energy indoor cycling classes.', 
-      image: '/programs/spinning.jpg',
+      description: 'High-energy indoor cycling classes.',
+      icon: '🚴',
       featured: false 
     },
     { 
       id: 'lockers', 
       title: 'Lockers', 
-      description: 'Secure locker facilities for your belongings.', 
-      image: '/programs/lockers.jpg',
+      description: 'Secure locker facilities for your belongings.',
+      icon: '🔒',
       featured: false 
     },
     { 
       id: 'steam-shower', 
       title: 'Steam & Shower', 
-      description: 'Relax and refresh with steam and shower facilities.', 
-      image: '/programs/steam-shower.jpg',
+      description: 'Relax and refresh with steam and shower facilities.',
+      icon: '🚿',
       featured: false 
     },
     { 
       id: 'parking', 
       title: 'Parking', 
-      description: 'Ample parking space for members.', 
-      image: '/programs/parking.jpg',
+      description: 'Ample parking space for members.',
+      icon: '🅿️',
       featured: false 
     },
     { 
       id: 'transfer', 
       title: 'Transfer', 
-      description: 'Flexible membership transfer between branches.', 
-      image: '/programs/transfer.jpg',
+      description: 'Flexible membership transfer between branches.',
+      icon: '🔄',
       featured: false 
     },
     { 
       id: 'cafeteria', 
       title: 'Cafeteria', 
-      description: 'Healthy food and beverages at our in-house cafeteria.', 
-      image: '/programs/cafeteria.jpg',
+      description: 'Healthy food and beverages at our in-house cafeteria.',
+      icon: '☕',
       featured: false 
     },
   ],
