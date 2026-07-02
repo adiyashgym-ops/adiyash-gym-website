@@ -1,16 +1,60 @@
 import { siteConfig } from '../content/siteData'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedCard from './AnimatedCard'
+import { useState, useEffect } from 'react'
 import { trackWhatsAppLead } from '../lib/tracking'
 
 const Locations = () => {
-  // Show only first 6 locations on homepage
   const homeLocations = siteConfig.branches.slice(0, 6)
+  const [selectedBranch, setSelectedBranch] = useState(null)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [slideshowOpen, setSlideshowOpen] = useState(false)
 
   const handleWhatsAppClick = (branchId) => {
     trackWhatsAppLead(branchId, 'locations_page')
   }
+
+  const openSlideshow = (branch) => {
+    if (!branch.gallery || branch.gallery.length === 0) return
+    setSelectedBranch(branch)
+    setCurrentImageIndex(0)
+    setSlideshowOpen(true)
+    document.body.style.overflow = 'hidden'
+  }
+
+  const closeSlideshow = () => {
+    setSlideshowOpen(false)
+    setSelectedBranch(null)
+    document.body.style.overflow = 'auto'
+  }
+
+  const nextImage = () => {
+    if (selectedBranch) {
+      setCurrentImageIndex((prev) => 
+        prev === selectedBranch.gallery.length - 1 ? 0 : prev + 1
+      )
+    }
+  }
+
+  const prevImage = () => {
+    if (selectedBranch) {
+      setCurrentImageIndex((prev) => 
+        prev === 0 ? selectedBranch.gallery.length - 1 : prev - 1
+      )
+    }
+  }
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') closeSlideshow()
+      if (e.key === 'ArrowRight') nextImage()
+      if (e.key === 'ArrowLeft') prevImage()
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedBranch])
 
   return (
     <section className="py-16 md:py-24 bg-cream/80">
@@ -38,7 +82,10 @@ const Locations = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {homeLocations.map((location, index) => (
             <AnimatedCard key={index} delay={index * 0.1}>
-              <div className="bg-white border border-ink/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm">
+              <div 
+                className="bg-white border border-ink/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm cursor-pointer"
+                onClick={() => openSlideshow(location)}
+              >
                 <img 
                   src={location.image} 
                   alt={location.name} 
@@ -48,6 +95,30 @@ const Locations = () => {
                   <h3 className="font-heading text-ink text-xl mb-2">{location.name}</h3>
                   <p className="font-body text-ink/60 text-sm mb-2">{location.address}</p>
                   <p className="font-body text-purple text-xs mb-3">⏰ {location.timings}</p>
+                  
+                  {/* View Gallery Text */}
+                  {location.gallery && location.gallery.length > 0 && (
+                    <div className="mb-3">
+                      <span 
+                        className="text-purple text-sm font-body hover:underline cursor-pointer"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          openSlideshow(location)
+                        }}
+                      >
+                        📸 View Gallery ({location.gallery.length} photos)
+                      </span>
+                    </div>
+                  )}
+                  
+                  {location.gallery && location.gallery.length === 0 && (
+                    <div className="text-center py-2 mb-3">
+                      <span className="text-ink/40 text-xs font-body bg-ink/5 px-3 py-1 rounded-full">
+                        📸 Coming Soon
+                      </span>
+                    </div>
+                  )}
+                  
                   <div className="flex flex-wrap gap-3">
                     <a
                       href={location.mapLink}
@@ -61,7 +132,10 @@ const Locations = () => {
                       href={`https://wa.me/${location.whatsapp}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => handleWhatsAppClick(location.id)}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleWhatsAppClick(location.id)
+                      }}
                       className="bg-green-500/10 text-green-600 text-sm font-body px-3 py-1 rounded-full hover:bg-green-500/20 transition-colors"
                     >
                       💬 WhatsApp
@@ -88,6 +162,87 @@ const Locations = () => {
           </Link>
         </motion.div>
       </div>
+
+      {/* Full-Screen Slideshow */}
+      <AnimatePresence>
+        {slideshowOpen && selectedBranch && selectedBranch.gallery && selectedBranch.gallery.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            onClick={closeSlideshow}
+          >
+            {/* Close Button */}
+            <button
+              className="absolute top-4 right-4 text-white text-4xl hover:text-purple transition-colors z-10"
+              onClick={closeSlideshow}
+            >
+              ✕
+            </button>
+
+            {/* Branch Name */}
+            <div className="absolute top-4 left-4 text-white font-heading text-xl z-10">
+              {selectedBranch.name}
+              <span className="text-white/50 text-sm font-body ml-2">
+                {currentImageIndex + 1} / {selectedBranch.gallery.length}
+              </span>
+            </div>
+
+            {/* Main Image */}
+            <div className="relative w-full h-full flex items-center justify-center p-8 md:p-12" onClick={(e) => e.stopPropagation()}>
+              <img 
+                src={selectedBranch.gallery[currentImageIndex]} 
+                alt={`${selectedBranch.name} ${currentImageIndex + 1}`}
+                className="max-w-full max-h-[85vh] object-contain"
+              />
+
+              {/* Navigation Arrows */}
+              {selectedBranch.gallery.length > 1 && (
+                <>
+                  <button
+                    className="absolute left-4 text-white text-4xl hover:text-purple transition-colors bg-black/30 hover:bg-black/50 p-3 rounded-full"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      prevImage()
+                    }}
+                  >
+                    ‹
+                  </button>
+                  <button
+                    className="absolute right-4 text-white text-4xl hover:text-purple transition-colors bg-black/30 hover:bg-black/50 p-3 rounded-full"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      nextImage()
+                    }}
+                  >
+                    ›
+                  </button>
+                </>
+              )}
+
+              {/* Dot Indicators */}
+              <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-2">
+                {selectedBranch.gallery.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      index === currentImageIndex 
+                        ? 'bg-purple w-6' 
+                        : 'bg-white/30 hover:bg-white/60'
+                    }`}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setCurrentImageIndex(index)
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
