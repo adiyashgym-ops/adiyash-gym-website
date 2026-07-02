@@ -214,13 +214,14 @@ export const siteConfig = {
     },
   ],
   
-  // ----- PROGRAMS / FACILITIES (WITH ICONS) -----
+  // ----- PROGRAMS / FACILITIES (READY FOR IMAGES) -----
   programs: [
     { 
       id: 'strength', 
       title: 'Strength Training', 
       description: 'Build muscle and increase power with expert-guided weight training.',
       icon: '🏋️',
+      image: '/programs/strength-training.jpg', // ← Add image later
       featured: true 
     },
     { 
@@ -228,6 +229,7 @@ export const siteConfig = {
       title: 'Cardio', 
       description: 'Boost endurance and heart health with structured cardio sessions.',
       icon: '🏃',
+      image: '/programs/cardio.jpg', // ← Add image later
       featured: true 
     },
     { 
@@ -235,6 +237,7 @@ export const siteConfig = {
       title: 'CrossFit', 
       description: 'High-intensity functional fitness for all levels.',
       icon: '💪',
+      image: '/programs/crossfit.jpg', // ← Add image later
       featured: true 
     },
     { 
@@ -242,6 +245,7 @@ export const siteConfig = {
       title: 'Personal Training', 
       description: 'One-on-one coaching customized to your fitness goals.',
       icon: '👤',
+      image: '/programs/personal-training.jpg', // ← Add image later
       featured: true 
     },
     { 
@@ -249,6 +253,7 @@ export const siteConfig = {
       title: 'Nutrition Counselling', 
       description: 'Personalized meal plans and dietary guidance.',
       icon: '🥗',
+      image: '/programs/nutrition-counselling.jpg', // ← Add image later
       featured: true 
     },
     { 
@@ -256,6 +261,7 @@ export const siteConfig = {
       title: "General Trainer's", 
       description: 'Expert guidance from certified trainers.',
       icon: '👨‍🏫',
+      image: '/programs/general-trainer.jpg', // ← Add image later
       featured: false 
     },
     { 
@@ -263,6 +269,7 @@ export const siteConfig = {
       title: 'Spinning', 
       description: 'High-energy indoor cycling classes.',
       icon: '🚴',
+      image: '/programs/spinning.jpg', // ← Add image later
       featured: false 
     },
     { 
@@ -270,6 +277,7 @@ export const siteConfig = {
       title: 'Lockers', 
       description: 'Secure locker facilities for your belongings.',
       icon: '🔒',
+      image: '/programs/lockers.jpg', // ← Add image later
       featured: false 
     },
     { 
@@ -277,6 +285,7 @@ export const siteConfig = {
       title: 'Steam & Shower', 
       description: 'Relax and refresh with steam and shower facilities.',
       icon: '🚿',
+      image: '/programs/steam-shower.jpg', // ← Add image later
       featured: false 
     },
     { 
@@ -284,6 +293,7 @@ export const siteConfig = {
       title: 'Parking', 
       description: 'Ample parking space for members.',
       icon: '🅿️',
+      image: '/programs/parking.jpg', // ← Add image later
       featured: false 
     },
     { 
@@ -291,6 +301,7 @@ export const siteConfig = {
       title: 'Transfer', 
       description: 'Flexible membership transfer between branches.',
       icon: '🔄',
+      image: '/programs/transfer.jpg', // ← Add image later
       featured: false 
     },
     { 
@@ -298,6 +309,7 @@ export const siteConfig = {
       title: 'Cafeteria', 
       description: 'Healthy food and beverages at our in-house cafeteria.',
       icon: '☕',
+      image: '/programs/cafeteria.jpg', // ← Add image later
       featured: false 
     },
   ],
