@@ -49,7 +49,7 @@ const About = () => {
               The belief that customer satisfaction is as important as their products and services has helped this establishment garner a vast base of customers, which continues to grow by the day. This business employs individuals that are dedicated towards their respective roles and put in a lot of effort to achieve the common vision and larger goals of the company.
             </p>
             <p className="font-body text-ink/70 text-lg leading-relaxed">
-              In the near future, this business aims to expand its line of products and services and cater to a larger client base. In Mumbai, this establishment occupies a prominent location in Asalfa-Ghatkopar West. It is at A G Link Road, Near Sainath Wine Shop, which makes it easy for first-time visitors in locating this establishment.
+              In the near future, this business aims to expand its line of products and services and cater to a larger client base. In Mumbai, this establishment occupies a prominent location in Asalfa-Ghatkopar West. It is at A G Link Road, Near Sainath Wine Shop, which makes it easy for first-time visitors in locating this establishment. It is known to provide top service in the following categories: Gyms, Fitness Centres, Gym Personal Trainers.
             </p>
           </div>
         </AnimatedSection>
