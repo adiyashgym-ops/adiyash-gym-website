@@ -140,6 +140,15 @@ const Locations = () => {
                     >
                       💬 WhatsApp
                     </a>
+                    <a
+                      href={`https://instagram.com/${location.instagram}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="text-ink/40 hover:text-purple text-sm font-body px-3 py-1 rounded-full hover:bg-purple/10 transition-colors"
+                    >
+                      📸 Instagram
+                    </a>
                   </div>
                 </div>
               </div>

@@ -20,6 +20,8 @@ import OfferForm from './components/OfferForm'
 import AdminLogin from './components/AdminLogin'
 import AdminDashboard from './components/AdminDashboard'
 import SelectBranch from './components/SelectBranch'
+import Owner from './components/Owner'
+import Transformation from './components/Transformation'
 import { trackPageVisit } from './lib/tracking'
 
 function App() {
@@ -45,6 +47,8 @@ function App() {
             </>
           } />
           <Route path="/about" element={<About />} />
+          <Route path="/owner" element={<Owner />} />
+          <Route path="/transformation" element={<Transformation />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/programs" element={<AllPrograms />} />
           <Route path="/locations" element={<AllLocations />} />

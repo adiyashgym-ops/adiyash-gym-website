@@ -35,7 +35,7 @@ const Footer = () => {
           <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer" className="text-ink/60 hover:text-purple transition-colors">
             Instagram
           </a>
-          <a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer" className="text-ink/60 hover:text-purple transition-colors">
+          <a href="https://www.facebook.com/profile.php?id=61575686566209" target="_blank" rel="noopener noreferrer" className="text-ink/60 hover:text-purple transition-colors">
             Facebook
           </a>
           <a href={siteConfig.social.youtube} target="_blank" rel="noopener noreferrer" className="text-ink/60 hover:text-purple transition-colors">
@@ -90,8 +90,16 @@ const Footer = () => {
           className="text-center text-ink/40 text-sm"
         >
           <p>{siteConfig.footer.copyright}</p>
-          <p className="mt-1 text-xs text-ink/30">
-            {siteConfig.footer.credit}
+          <p className="mt-1 text-xs text-ink">
+            Designed & Developed by{' '}
+            <a 
+              href="https://saatozi.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-ink hover:text-purple transition-colors font-medium"
+            >
+              Tozi
+            </a>
           </p>
         </motion.div>
       </div>
