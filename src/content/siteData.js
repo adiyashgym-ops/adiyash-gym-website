@@ -164,7 +164,7 @@ export const siteConfig = {
       address: 'Shop no 3, Dhumal Estate, A Link Road Asalfa, Ghatkopar West, Mumbai - 400084',
       timings: '5:00 AM - 10:00 PM',
       mapLink: 'https://maps.google.com/?q=Ghatkopar+Mumbai',
-      instagram: 'adiyashladisegym',
+      instagram: 'adiyashladiesgym',
       image: '/locations/asalfa-ladies.jpg',
       gallery: [
         '/locations/asalfa-ladies/gallery-1.jpg',
@@ -208,9 +208,19 @@ export const siteConfig = {
       address: '1st floor, Bld No.1, Pushpamangal Complex, Lal Bahadur Shastri Marg, above Bank Of Baroda, next to Babubhai Petrol Pump, Uthalsar, Thane West, Thane, Maharashtra 400601',
       timings: '24/7',
       mapLink: 'https://maps.google.com/?q=Thane+West+Mumbai',
-      instagram: 'adiyashgymvfour9',
+      instagram: 'vfour9gym',
       image: '/locations/vfour9.jpg',
-      gallery: [], // Coming soon - no images yet
+      gallery: [
+        '/locations/vfour9/gallery-1.jpg',
+        '/locations/vfour9/gallery-2.jpg',
+        '/locations/vfour9/gallery-3.jpg',
+        '/locations/vfour9/gallery-4.jpg',
+        '/locations/vfour9/gallery-5.jpg',
+        '/locations/vfour9/gallery-6.jpg',
+        '/locations/vfour9/gallery-7.jpg',
+        '/locations/vfour9/gallery-8.jpg',
+        '/locations/vfour9/gallery-9.jpg',
+      ],
     },
   ],
   
@@ -221,7 +231,7 @@ export const siteConfig = {
       title: 'Strength Training', 
       description: 'Build muscle and increase power with expert-guided weight training.',
       icon: '🏋️',
-      image: '/programs/strength-training.jpg', // ← Add image later
+      image: '/programs/strength-training.jpg',
       featured: true 
     },
     { 
@@ -229,7 +239,7 @@ export const siteConfig = {
       title: 'Cardio', 
       description: 'Boost endurance and heart health with structured cardio sessions.',
       icon: '🏃',
-      image: '/programs/cardio.jpg', // ← Add image later
+      image: '/programs/cardio.jpg',
       featured: true 
     },
     { 
@@ -237,7 +247,7 @@ export const siteConfig = {
       title: 'CrossFit', 
       description: 'High-intensity functional fitness for all levels.',
       icon: '💪',
-      image: '/programs/crossfit.jpg', // ← Add image later
+      image: '/programs/crossfit.jpg',
       featured: true 
     },
     { 
@@ -245,7 +255,7 @@ export const siteConfig = {
       title: 'Personal Training', 
       description: 'One-on-one coaching customized to your fitness goals.',
       icon: '👤',
-      image: '/programs/personal-training.jpg', // ← Add image later
+      image: '/programs/personal-training.jpg',
       featured: true 
     },
     { 
@@ -253,7 +263,7 @@ export const siteConfig = {
       title: 'Nutrition Counselling', 
       description: 'Personalized meal plans and dietary guidance.',
       icon: '🥗',
-      image: '/programs/nutrition-counselling.jpg', // ← Add image later
+      image: '/programs/nutrition-counselling.jpg',
       featured: true 
     },
     { 
@@ -261,7 +271,7 @@ export const siteConfig = {
       title: "General Trainer's", 
       description: 'Expert guidance from certified trainers.',
       icon: '👨‍🏫',
-      image: '/programs/general-trainer.jpg', // ← Add image later
+      image: '/programs/general-trainer.jpg',
       featured: false 
     },
     { 
@@ -269,7 +279,7 @@ export const siteConfig = {
       title: 'Spinning', 
       description: 'High-energy indoor cycling classes.',
       icon: '🚴',
-      image: '/programs/spinning.jpg', // ← Add image later
+      image: '/programs/spinning.jpg',
       featured: false 
     },
     { 
@@ -277,7 +287,7 @@ export const siteConfig = {
       title: 'Lockers', 
       description: 'Secure locker facilities for your belongings.',
       icon: '🔒',
-      image: '/programs/lockers.jpg', // ← Add image later
+      image: '/programs/lockers.jpg',
       featured: false 
     },
     { 
@@ -285,7 +295,7 @@ export const siteConfig = {
       title: 'Steam & Shower', 
       description: 'Relax and refresh with steam and shower facilities.',
       icon: '🚿',
-      image: '/programs/steam-shower.jpg', // ← Add image later
+      image: '/programs/steam-shower.jpg',
       featured: false 
     },
     { 
@@ -293,7 +303,7 @@ export const siteConfig = {
       title: 'Parking', 
       description: 'Ample parking space for members.',
       icon: '🅿️',
-      image: '/programs/parking.jpg', // ← Add image later
+      image: '/programs/parking.jpg',
       featured: false 
     },
     { 
@@ -301,7 +311,7 @@ export const siteConfig = {
       title: 'Transfer', 
       description: 'Flexible membership transfer between branches.',
       icon: '🔄',
-      image: '/programs/transfer.jpg', // ← Add image later
+      image: '/programs/transfer.jpg',
       featured: false 
     },
     { 
@@ -309,7 +319,7 @@ export const siteConfig = {
       title: 'Cafeteria', 
       description: 'Healthy food and beverages at our in-house cafeteria.',
       icon: '☕',
-      image: '/programs/cafeteria.jpg', // ← Add image later
+      image: '/programs/cafeteria.jpg',
       featured: false 
     },
   ],

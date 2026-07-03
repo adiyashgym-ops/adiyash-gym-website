@@ -109,10 +109,9 @@ const About = () => {
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-purple/20"
                 />
                 <h3 className="font-heading text-ink text-xl">Ajit Roundhal</h3>
-                <p className="font-body text-purple text-sm">Social Media & Marketing</p>
+                <p className="font-body text-purple text-sm">Operations Head</p>
               </div>
 
-              {/* Yash Vilas Kamathe - NEW */}
               <div className="bg-white border border-ink/10 rounded-lg p-6 text-center shadow-sm hover:border-purple/50 transition-all hover:scale-[1.02]">
                 <img 
                   src="/team/yash-vilas.jpg" 
@@ -120,7 +119,7 @@ const About = () => {
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-purple/20"
                 />
                 <h3 className="font-heading text-ink text-xl">Yash Vilas Kamathe</h3>
-                <p className="font-body text-purple text-sm">Operations</p>
+                <p className="font-body text-purple text-sm">Sales & Marketing</p>
               </div>
             </div>
           </div>
