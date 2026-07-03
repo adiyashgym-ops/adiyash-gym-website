@@ -80,14 +80,14 @@ const About = () => {
           <div className="max-w-4xl mx-auto mb-16">
             <h2 className="font-heading text-3xl text-ink mb-6 text-center">Our Team</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Vilas Kamthe - Clickable to Owner Page */}
+              {/* Vilas Kamathe - Clickable to Owner Page */}
               <Link to="/owner" className="bg-white border border-ink/10 rounded-lg p-6 text-center shadow-sm hover:border-purple/50 transition-all hover:scale-[1.02] cursor-pointer block">
                 <img 
-                  src="/team/vilas-kamthe.jpg" 
-                  alt="Vilas Kamthe" 
+                  src="/team/vilas-kamathe.jpg" 
+                  alt="Vilas Kamathe" 
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-purple/20"
                 />
-                <h3 className="font-heading text-ink text-xl">Vilas Kamthe</h3>
+                <h3 className="font-heading text-ink text-xl">Vilas Kamathe</h3>
                 <p className="font-body text-purple text-sm">Owner & Founder</p>
                 <p className="font-body text-ink/40 text-xs mt-2">Click to view profile →</p>
               </Link>
