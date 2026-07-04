@@ -33,7 +33,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="font-['Anton'] text-[#832D81] text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl flex items-center justify-center gap-1 flex-wrap"
+          className="font-['Anton'] text-[#832D81] text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl flex items-center justify-center gap-1 flex-wrap text-3d"
         >
           <span>AD</span>
           <img 
