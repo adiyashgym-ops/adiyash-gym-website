@@ -64,7 +64,7 @@ const OfferSlideshow = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="rounded-xl overflow-hidden border border-ink/10 shadow-sm bg-white p-12 text-center animate-pulse">
             <div className="flex flex-col items-center gap-4">
-              <div className="w-full h-64 md:h-96 bg-ink/5 rounded-lg"></div>
+              <div className="w-full h-48 md:h-64 bg-ink/5 rounded-lg"></div>
               <div className="flex flex-wrap items-center gap-3">
                 <div className="h-6 w-20 bg-ink/5 rounded-full"></div>
                 <div className="h-8 w-40 bg-ink/5 rounded"></div>
@@ -81,7 +81,7 @@ const OfferSlideshow = () => {
   // If no offers, show text-only placeholder with color-changing effect
   if (offers.length === 0) {
     return (
-      <section className="relative w-full bg-gradient-to-br from-purple/5 via-white to-purple/5 py-20 md:py-28 border-y border-purple/10">
+      <section className="relative w-full bg-gradient-to-br from-purple/5 via-white to-purple/5 py-16 md:py-20 border-y border-purple/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -89,7 +89,7 @@ const OfferSlideshow = () => {
             transition={{ duration: 0.8 }}
           >
             <motion.h2 
-              className="font-['Anton'] text-5xl md:text-7xl lg:text-8xl uppercase tracking-wider mb-4"
+              className="font-['Anton'] text-4xl md:text-5xl lg:text-6xl uppercase tracking-wider mb-4"
               animate={{
                 color: ['#5B1F6E', '#7B2D8E', '#9B4DAE', '#5B1F6E'],
               }}
@@ -106,7 +106,7 @@ const OfferSlideshow = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="font-body text-lg md:text-xl text-ink/50 max-w-xl mx-auto mb-8 leading-relaxed"
+              className="font-body text-base md:text-lg text-ink/50 max-w-xl mx-auto mb-8 leading-relaxed"
             >
               We're crafting exclusive deals for you.
               <br />
@@ -120,7 +120,7 @@ const OfferSlideshow = () => {
             >
               <Link
                 to="/select-branch"
-                className="inline-block bg-purple text-white px-10 py-4 rounded-full font-heading text-base uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-105 shadow-lg shadow-purple/20"
+                className="inline-block bg-purple text-white px-8 md:px-10 py-3 md:py-4 rounded-full font-heading text-sm md:text-base uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-105 shadow-lg shadow-purple/20"
               >
                 Join Now
               </Link>
@@ -141,7 +141,7 @@ const OfferSlideshow = () => {
           <img 
             src={currentOffer.image} 
             alt={currentOffer.title || 'Offer'} 
-            className="w-full h-64 md:h-96 object-cover"
+            className="w-full h-48 md:h-64 object-cover"
           />
           
           {/* Overlay */}

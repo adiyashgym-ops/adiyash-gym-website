@@ -9,7 +9,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative h-[70vw] min-h-[300px] md:min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-20">
+    <section className="relative h-screen max-h-[700px] flex items-center justify-center overflow-hidden pt-16 md:pt-20 pb-20">
       {/* Background Video */}
       <video
         autoPlay
@@ -33,7 +33,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="font-['Anton'] text-[#832D81] text-3xl sm:text-5xl md:text-7xl lg:text-9xl flex items-center justify-center gap-1 flex-wrap"
+          className="font-['Anton'] text-[#832D81] text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl flex items-center justify-center gap-1 flex-wrap"
         >
           <span>AD</span>
           <img 
@@ -50,7 +50,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
-          className="font-body text-base sm:text-2xl md:text-3xl lg:text-4xl text-white/90 max-w-3xl mx-auto mb-4 font-light tracking-wide"
+          className="font-body text-base sm:text-xl md:text-2xl lg:text-3xl text-white/90 max-w-3xl mx-auto mb-4 font-light tracking-wide"
         >
           We Make Your Life Fitter and Better
         </motion.p>
@@ -60,7 +60,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut', delay: 0.5 }}
-          className="font-['Anton'] text-lg sm:text-3xl md:text-4xl lg:text-5xl tracking-wider mb-8 text-white"
+          className="font-['Anton'] text-lg sm:text-2xl md:text-3xl lg:text-4xl tracking-wider mb-8 text-white"
         >
           we are open{' '}
           <span className="text-red-500">24</span>
@@ -78,7 +78,7 @@ const Hero = () => {
           <Link
             to="/select-branch"
             onClick={handleBookTrial}
-            className="inline-block bg-purple text-white px-8 sm:px-12 py-3 sm:py-5 rounded-full font-heading text-sm sm:text-lg uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-105 shadow-2xl"
+            className="inline-block bg-purple text-white px-6 sm:px-8 md:px-10 py-2 sm:py-3 md:py-4 rounded-full font-heading text-sm sm:text-base md:text-lg uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-105 shadow-2xl"
           >
             Book a Free Trial
           </Link>

@@ -20,9 +20,9 @@ export const siteConfig = {
     facebook: 'https://facebook.com/adiyashgym',
   },
   
-  // ----- STATS -----
+  // ----- STATS (UPDATED) -----
   stats: [
-    { number: '500+', label: 'Transformations' },
+    { number: '5000+', label: 'Transformations' },
     { number: '7', label: 'Locations' },
     { number: '12+', label: 'Years of Excellence' },
     { number: '25+', label: 'Certified Trainers' },
