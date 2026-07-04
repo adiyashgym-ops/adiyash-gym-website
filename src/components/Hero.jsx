@@ -9,7 +9,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative h-screen max-h-[700px] flex items-center justify-center overflow-hidden pt-16 md:pt-20 pb-20">
+    <section className="relative h-[70vw] min-h-[280px] md:min-h-screen md:max-h-[700px] flex items-center justify-center overflow-hidden pt-16 md:pt-20 pb-20">
       {/* Background Video */}
       <video
         autoPlay

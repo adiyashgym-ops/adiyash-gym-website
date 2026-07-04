@@ -20,7 +20,7 @@ export const siteConfig = {
     facebook: 'https://facebook.com/adiyashgym',
   },
   
-  // ----- STATS (UPDATED: 12+ → 16+) -----
+  // ----- STATS -----
   stats: [
     { number: '5000+', label: 'Transformations' },
     { number: '7', label: 'Locations' },
@@ -62,7 +62,7 @@ export const siteConfig = {
       phone: '+91 82917 43902',
       address: 'Khushiram Estate, Opp Pearl Hans Residency Near Pheonix Marketcity, Lbs Road, Sunder Baug Ln, Kurla, Mumbai - 400070',
       timings: '24/7',
-      mapLink: 'https://maps.google.com/?q=Kurla+Mumbai',
+      mapLink: 'https://maps.app.goo.gl/WyZ5bmJxfCCkMBNk6',
       instagram: 'adiyashgymkurla',
       image: '/locations/kurla.jpg',
       gallery: [
@@ -88,7 +88,7 @@ export const siteConfig = {
       phone: '+91 82914 32839',
       address: '4W8Q+262, Kannamwar Nagar II, Vikhroli East, Mumbai - 400083',
       timings: '24/7',
-      mapLink: 'https://maps.google.com/?q=Vikhroli+Mumbai',
+      mapLink: 'https://maps.app.goo.gl/jFj6CeFbghmRL9JD8',
       instagram: 'adiyashgymvikhroli',
       image: '/locations/vikhroli.jpg',
       gallery: [
@@ -118,7 +118,7 @@ export const siteConfig = {
       phone: '+91 93243 37728',
       address: '29, Road No. 1, Kandivali, Ashok Nagar, Kandivali East, Mumbai - 400101',
       timings: '24/7',
-      mapLink: 'https://maps.google.com/?q=Kandivali+Mumbai',
+      mapLink: 'https://maps.app.goo.gl/Fg2NdibFVJ3chzZn7',
       instagram: 'adiyashgymkandivali',
       image: '/locations/kandivali.jpg',
       gallery: [
@@ -139,7 +139,7 @@ export const siteConfig = {
       phone: '+91 82686 52812',
       address: 'Shop no 3, Dhumal Estate, A Link Road Asalfa, Ghatkopar West, Mumbai - 400084',
       timings: '24/7',
-      mapLink: 'https://maps.google.com/?q=Ghatkopar+Mumbai',
+      mapLink: 'https://maps.app.goo.gl/wci1RTsK3JbhZmRn9',
       instagram: 'adiyashgymasalfa',
       image: '/locations/asalfa-unisex.jpg',
       gallery: [
@@ -163,7 +163,7 @@ export const siteConfig = {
       phone: '+91 98695 65863',
       address: 'Shop no 3, Dhumal Estate, A Link Road Asalfa, Ghatkopar West, Mumbai - 400084',
       timings: '5:00 AM - 10:00 PM',
-      mapLink: 'https://maps.google.com/?q=Ghatkopar+Mumbai',
+      mapLink: 'https://maps.app.goo.gl/3gKCc37DSFwh11UK7',
       instagram: 'adiyashladiesgym',
       image: '/locations/asalfa-ladies.jpg',
       gallery: [
@@ -184,7 +184,7 @@ export const siteConfig = {
       phone: '+91 81045 79053',
       address: 'A Wing, Twin Arcade, Orchid Business Park, Building C, Military Rd, Marol, Mumbai - 400059',
       timings: '5:00 AM - 12:00 PM',
-      mapLink: 'https://maps.google.com/?q=Marol+Mumbai',
+      mapLink: 'https://maps.app.goo.gl/YLQBKrQwerAgVSWD6',
       instagram: 'adiyashgymmarol',
       image: '/locations/marol.jpg',
       gallery: [
@@ -207,7 +207,7 @@ export const siteConfig = {
       phone: '+91 88794 10763',
       address: '1st floor, Bld No.1, Pushpamangal Complex, Lal Bahadur Shastri Marg, above Bank Of Baroda, next to Babubhai Petrol Pump, Uthalsar, Thane West, Thane, Maharashtra 400601',
       timings: '24/7',
-      mapLink: 'https://maps.google.com/?q=Thane+West+Mumbai',
+      mapLink: 'https://maps.app.goo.gl/YhtWPPHfNpUn4vps7',
       instagram: 'vfour9gym',
       image: '/locations/vfour9.jpg',
       gallery: [

@@ -15,7 +15,12 @@ const AllLocations = () => {
   }
 
   const openSlideshow = (branch) => {
-    if (!branch.gallery || branch.gallery.length === 0) return
+    console.log('Opening slideshow for:', branch.name)
+    console.log('Gallery:', branch.gallery)
+    if (!branch.gallery || branch.gallery.length === 0) {
+      console.log('No gallery images for:', branch.name)
+      return
+    }
     setSelectedBranch(branch)
     setCurrentImageIndex(0)
     setSlideshowOpen(true)
@@ -44,7 +49,6 @@ const AllLocations = () => {
     }
   }
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') closeSlideshow()
@@ -90,36 +94,30 @@ const AllLocations = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {siteConfig.branches.map((location, index) => (
             <AnimatedCard key={location.id} delay={index * 0.1}>
-              <div 
-                className="bg-white border border-ink/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm cursor-pointer"
-                onClick={() => openSlideshow(location)}
-              >
+              <div className="bg-white border border-ink/10 rounded-lg overflow-hidden hover:border-purple/50 transition-all hover:scale-[1.02] shadow-sm">
                 <img 
                   src={location.image} 
                   alt={location.name} 
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-cover cursor-pointer"
+                  onClick={() => openSlideshow(location)}
                 />
                 <div className="p-6">
                   <h3 className="font-heading text-2xl text-ink mb-2">{location.name}</h3>
                   <p className="font-body text-ink/60 text-sm mb-2">{location.address}</p>
                   <p className="font-body text-purple text-xs mb-3">⏰ {location.timings}</p>
                   
-                  {/* View Gallery Text */}
                   {location.gallery && location.gallery.length > 0 && (
                     <div className="mb-3">
                       <span 
                         className="text-purple text-sm font-body hover:underline cursor-pointer"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          openSlideshow(location)
-                        }}
+                        onClick={() => openSlideshow(location)}
                       >
                         📸 View Gallery ({location.gallery.length} photos)
                       </span>
                     </div>
                   )}
                   
-                  {location.gallery && location.gallery.length === 0 && (
+                  {(!location.gallery || location.gallery.length === 0) && (
                     <div className="text-center py-2 mb-3">
                       <span className="text-ink/40 text-xs font-body bg-ink/5 px-3 py-1 rounded-full">
                         📸 Coming Soon
@@ -133,6 +131,7 @@ const AllLocations = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-purple text-white px-4 py-2 rounded-lg font-body text-sm hover:bg-purple-light transition-all"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       📍 Get Directions
                     </a>
@@ -176,7 +175,6 @@ const AllLocations = () => {
             className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
             onClick={closeSlideshow}
           >
-            {/* Close Button */}
             <button
               className="absolute top-4 right-4 text-white text-4xl hover:text-purple transition-colors z-10"
               onClick={closeSlideshow}
@@ -184,7 +182,6 @@ const AllLocations = () => {
               ✕
             </button>
 
-            {/* Branch Name */}
             <div className="absolute top-4 left-4 text-white font-heading text-xl z-10">
               {selectedBranch.name}
               <span className="text-white/50 text-sm font-body ml-2">
@@ -192,7 +189,6 @@ const AllLocations = () => {
               </span>
             </div>
 
-            {/* Main Image */}
             <div className="relative w-full h-full flex items-center justify-center p-8 md:p-12" onClick={(e) => e.stopPropagation()}>
               <img 
                 src={selectedBranch.gallery[currentImageIndex]} 
@@ -200,7 +196,6 @@ const AllLocations = () => {
                 className="max-w-full max-h-[85vh] object-contain"
               />
 
-              {/* Navigation Arrows */}
               {selectedBranch.gallery.length > 1 && (
                 <>
                   <button
@@ -224,7 +219,6 @@ const AllLocations = () => {
                 </>
               )}
 
-              {/* Dot Indicators */}
               <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-2">
                 {selectedBranch.gallery.map((_, index) => (
                   <button
