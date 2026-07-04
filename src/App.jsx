@@ -22,6 +22,7 @@ import AdminDashboard from './components/AdminDashboard'
 import SelectBranch from './components/SelectBranch'
 import Owner from './components/Owner'
 import Transformation from './components/Transformation'
+import ScrollToTop from './components/ScrollToTop'
 import { trackPageVisit } from './lib/tracking'
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
     <BrowserRouter>
       <div className="bg-cream min-h-screen">
         <Navbar />
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={
             <>
