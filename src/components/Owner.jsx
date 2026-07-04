@@ -17,7 +17,7 @@ const Owner = () => {
             <div className="md:w-1/3 bg-purple/5 flex items-center justify-center p-8">
               <img 
                 src="/team/vilas-kamathe.jpg" 
-                alt="Vilas Kamathe" 
+                alt="Vilas Kamateh" 
                 className="w-64 h-64 rounded-full object-cover border-4 border-purple/20"
               />
             </div>
@@ -30,7 +30,7 @@ const Owner = () => {
                 transition={{ duration: 0.6 }}
                 className="font-heading text-3xl md:text-4xl text-ink mb-2"
               >
-                Vilas Kamathe
+                Vilas Kamateh
               </motion.h1>
               <p className="font-body text-purple font-semibold text-lg mb-4">
                 Owner & Founder
@@ -43,7 +43,7 @@ const Owner = () => {
                 className="space-y-4 text-ink/70 font-body leading-relaxed"
               >
                 <p>
-                  Vilas Kamathe started Adiyash Gym in 2018 with a vision to make 
+                  Vilas Kamateh started Adiyash Gym in 2010 with a vision to make 
                   fitness accessible to everyone. What began as a single location 
                   has now grown into 7 branches across Mumbai, creating a community 
                   of thousands of transformed lives.
@@ -69,7 +69,7 @@ const Owner = () => {
                 className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-ink/10"
               >
                 <div className="text-center">
-                  <p className="font-heading text-2xl text-purple">2018</p>
+                  <p className="font-heading text-2xl text-purple">2010</p>
                   <p className="font-body text-xs text-ink/40">Started</p>
                 </div>
                 <div className="text-center">
@@ -77,7 +77,7 @@ const Owner = () => {
                   <p className="font-body text-xs text-ink/40">Branches</p>
                 </div>
                 <div className="text-center">
-                  <p className="font-heading text-2xl text-purple">500+</p>
+                  <p className="font-heading text-2xl text-purple">5000+</p>
                   <p className="font-body text-xs text-ink/40">Transformations</p>
                 </div>
               </motion.div>
