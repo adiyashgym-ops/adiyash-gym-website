@@ -9,7 +9,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative h-[60vw] min-h-[250px] md:min-h-screen md:max-h-[700px] flex items-center justify-center overflow-hidden pt-12 md:pt-20 pb-12">
+    <section className="relative h-[80vh] min-h-[350px] md:min-h-screen md:max-h-[700px] flex items-center justify-center overflow-hidden pt-12 md:pt-20 pb-12">
       {/* Background Video */}
       <video
         autoPlay
@@ -28,12 +28,12 @@ const Hero = () => {
       
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
-        {/* Headline */}
+        {/* Headline - BIGGER ON MOBILE */}
         <motion.h1 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="font-['Anton'] text-[#832D81] text-2xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl flex items-center justify-center gap-1 flex-wrap text-3d"
+          className="font-['Anton'] text-[#832D81] text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl flex items-center justify-center gap-1 flex-wrap text-3d"
         >
           <span>AD</span>
           <img 
