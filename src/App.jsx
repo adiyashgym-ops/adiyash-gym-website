@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useEffect } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Stats from './components/Stats'
@@ -35,6 +36,7 @@ function App() {
       <div className="bg-cream min-h-screen">
         <Navbar />
         <ScrollToTop />
+        <Analytics />
         <Routes>
           <Route path="/" element={
             <>
