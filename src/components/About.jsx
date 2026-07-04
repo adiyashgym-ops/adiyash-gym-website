@@ -145,7 +145,7 @@ const About = () => {
                   alt="Vilas Kamateh" 
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-purple/20"
                 />
-                <h3 className="font-heading text-ink text-xl">Vilas Kamateh</h3>
+                <h3 className="font-heading text-ink text-xl">Vilas Kamathe</h3>
                 <p className="font-body text-purple text-sm">Owner & Founder</p>
                 <p className="font-body text-ink/40 text-xs mt-2">Click to view profile →</p>
               </Link>
