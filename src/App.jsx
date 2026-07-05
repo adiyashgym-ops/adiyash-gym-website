@@ -56,7 +56,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/programs" element={<AllPrograms />} />
           <Route path="/locations" element={<AllLocations />} />
-          <Route path="/offer/:id" element={<OfferForm />} />
+          <Route path="/offer" element={<OfferForm />} />
           <Route path="/select-branch" element={<SelectBranch />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
