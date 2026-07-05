@@ -23,7 +23,6 @@ const OfferForm = () => {
     { id: 'vfour9', name: 'Vfour9', whatsapp: '918879410763' },
   ]
 
-  // Fetch branches that have offers
   useEffect(() => {
     const fetchBranchesWithOffers = async () => {
       try {
@@ -53,7 +52,6 @@ const OfferForm = () => {
     return null
   }
 
-  // Determine which branches to show
   let availableBranches = []
 
   if (offer.branch === 'all') {
@@ -62,7 +60,6 @@ const OfferForm = () => {
     availableBranches = allBranches.filter(b => b.id === offer.branch)
   }
 
-  // Auto-select if only one branch
   useEffect(() => {
     if (availableBranches.length === 1 && !selectedBranch) {
       setSelectedBranch(availableBranches[0].id)
@@ -75,7 +72,6 @@ const OfferForm = () => {
     if (selectedBranch) {
       const branch = allBranches.find(b => b.id === selectedBranch)
       
-      // Track the lead
       trackWhatsAppLead(selectedBranch, 'offer_get_this_offer')
       
       const whatsappNumber = branch.whatsapp
@@ -100,26 +96,37 @@ const OfferForm = () => {
 
   return (
     <section className="min-h-screen bg-cream flex items-center justify-center px-4 py-20">
-      <div className="bg-white border border-ink/10 rounded-lg p-8 max-w-md w-full shadow-sm">
-        {/* Offer Preview */}
-        <div className="mb-6">
+      <div className="max-w-md w-full">
+        {/* Offer Card */}
+        <div className="relative rounded-2xl overflow-hidden shadow-lg">
           <img 
             src={offer.image} 
             alt={offer.title || 'Offer'} 
-            className="w-full h-40 object-cover rounded-lg mb-3"
+            className="w-full h-64 object-cover"
           />
-          <h2 className="font-heading text-2xl text-ink">{offer.title || 'Special Offer'}</h2>
-          <p className="font-body text-ink/60 text-sm">{offer.description}</p>
-          {offer.branch === 'all' && (
-            <p className="font-body text-purple text-xs mt-1">Available at selected branches</p>
-          )}
-          {offer.branch !== 'all' && availableBranches.length === 1 && (
-            <p className="font-body text-purple text-xs mt-1">Available at {availableBranches[0]?.name}</p>
-          )}
+          
+          {/* Red Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-red-900/90 via-red-800/70 to-red-700/40"></div>
+          
+          {/* Content - No duplicate title */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+            {offer.title && (
+              <h2 className="font-['Anton'] text-3xl md:text-4xl text-white uppercase tracking-wide leading-tight mb-2">
+                {offer.title}
+              </h2>
+            )}
+            
+            {offer.description && (
+              <p className="font-body text-white/90 text-sm md:text-base mb-4">
+                {offer.description}
+              </p>
+            )}
+          </div>
         </div>
 
+        {/* Branch Selection */}
         {!submitted ? (
-          <>
+          <div className="bg-white border border-ink/10 rounded-lg p-6 mt-4 shadow-sm">
             <h3 className="font-heading text-xl text-ink mb-4">
               {availableBranches.length === 1 ? 'Confirm Your Branch' : 'Select Your Branch'}
             </h3>
@@ -173,9 +180,9 @@ const OfferForm = () => {
                 </button>
               )}
             </form>
-          </>
+          </div>
         ) : (
-          <div className="text-center py-8">
+          <div className="text-center py-8 bg-white border border-ink/10 rounded-lg shadow-sm mt-4">
             <div className="text-5xl mb-4">✅</div>
             <h3 className="font-heading text-2xl text-ink mb-2">Redirecting to WhatsApp...</h3>
             <p className="font-body text-ink/60">Please wait while we connect you.</p>
