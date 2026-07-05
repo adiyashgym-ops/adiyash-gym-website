@@ -9,7 +9,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative h-[80vh] min-h-[350px] md:min-h-screen md:max-h-[700px] flex items-center justify-center overflow-hidden pt-12 md:pt-20 pb-12">
+    <section className="relative h-[60vh] min-h-[350px] md:min-h-screen md:max-h-[700px] flex items-center justify-center overflow-hidden pt-12 md:pt-20">
       {/* Background Video */}
       <video
         autoPlay
@@ -28,7 +28,7 @@ const Hero = () => {
       
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
-        {/* Headline - BIGGER ON MOBILE */}
+        {/* Headline */}
         <motion.h1 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -64,7 +64,7 @@ const Hero = () => {
         >
           we are open{' '}
           <span className="text-red-500">24</span>
-          <span className="text-purple">x</span>
+          <span className="text-white">x</span>
           <span className="text-white">7</span>
           {' '}across Mumbai
         </motion.p>
