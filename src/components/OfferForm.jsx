@@ -52,7 +52,6 @@ const OfferForm = () => {
     setSelectedOffer(offer)
     setSelectedBranch(offer.branch !== 'all' ? offer.branch : '')
     setSubmitted(false)
-    // Smooth scroll to branch selection
     setTimeout(() => {
       document.getElementById('branch-section')?.scrollIntoView({ behavior: 'smooth' })
     }, 100)
@@ -148,7 +147,19 @@ const OfferForm = () => {
                     </h3>
                   )}
                   {offer.description && (
-                    <p className="font-body text-white/70 text-sm">{offer.description}</p>
+                    <p className="font-body text-white/70 text-sm leading-relaxed">
+                      {offer.description.split('•').map((item, index) => {
+                        const trimmed = item.trim()
+                        if (trimmed.includes('Months →') || trimmed.includes('₹')) {
+                          return (
+                            <span key={index} className="font-['Anton'] text-yellow-300 text-base">
+                              • {trimmed}{' '}
+                            </span>
+                          )
+                        }
+                        return <span key={index}>{index === 0 ? trimmed : '• ' + trimmed}{' '}</span>
+                      })}
+                    </p>
                   )}
                 </div>
                 {offer.highlight && (
@@ -172,7 +183,7 @@ const OfferForm = () => {
           ))}
         </div>
 
-        {/* Branch Selection — appears after offer is selected */}
+        {/* Branch Selection */}
         <AnimatePresence>
           {selectedOffer && (
             <motion.div

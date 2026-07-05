@@ -151,14 +151,24 @@ const OfferSlideshow = () => {
                 </p>
               )}
 
-              {/* Description */}
+              {/* Description — amounts highlighted in yellow */}
               {currentOffer.description && (
                 <p className="font-body text-white/80 text-sm sm:text-base md:text-lg mb-5 max-w-2xl leading-relaxed">
-                  {currentOffer.description}
+                  {currentOffer.description.split('•').map((item, index) => {
+                    const trimmed = item.trim()
+                    if (trimmed.includes('Months →') || trimmed.includes('₹')) {
+                      return (
+                        <span key={index} className="font-['Anton'] text-yellow-300 text-base sm:text-lg md:text-xl">
+                          • {trimmed}{' '}
+                        </span>
+                      )
+                    }
+                    return <span key={index}>{index === 0 ? trimmed : '• ' + trimmed}{' '}</span>
+                  })}
                 </p>
               )}
 
-              {/* CTA Button — fixed to /offer */}
+              {/* CTA Button */}
               <Link
                 to="/offer"
                 className="inline-block bg-white text-purple px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-heading text-xs sm:text-sm uppercase tracking-wider hover:bg-white/90 transition-all hover:scale-105 shadow-xl"

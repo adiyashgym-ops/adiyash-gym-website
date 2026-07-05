@@ -25,6 +25,10 @@ const AdminDashboard = () => {
   const [leadsByBranch, setLeadsByBranch] = useState([])
   const [leadsTable, setLeadsTable] = useState([])
   const [dateFilter, setDateFilter] = useState('today')
+  
+  // ===== NEW: Bulk Upload State =====
+  const [bulkText, setBulkText] = useState('')
+  
   const navigate = useNavigate()
 
   const showToast = (type, message) => {
@@ -132,6 +136,55 @@ const AdminDashboard = () => {
     setPendingOffers([...pendingOffers, { ...newOffer, createdAt: new Date().toISOString() }])
     setNewOffer({ branch: 'all', title: '', highlight: '', description: '' })
     showToast('success', '✅ Added to list!')
+  }
+
+  // ===== NEW: Bulk Upload Handler =====
+  const handleBulkUpload = async () => {
+    if (!bulkText.trim()) {
+      showToast('error', '❌ Please paste some offers first!')
+      return
+    }
+
+    const lines = bulkText.split('\n').filter(line => line.trim())
+    const offersToInsert = []
+
+    for (const line of lines) {
+      const parts = line.split('|').map(s => s.trim())
+      if (parts.length >= 3) {
+        const [branchName, title, description] = parts
+        const branch = branches.find(b => b.name.toLowerCase() === branchName.toLowerCase())
+        if (branch) {
+          offersToInsert.push({
+            branch: branch.id,
+            title: title,
+            highlight: '',
+            description: description,
+            image: '',
+          })
+        }
+      }
+    }
+
+    if (offersToInsert.length === 0) {
+      showToast('error', '❌ No valid offers found. Format: Branch|Title|Description')
+      return
+    }
+
+    setPublishing(true)
+    try {
+      const { data, error } = await supabase.from('offers').insert(offersToInsert).select()
+      if (error) {
+        showToast('error', '❌ Failed to upload: ' + error.message)
+      } else {
+        setOffers([...offers, ...data])
+        setBulkText('')
+        showToast('success', `✅ ${offersToInsert.length} offers uploaded successfully!`)
+      }
+    } catch (err) {
+      showToast('error', '❌ Error: ' + err.message)
+    } finally {
+      setPublishing(false)
+    }
   }
 
   const handlePublishAll = async () => {
@@ -246,7 +299,45 @@ const AdminDashboard = () => {
         {/* OFFERS TAB */}
         {activeTab === 'offers' && (
           <>
-            {/* Add Offer Form */}
+            {/* ===== NEW: BULK UPLOAD SECTION ===== */}
+            <div className="bg-white border border-ink/10 rounded-xl p-6 mb-8 shadow-sm">
+              <h2 className="font-heading text-2xl text-ink mb-2">⚡ Quick Bulk Offer Upload</h2>
+              <p className="font-body text-ink/60 text-sm mb-3">
+                Paste your offers in this format (one per line):
+                <br />
+                <span className="text-purple text-xs">Branch|Title|Description</span>
+              </p>
+              
+              <p className="font-body text-ink/40 text-xs mb-2 bg-cream p-2 rounded">
+                Example: <span className="text-purple">Vfour9|MONSOON Phase One|First 150 Members... 12 Months → ₹9,595/-</span>
+              </p>
+              
+              <textarea
+                rows="8"
+                placeholder="Vfour9|MONSOON Phase One|First 150 Members... 12 Months → ₹9,595/-"
+                className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-3 text-ink font-body focus:outline-none focus:border-purple transition-colors mb-4"
+                value={bulkText}
+                onChange={(e) => setBulkText(e.target.value)}
+              />
+              
+              <div className="flex gap-4">
+                <button
+                  onClick={handleBulkUpload}
+                  disabled={publishing}
+                  className="bg-green-500 text-white px-6 py-3 rounded-lg font-heading uppercase tracking-wider hover:bg-green-400 transition-all disabled:opacity-50"
+                >
+                  📤 Upload All Offers
+                </button>
+                <button
+                  onClick={() => setBulkText('')}
+                  className="bg-ink/10 text-ink px-6 py-3 rounded-lg font-body hover:bg-ink/20 transition-all"
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+
+            {/* Add Offer Form — KEPT EXACTLY AS YOUR BROTHER WROTE IT */}
             <div className="bg-white border border-ink/10 rounded-xl p-6 mb-8 shadow-sm">
               <h2 className="font-heading text-2xl text-ink mb-2">Create New Offer</h2>
               <p className="font-body text-ink/50 text-sm mb-6">Fill in the offer details below. No image needed — it will display as a premium styled card on the homepage automatically.</p>
@@ -313,7 +404,7 @@ const AdminDashboard = () => {
               </form>
             </div>
 
-            {/* Pending */}
+            {/* Pending — KEPT EXACTLY AS YOUR BROTHER WROTE IT */}
             {pendingOffers.length > 0 && (
               <div className="bg-white border border-purple/30 rounded-xl p-6 mb-8 shadow-sm">
                 <div className="flex justify-between items-center mb-4">
@@ -343,7 +434,7 @@ const AdminDashboard = () => {
               </div>
             )}
 
-            {/* Published */}
+            {/* Published — WITH BIGGER DELETE BUTTONS */}
             <div>
               <h2 className="font-heading text-2xl text-ink mb-4">Live Offers ({offers.length})</h2>
               {offers.length === 0 ? (
@@ -352,11 +443,14 @@ const AdminDashboard = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {offers.map(offer => (
                     <div key={offer.id} className="bg-white border border-ink/10 rounded-xl p-5 shadow-sm relative">
+                      {/* ===== BIGGER DELETE BUTTON ===== */}
                       <button
                         onClick={() => handleDeleteOffer(offer.id)}
-                        className="absolute top-3 right-3 text-red-400 hover:text-red-600 text-sm"
+                        className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1.5 rounded-lg text-sm font-body hover:bg-red-600 transition-all flex items-center gap-1"
                         disabled={publishing}
-                      >✕</button>
+                      >
+                        🗑️ Delete
+                      </button>
                       <span className="text-xs font-heading uppercase text-purple">{getBranchName(offer.branch)}</span>
                       {offer.title && <p className="font-heading text-ink text-lg mt-1">{offer.title}</p>}
                       {offer.highlight && <p className="font-['Anton'] text-purple text-3xl">{offer.highlight}</p>}
@@ -369,7 +463,7 @@ const AdminDashboard = () => {
           </>
         )}
 
-        {/* REPORTS TAB — unchanged from original */}
+        {/* REPORTS TAB — KEPT EXACTLY AS YOUR BROTHER WROTE IT */}
         {activeTab === 'reports' && (
           <div>
             <h2 className="font-heading text-2xl text-ink mb-6">Analytics & Reports</h2>
