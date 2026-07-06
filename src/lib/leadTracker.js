@@ -1,0 +1,61 @@
+import { supabase } from './supabase'
+
+// Google Sheets Web App URL
+const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx1eUy8r2txQoy_9Y9tdRSFYStv_G5AQBgkBVa1t9LtkxhQvrmQjaKfoCBCRecEJWcI7A/exec'
+
+/**
+ * Send lead to Google Sheets via Web App
+ */
+export const sendLeadToGoogleSheets = async (name, phone, branch) => {
+  try {
+    const response = await fetch(GOOGLE_SHEETS_URL, {
+      method: 'POST',
+      mode: 'no-cors', // Required for cross-origin requests
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        phone: phone,
+        branch: branch,
+        notes: 'Website lead capture'
+      })
+    })
+    
+    // With 'no-cors', we can't read the response
+    // But we'll assume it worked
+    console.log('Lead sent to Google Sheets:', { name, phone, branch })
+    
+  } catch (error) {
+    console.error('Error sending lead to Google Sheets:', error)
+    // Don't block the user — this is a fire-and-forget call
+  }
+}
+
+/**
+ * Send lead to Supabase (for admin dashboard)
+ */
+export const sendLeadToSupabase = async (branch, source) => {
+  try {
+    await supabase
+      .from('website_leads')
+      .insert({
+        branch: branch,
+        source: source || 'lead_modal',
+      })
+    console.log('Lead saved to Supabase:', { branch, source })
+  } catch (error) {
+    console.error('Error saving lead to Supabase:', error)
+  }
+}
+
+/**
+ * Track lead from modal — sends to both Google Sheets + Supabase
+ */
+export const trackLead = async (name, phone, branch, source = 'lead_modal') => {
+  // Send to Google Sheets (fire-and-forget)
+  await sendLeadToGoogleSheets(name, phone, branch)
+  
+  // Send to Supabase (for admin dashboard)
+  await sendLeadToSupabase(branch, source)
+}
