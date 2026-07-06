@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -27,63 +26,45 @@ import Transformation from './components/Transformation'
 import ScrollToTop from './components/ScrollToTop'
 import { trackPageVisit } from './lib/tracking'
 
-function AppContent() {
-  const location = useLocation()
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    // Track page visits
-    trackPageVisit()
-    
-    // Check if this is a fresh page load (not a navigation within the app)
-    const isFreshLoad = document.referrer === '' || !document.referrer.includes(window.location.host)
-    
-    // If fresh load AND not already on homepage, go home
-    if (isFreshLoad && location.pathname !== '/') {
-      navigate('/')
-    }
-  }, [location.pathname, navigate])
-
-  return (
-    <div className="bg-cream min-h-screen">
-      <Navbar />
-      <ScrollToTop />
-      <Analytics />
-      <Routes>
-        <Route path="/" element={
-          <>
-            <Hero />
-            <OfferSlideshow />
-            <Stats />
-            <Stories />
-            <Programs />
-            <Locations />
-            <FAQ />
-            <CTA />
-          </>
-        } />
-        <Route path="/about" element={<About />} />
-        <Route path="/owner" element={<Owner />} />
-        <Route path="/transformation" element={<Transformation />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/programs" element={<AllPrograms />} />
-        <Route path="/locations" element={<AllLocations />} />
-        <Route path="/offer" element={<OfferForm />} />
-        <Route path="/select-branch" element={<SelectBranch />} />
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/terms" element={<Terms />} />
-      </Routes>
-      <Footer />
-    </div>
-  )
-}
-
 function App() {
+  useEffect(() => {
+    trackPageVisit()
+  }, [])
+
   return (
     <BrowserRouter>
-      <AppContent />
+      <div className="bg-cream min-h-screen">
+        <Navbar />
+        <ScrollToTop />
+        <Analytics />
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Hero />
+              <OfferSlideshow />
+              <Stats />
+              <Stories />
+              <Programs />
+              <Locations />
+              <FAQ />
+              <CTA />
+            </>
+          } />
+          <Route path="/about" element={<About />} />
+          <Route path="/owner" element={<Owner />} />
+          <Route path="/transformation" element={<Transformation />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/programs" element={<AllPrograms />} />
+          <Route path="/locations" element={<AllLocations />} />
+          <Route path="/offer" element={<OfferForm />} />
+          <Route path="/select-branch" element={<SelectBranch />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+        </Routes>
+        <Footer />
+      </div>
     </BrowserRouter>
   )
 }
