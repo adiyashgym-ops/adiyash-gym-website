@@ -10,7 +10,7 @@ export const sendLeadToGoogleSheets = async (name, phone, branch) => {
   try {
     const response = await fetch(GOOGLE_SHEETS_URL, {
       method: 'POST',
-      mode: 'no-cors', // Required for cross-origin requests
+      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -18,17 +18,14 @@ export const sendLeadToGoogleSheets = async (name, phone, branch) => {
         name: name,
         phone: phone,
         branch: branch,
-        notes: 'Website lead capture'
+        notes: '' // Empty by default
       })
     })
     
-    // With 'no-cors', we can't read the response
-    // But we'll assume it worked
     console.log('Lead sent to Google Sheets:', { name, phone, branch })
     
   } catch (error) {
     console.error('Error sending lead to Google Sheets:', error)
-    // Don't block the user — this is a fire-and-forget call
   }
 }
 
