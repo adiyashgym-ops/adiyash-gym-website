@@ -22,6 +22,7 @@ const Navbar = () => {
     { name: 'Programs', path: '/programs' },
     { name: 'Locations', path: '/locations' },
     { name: 'Transformation', path: '/transformation' },
+    { name: 'Machines', path: '/machines' },
     { name: 'Contact', path: '/contact' },
   ]
 
@@ -35,7 +36,7 @@ const Navbar = () => {
     await trackLead(name, phone, selectedBranch, 'navbar_join_now')
     
     const message = `Hi! I'm interested in joining Adiyash Gym`
-    const whatsappNumber = siteConfig.mainPhone // Use main phone number for "All Branches"
+    const whatsappNumber = siteConfig.mainPhone
     
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank')
     setIsModalOpen(false)
