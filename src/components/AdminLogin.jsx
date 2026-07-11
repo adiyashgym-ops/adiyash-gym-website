@@ -8,7 +8,7 @@ const AdminLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (password === 'editoffer') {
+    if (password === import.meta.env.VITE_ADMIN_PASSWORD) {
       navigate('/admin/dashboard')
     } else {
       setError('Wrong password! Try again.')
