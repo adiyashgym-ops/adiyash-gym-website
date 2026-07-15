@@ -273,12 +273,20 @@ const AdminDashboard = () => {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <h1 className="font-heading text-4xl text-ink">Admin Dashboard</h1>
-          <button
-            onClick={() => navigate('/')}
-            className="bg-red-500/20 text-red-500 px-4 py-2 rounded-lg font-body hover:bg-red-500/30 transition-colors"
-          >
-            Logout
-          </button>
+          <div className="flex gap-4">
+            <button
+              onClick={() => navigate('/admin/trials')}
+              className="bg-purple/10 text-purple px-4 py-2 rounded-lg font-body hover:bg-purple/20 transition-colors"
+            >
+              📋 Trials
+            </button>
+            <button
+              onClick={() => navigate('/')}
+              className="bg-red-500/20 text-red-500 px-4 py-2 rounded-lg font-body hover:bg-red-500/30 transition-colors"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {/* Tabs */}

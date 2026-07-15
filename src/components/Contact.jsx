@@ -27,11 +27,11 @@ const Contact = () => {
     setIsModalOpen(true)
   }
 
-  const handleModalSubmit = async (name, phone) => {
+  const handleModalSubmit = async (name, phone, branchName) => {
     await trackLead(name, phone, modalBranch, 'contact_page_branch')
     
     const branch = siteConfig.branches.find(b => b.id === modalBranch)
-    const message = `Hi! I'm interested in joining Adiyash Gym at ${branch.name}`
+    const message = `Hi! I'm interested in a trial at ${branchName}`
     
     window.open(`https://wa.me/${branch.whatsapp}?text=${encodeURIComponent(message)}`, '_blank')
     setIsModalOpen(false)
@@ -44,7 +44,7 @@ const Contact = () => {
     setIsModalOpen(true)
   }
 
-  const handleModalSubmitForm = async (name, phone) => {
+  const handleModalSubmitForm = async (name, phone, branchName) => {
     await trackLead(name, phone, 'all', 'contact_form')
     const message = `Hi! I have a question.%0A%0AName: ${formData.name}%0AEmail: ${formData.email}%0AMessage: ${formData.message}`
     window.open(`https://wa.me/${siteConfig.mainPhone}?text=${encodeURIComponent(message)}`, '_blank')
@@ -86,7 +86,6 @@ const Contact = () => {
             Reach out to any of our 7 branches across Mumbai
           </motion.p>
 
-          {/* Branches Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {siteConfig.branches.map((branch, index) => (
               <AnimatedCard key={branch.id} delay={index * 0.1}>
@@ -114,7 +113,6 @@ const Contact = () => {
             ))}
           </div>
 
-          {/* Contact Form */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -171,7 +169,6 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Lead Modal */}
       <LeadModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

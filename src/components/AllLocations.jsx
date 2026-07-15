@@ -20,11 +20,11 @@ const AllLocations = () => {
     setIsModalOpen(true)
   }
 
-  const handleModalSubmit = async (name, phone) => {
+  const handleModalSubmit = async (name, phone, branchName) => {
     await trackLead(name, phone, modalBranch, 'all_locations_page')
     
     const branch = siteConfig.branches.find(b => b.id === modalBranch)
-    const message = `Hi! I'm interested in joining Adiyash Gym at ${branch.name}`
+    const message = `Hi! I'm interested in a trial at ${branchName}`
     
     window.open(`https://wa.me/${branch.whatsapp}?text=${encodeURIComponent(message)}`, '_blank')
     setIsModalOpen(false)
@@ -120,7 +120,6 @@ const AllLocations = () => {
                     <p className="font-body text-ink/60 text-sm mb-2">{location.address}</p>
                     <p className="font-body text-purple text-xs mb-3">⏰ {location.timings}</p>
                     
-                    {/* View Gallery Text */}
                     {location.gallery && location.gallery.length > 0 && (
                       <div className="mb-3">
                         <span 
@@ -178,7 +177,6 @@ const AllLocations = () => {
           </div>
         </div>
 
-        {/* Full-Screen Slideshow */}
         <AnimatePresence>
           {slideshowOpen && selectedBranch && selectedBranch.gallery && selectedBranch.gallery.length > 0 && (
             <motion.div
@@ -255,7 +253,6 @@ const AllLocations = () => {
         </AnimatePresence>
       </section>
 
-      {/* Lead Modal */}
       <LeadModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

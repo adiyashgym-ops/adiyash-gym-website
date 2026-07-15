@@ -61,16 +61,17 @@ const OfferForm = () => {
     }
   }
 
-  const handleModalSubmit = async (name, phone) => {
+  const handleModalSubmit = async (name, phone, branchName) => {
     await trackLead(name, phone, modalBranch, 'offer_get_this_offer')
+    
     const branch = allBranches.find(b => b.id === modalBranch)
-    const message = `Hi! I'm interested in this offer: ${selectedOffer?.title || 'Special Offer'}`
+    const message = `Hi! I'm interested in a trial at ${branchName} for this offer: ${selectedOffer?.title || 'Special Offer'}`
+    
     window.open(`https://wa.me/${branch.whatsapp}?text=${encodeURIComponent(message)}`, '_blank')
     setIsModalOpen(false)
     navigate('/')
   }
 
-  // Extract amount lines and non-amount lines from description
   const getAmountLines = (description) => {
     if (!description) return { benefits: [], amounts: [] }
     const parts = description.split('•').map(s => s.trim()).filter(Boolean)
@@ -169,7 +170,6 @@ const OfferForm = () => {
                       )}
                     </div>
 
-                    {/* Full-width Amount Box - YELLOW HIGHLIGHT */}
                     {amounts.length > 0 && (
                       <div className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl py-2 px-4">
                         <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6">

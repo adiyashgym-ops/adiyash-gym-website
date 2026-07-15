@@ -48,6 +48,7 @@ export const sendLeadToSupabase = async (branch, source) => {
 
 /**
  * Track lead from modal — sends to both Google Sheets + Supabase
+ * Now also returns the branch name for WhatsApp message
  */
 export const trackLead = async (name, phone, branch, source = 'lead_modal') => {
   // Send to Google Sheets (fire-and-forget)
@@ -55,4 +56,24 @@ export const trackLead = async (name, phone, branch, source = 'lead_modal') => {
   
   // Send to Supabase (for admin dashboard)
   await sendLeadToSupabase(branch, source)
+  
+  // Return branch info for WhatsApp message
+  return { branch }
+}
+
+/**
+ * Get branch display name for WhatsApp message
+ */
+export const getBranchDisplayName = (branchId) => {
+  const branchMap = {
+    'kurla': 'Kurla',
+    'vikhroli': 'Vikhroli',
+    'kandivali': 'Kandivali',
+    'asalfa-unisex': 'Asalfa Unisex',
+    'asalfa-ladies': 'Asalfa Ladies',
+    'marol': 'Marol',
+    'vfour9': 'Vfour9',
+    'all': 'All Branches'
+  }
+  return branchMap[branchId] || branchId
 }

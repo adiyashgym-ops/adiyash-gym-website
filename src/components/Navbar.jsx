@@ -32,10 +32,10 @@ const Navbar = () => {
     setIsModalOpen(true)
   }
 
-  const handleModalSubmit = async (name, phone) => {
+  const handleModalSubmit = async (name, phone, branchName) => {
     await trackLead(name, phone, selectedBranch, 'navbar_join_now')
     
-    const message = `Hi! I'm interested in joining Adiyash Gym`
+    const message = `Hi! I'm interested in a trial at ${branchName}`
     const whatsappNumber = siteConfig.mainPhone
     
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank')

@@ -28,18 +28,13 @@ const SelectBranch = () => {
     }
   }
 
-  const handleModalSubmit = async (name, phone) => {
-    // Track lead in Google Sheets + Supabase
+  const handleModalSubmit = async (name, phone, branchName) => {
     await trackLead(name, phone, selectedBranch, 'select_branch_page')
     
-    // Get branch WhatsApp number
     const branch = branches.find(b => b.id === selectedBranch)
-    const message = `Hi! I'm interested in joining Adiyash Gym`
+    const message = `Hi! I'm interested in a trial at ${branchName}`
     
-    // Redirect to WhatsApp
     window.open(`https://wa.me/${branch.whatsapp}?text=${encodeURIComponent(message)}`, '_blank')
-    
-    // Close modal and navigate home
     setIsModalOpen(false)
     navigate('/')
   }

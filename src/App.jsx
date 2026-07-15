@@ -25,10 +25,10 @@ import Owner from './components/Owner'
 import Transformation from './components/Transformation'
 import ScrollToTop from './components/ScrollToTop'
 import { trackPageVisit } from './lib/tracking'
-// NEW IMPORTS
 import MachinesList from './components/MachinesList'
 import MachinePage from './components/MachinePage'
 import ExercisePage from './components/ExercisePage'
+import Trials from './components/Trials'
 
 function App() {
   useEffect(() => {
@@ -64,9 +64,9 @@ function App() {
           <Route path="/select-branch" element={<SelectBranch />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/trials" element={<Trials />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
-          {/* MACHINE ROUTES */}
           <Route path="/machines" element={<MachinesList />} />
           <Route path="/machine/:machineSlug" element={<MachinePage />} />
           <Route path="/exercise/:exerciseId" element={<ExercisePage />} />
