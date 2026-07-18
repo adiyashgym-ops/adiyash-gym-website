@@ -1,79 +1,125 @@
 import { supabase } from './supabase'
 
 // Google Sheets Web App URL
-const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx1eUy8r2txQoy_9Y9tdRSFYStv_G5AQBgkBVa1t9LtkxhQvrmQjaKfoCBCRecEJWcI7A/exec'
+const GOOGLE_SHEETS_URL =
+  'https://script.google.com/macros/s/AKfycbx1eUy8r2txQoy_9Y9tdRSFYStv_G5AQBgkBVa1t9LtkxhQvrmQjaKfoCBCRecEJWcI7A/exec'
 
 /**
- * Send lead to Google Sheets via Web App
+ * Sends a secure copy of the lead to CRM.
+ * No secret exists in the browser.
  */
-export const sendLeadToGoogleSheets = async (name, phone, branch) => {
+export const sendLeadToCRM = async (
+  name,
+  phone,
+  branch
+) => {
   try {
-    const response = await fetch(GOOGLE_SHEETS_URL, {
+    const response = await fetch('/api/leads', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        mobile: phone,
+        branch,
+      }),
+      keepalive: true,
+    })
+
+    if (!response.ok) {
+      console.error(
+        'CRM lead request failed:',
+        response.status
+      )
+    }
+  } catch (error) {
+    console.error('CRM lead request error:', error)
+  }
+}
+
+/**
+ * Sends lead to the existing Google Sheets system.
+ */
+export const sendLeadToGoogleSheets = async (
+  name,
+  phone,
+  branch
+) => {
+  try {
+    await fetch(GOOGLE_SHEETS_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: name,
-        phone: phone,
-        branch: branch,
-        notes: '' // Empty by default
-      })
+        name,
+        phone,
+        branch,
+        notes: '',
+      }),
+      keepalive: true,
     })
-    
-    console.log('Lead sent to Google Sheets:', { name, phone, branch })
-    
   } catch (error) {
-    console.error('Error sending lead to Google Sheets:', error)
+    console.error('Google Sheets lead error:', error)
   }
 }
 
 /**
- * Send lead to Supabase (for admin dashboard)
+ * Keeps the existing website dashboard tracking.
  */
-export const sendLeadToSupabase = async (branch, source) => {
+export const sendLeadToSupabase = async (
+  branch,
+  source
+) => {
   try {
-    await supabase
+    const { error } = await supabase
       .from('website_leads')
       .insert({
-        branch: branch,
+        branch,
         source: source || 'lead_modal',
       })
-    console.log('Lead saved to Supabase:', { branch, source })
+
+    if (error) {
+      console.error('Website lead tracking error:', error)
+    }
   } catch (error) {
-    console.error('Error saving lead to Supabase:', error)
+    console.error('Website lead tracking error:', error)
   }
 }
 
 /**
- * Track lead from modal — sends to both Google Sheets + Supabase
- * Now also returns the branch name for WhatsApp message
+ * Sends copies in parallel.
+ * It never stops the WhatsApp redirect if one system fails.
  */
-export const trackLead = async (name, phone, branch, source = 'lead_modal') => {
-  // Send to Google Sheets (fire-and-forget)
-  await sendLeadToGoogleSheets(name, phone, branch)
-  
-  // Send to Supabase (for admin dashboard)
-  await sendLeadToSupabase(branch, source)
-  
-  // Return branch info for WhatsApp message
+export const trackLead = (
+  name,
+  phone,
+  branch,
+  source = 'lead_modal'
+) => {
+  void sendLeadToCRM(name, phone, branch)
+  void sendLeadToGoogleSheets(name, phone, branch)
+  void sendLeadToSupabase(branch, source)
+
   return { branch }
 }
 
 /**
- * Get branch display name for WhatsApp message
+ * Gets the display name shown in WhatsApp messages.
  */
 export const getBranchDisplayName = (branchId) => {
   const branchMap = {
-    'kurla': 'Kurla',
-    'vikhroli': 'Vikhroli',
-    'kandivali': 'Kandivali',
+    kurla: 'Kurla',
+    vikhroli: 'Vikhroli',
+    kandivali: 'Kandivali',
     'asalfa-unisex': 'Asalfa Unisex',
     'asalfa-ladies': 'Asalfa Ladies',
-    'marol': 'Marol',
-    'vfour9': 'Vfour9',
-    'all': 'All Branches'
+    marol: 'Marol',
+    vfour9: 'VFour9',
+    all: 'All Branches',
   }
+
   return branchMap[branchId] || branchId
 }
