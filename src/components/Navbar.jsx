@@ -1,16 +1,12 @@
 import { siteConfig } from '../content/siteData'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { trackLead } from '../lib/leadTracker'
-import LeadModal from './LeadModal'
 
 const Navbar = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedBranch, setSelectedBranch] = useState('all')
-  const [branchName, setBranchName] = useState('All Branches')
 
   const isActive = (path) => {
     return location.pathname === path
@@ -27,19 +23,7 @@ const Navbar = () => {
   ]
 
   const handleJoinNow = () => {
-    setBranchName('All Branches')
-    setSelectedBranch('all')
-    setIsModalOpen(true)
-  }
-
-  const handleModalSubmit = async (name, phone, branchName) => {
-    await trackLead(name, phone, selectedBranch, 'navbar_join_now')
-    
-    const message = `Hi! I'm interested in a trial at ${branchName}`
-    const whatsappNumber = siteConfig.mainPhone
-    
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank')
-    setIsModalOpen(false)
+    navigate('/select-branch')
   }
 
   return (
@@ -153,15 +137,6 @@ const Navbar = () => {
           </div>
         )}
       </nav>
-
-      {/* Lead Modal */}
-      <LeadModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        branch={selectedBranch}
-        branchName={branchName}
-        onSubmit={handleModalSubmit}
-      />
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const LeadModal = ({ isOpen, onClose, branch, branchName, onSubmit }) => {
@@ -6,13 +6,40 @@ const LeadModal = ({ isOpen, onClose, branch, branchName, onSubmit }) => {
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
   const [agreed, setAgreed] = useState(false)
+  const [errors, setErrors] = useState({})
+
+  const nameRef = useRef(null)
+  const phoneRef = useRef(null)
+  const checkboxRef = useRef(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!name.trim() || !phone.trim() || !agreed) return
     
+    // Check for errors
+    const newErrors = {}
+    if (!name.trim()) newErrors.name = 'Please enter your name'
+    if (!phone.trim()) newErrors.phone = 'Please enter your phone number'
+    if (!agreed) newErrors.agreed = 'Please agree to the terms'
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      
+      // Scroll to first error field
+      if (newErrors.name && nameRef.current) {
+        nameRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        nameRef.current.focus()
+      } else if (newErrors.phone && phoneRef.current) {
+        phoneRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        phoneRef.current.focus()
+      } else if (newErrors.agreed && checkboxRef.current) {
+        checkboxRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+      return
+    }
+
+    setErrors({})
     setLoading(true)
-    await onSubmit(name, phone, branchName) // ← Pass branchName to parent
+    await onSubmit(name, phone, branchName)
     setLoading(false)
     setName('')
     setPhone('')
@@ -60,28 +87,46 @@ const LeadModal = ({ isOpen, onClose, branch, branchName, onSubmit }) => {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
+            <div ref={nameRef}>
               <label className="font-body text-ink/60 text-sm block mb-1">Your Name</label>
               <input
                 type="text"
                 placeholder="Enter your name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-3 text-ink font-body focus:outline-none focus:border-purple transition-colors"
-                required
+                onChange={(e) => {
+                  setName(e.target.value)
+                  if (errors.name) setErrors({ ...errors, name: '' })
+                }}
+                className={`w-full bg-cream border rounded-lg px-4 py-3 text-ink font-body focus:outline-none transition-colors ${
+                  errors.name
+                    ? 'border-red-500 focus:border-red-500 ring-1 ring-red-500'
+                    : 'border-ink/10 focus:border-purple'
+                }`}
               />
+              {errors.name && (
+                <p className="text-red-500 text-xs font-body mt-1">{errors.name}</p>
+              )}
             </div>
 
-            <div>
+            <div ref={phoneRef}>
               <label className="font-body text-ink/60 text-sm block mb-1">Phone Number</label>
               <input
                 type="tel"
                 placeholder="Enter your phone number"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-3 text-ink font-body focus:outline-none focus:border-purple transition-colors"
-                required
+                onChange={(e) => {
+                  setPhone(e.target.value)
+                  if (errors.phone) setErrors({ ...errors, phone: '' })
+                }}
+                className={`w-full bg-cream border rounded-lg px-4 py-3 text-ink font-body focus:outline-none transition-colors ${
+                  errors.phone
+                    ? 'border-red-500 focus:border-red-500 ring-1 ring-red-500'
+                    : 'border-ink/10 focus:border-purple'
+                }`}
               />
+              {errors.phone && (
+                <p className="text-red-500 text-xs font-body mt-1">{errors.phone}</p>
+              )}
             </div>
 
             {/* Trial Rules */}
@@ -100,13 +145,18 @@ const LeadModal = ({ isOpen, onClose, branch, branchName, onSubmit }) => {
             </div>
 
             {/* Checkbox */}
-            <div className="flex items-start gap-3">
+            <div ref={checkboxRef} className="flex items-start gap-3">
               <button
                 type="button"
-                onClick={() => setAgreed(!agreed)}
+                onClick={() => {
+                  setAgreed(!agreed)
+                  if (errors.agreed) setErrors({ ...errors, agreed: '' })
+                }}
                 className={`w-5 h-5 rounded border-2 flex-shrink-0 mt-0.5 flex items-center justify-center transition-all ${
                   agreed
                     ? 'bg-purple border-purple'
+                    : errors.agreed
+                    ? 'border-red-500'
                     : 'border-ink/30 hover:border-purple'
                 }`}
               >
@@ -117,25 +167,26 @@ const LeadModal = ({ isOpen, onClose, branch, branchName, onSubmit }) => {
                 )}
               </button>
               <label
-                onClick={() => setAgreed(!agreed)}
-                className="font-body text-xs text-ink/60 cursor-pointer select-none"
+                onClick={() => {
+                  setAgreed(!agreed)
+                  if (errors.agreed) setErrors({ ...errors, agreed: '' })
+                }}
+                className={`font-body text-xs cursor-pointer select-none ${
+                  errors.agreed ? 'text-red-500' : 'text-ink/60'
+                }`}
               >
-                I agree to the <span className="font-semibold text-ink/80">Terms & Conditions</span> and confirm I understand the trial rules.
+                I agree to the <span className="font-semibold">Terms & Conditions</span> and confirm I understand the trial rules.
               </label>
             </div>
-
-            {/* Note to check checkbox */}
-            {!agreed && (
-              <p className="text-purple text-xs font-body text-center">
-                ⚠️ Please agree to the terms to continue
-              </p>
+            {errors.agreed && (
+              <p className="text-red-500 text-xs font-body text-center">{errors.agreed}</p>
             )}
 
             <button
               type="submit"
-              disabled={loading || !name.trim() || !phone.trim() || !agreed}
+              disabled={loading}
               className={`w-full py-3 rounded-lg font-heading uppercase tracking-wider transition-all ${
-                loading || !name.trim() || !phone.trim() || !agreed
+                loading
                   ? 'bg-purple/30 text-white/50 cursor-not-allowed'
                   : 'bg-purple text-white hover:bg-purple-light hover:scale-[1.02]'
               }`}

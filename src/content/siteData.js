@@ -202,7 +202,7 @@ export const siteConfig = {
     },
     {
       id: 'vfour9',
-      name: 'Vfour9',
+      name: 'Thane-Vfour9',
       whatsapp: '918879410763',
       phone: '+91 88794 10763',
       address: '1st floor, Bld No.1, Pushpamangal Complex, Lal Bahadur Shastri Marg, above Bank Of Baroda, next to Babubhai Petrol Pump, Uthalsar, Thane West, Thane, Maharashtra 400601',

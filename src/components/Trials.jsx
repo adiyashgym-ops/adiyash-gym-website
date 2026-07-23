@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { supabase } from '../lib/supabase'
 import { 
   getAllTrials, 
   addTrial, 
@@ -15,6 +16,8 @@ const Trials = () => {
   const [searchAadhar, setSearchAadhar] = useState('')
   const [searchResult, setSearchResult] = useState(null)
   const [showAddForm, setShowAddForm] = useState(false)
+  const [showEditForm, setShowEditForm] = useState(false)
+  const [editingTrial, setEditingTrial] = useState(null)
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -34,7 +37,7 @@ const Trials = () => {
     'Asalfa Unisex',
     'Asalfa Ladies',
     'Marol',
-    'Vfour9',
+    'Thane-Vfour9',
   ]
 
   useEffect(() => {
@@ -95,6 +98,95 @@ const Trials = () => {
     setSubmitting(false)
   }
 
+  // ===== EDIT FUNCTIONS =====
+  const handleEditClick = (trial) => {
+    setEditingTrial(trial)
+    setFormData({
+      name: trial.name,
+      phone: trial.phone,
+      aadhar: trial.aadhar,
+      branch: trial.branch,
+      trial_date: trial.trial_date,
+      trial_time: trial.trial_time,
+    })
+    setShowEditForm(true)
+    setFormError('')
+    setFormSuccess('')
+  }
+
+  const handleUpdateTrial = async (e) => {
+    e.preventDefault()
+    setFormError('')
+    setFormSuccess('')
+    setSubmitting(true)
+
+    if (!formData.name || !formData.phone || !formData.aadhar || !formData.branch || !formData.trial_date || !formData.trial_time) {
+      setFormError('Please fill in all fields')
+      setSubmitting(false)
+      return
+    }
+
+    try {
+      const { error } = await supabase
+        .from('trials')
+        .update({
+          name: formData.name,
+          phone: formData.phone,
+          aadhar: formData.aadhar,
+          branch: formData.branch,
+          trial_date: formData.trial_date,
+          trial_time: formData.trial_time,
+        })
+        .eq('id', editingTrial.id)
+
+      if (error) throw error
+
+      setFormSuccess('✅ Trial updated successfully!')
+      // Update the list
+      const updated = await getAllTrials(200)
+      setTrials(updated)
+      setShowEditForm(false)
+      setEditingTrial(null)
+      setFormData({
+        name: '',
+        phone: '',
+        aadhar: '',
+        branch: '',
+        trial_date: '',
+        trial_time: '',
+      })
+    } catch (err) {
+      setFormError(`❌ ${err.message}`)
+    }
+    setSubmitting(false)
+  }
+
+  // ===== DELETE FUNCTION =====
+  const handleDeleteTrial = async (id, name) => {
+    if (!window.confirm(`Delete trial for "${name}"?`)) return
+
+    try {
+      const { error } = await supabase
+        .from('trials')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+
+      setFormSuccess('✅ Trial deleted successfully!')
+      const updated = await getAllTrials(200)
+      setTrials(updated)
+      // Clear search results if any
+      if (searchResult) {
+        setSearchResult(searchResult.filter(t => t.id !== id))
+      }
+      setTimeout(() => setFormSuccess(''), 3000)
+    } catch (err) {
+      setFormError(`❌ ${err.message}`)
+      setTimeout(() => setFormError(''), 3000)
+    }
+  }
+
   const handleLogout = () => {
     navigate('/')
   }
@@ -120,6 +212,7 @@ const Trials = () => {
           </button>
         </div>
 
+        {/* Search Bar */}
         <div className="bg-white border border-ink/10 rounded-lg p-6 mb-8 shadow-sm">
           <h2 className="font-heading text-2xl text-ink mb-4">Search by Aadhar</h2>
           <form onSubmit={handleSearch} className="flex flex-wrap gap-4">
@@ -152,6 +245,7 @@ const Trials = () => {
                 setShowAddForm(!showAddForm)
                 setFormError('')
                 setFormSuccess('')
+                setShowEditForm(false)
               }}
               className="bg-green-500 text-white px-6 py-3 rounded-lg font-heading uppercase tracking-wider hover:bg-green-400 transition-all ml-auto"
             >
@@ -159,6 +253,7 @@ const Trials = () => {
             </button>
           </form>
 
+          {/* Search Results */}
           {searchResult && searchResult.length > 0 && (
             <div className="mt-4 border-t border-ink/10 pt-4">
               <h3 className="font-heading text-lg text-ink mb-3">
@@ -171,8 +266,9 @@ const Trials = () => {
                       <th className="text-left py-2 px-3 text-ink/60 font-semibold">Name</th>
                       <th className="text-left py-2 px-3 text-ink/60 font-semibold">Phone</th>
                       <th className="text-left py-2 px-3 text-ink/60 font-semibold">Branch</th>
-                      <th className="text-left py-2 px-3 text-ink/60 font-semibold">Trial Date</th>
-                      <th className="text-left py-2 px-3 text-ink/60 font-semibold">Trial Time</th>
+                      <th className="text-left py-2 px-3 text-ink/60 font-semibold">Date</th>
+                      <th className="text-left py-2 px-3 text-ink/60 font-semibold">Time</th>
+                      <th className="text-left py-2 px-3 text-ink/60 font-semibold">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -183,6 +279,20 @@ const Trials = () => {
                         <td className="py-2 px-3 text-ink/60">{trial.branch}</td>
                         <td className="py-2 px-3 text-ink/60">{trial.trial_date}</td>
                         <td className="py-2 px-3 text-ink/60">{trial.trial_time}</td>
+                        <td className="py-2 px-3">
+                          <button
+                            onClick={() => handleEditClick(trial)}
+                            className="bg-purple/10 text-purple px-3 py-1 rounded text-xs font-body hover:bg-purple/20 transition-all mr-2"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeleteTrial(trial.id, trial.name)}
+                            className="bg-red-500/10 text-red-500 px-3 py-1 rounded text-xs font-body hover:bg-red-500/20 transition-all"
+                          >
+                            Delete
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -196,6 +306,7 @@ const Trials = () => {
           )}
         </div>
 
+        {/* Add Trial Form */}
         {showAddForm && (
           <div className="bg-white border border-ink/10 rounded-lg p-6 mb-8 shadow-sm">
             <h2 className="font-heading text-2xl text-ink mb-4">Add New Trial</h2>
@@ -293,6 +404,14 @@ const Trials = () => {
                     setShowAddForm(false)
                     setFormError('')
                     setFormSuccess('')
+                    setFormData({
+                      name: '',
+                      phone: '',
+                      aadhar: '',
+                      branch: '',
+                      trial_date: '',
+                      trial_time: '',
+                    })
                   }}
                   className="bg-ink/10 text-ink px-8 py-3 rounded-lg font-body hover:bg-ink/20 transition-all"
                 >
@@ -303,6 +422,124 @@ const Trials = () => {
           </div>
         )}
 
+        {/* Edit Trial Form */}
+        {showEditForm && editingTrial && (
+          <div className="bg-white border border-purple/30 rounded-lg p-6 mb-8 shadow-sm">
+            <h2 className="font-heading text-2xl text-ink mb-4">Edit Trial</h2>
+            {formError && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4 text-red-600 font-body text-sm">
+                {formError}
+              </div>
+            )}
+            {formSuccess && (
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4 text-green-600 font-body text-sm">
+                {formSuccess}
+              </div>
+            )}
+            <form onSubmit={handleUpdateTrial} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="font-body text-ink/60 text-sm block mb-1">Name *</label>
+                <input
+                  type="text"
+                  placeholder="Enter name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-3 text-ink font-body focus:outline-none focus:border-purple transition-colors"
+                  required
+                />
+              </div>
+              <div>
+                <label className="font-body text-ink/60 text-sm block mb-1">Phone *</label>
+                <input
+                  type="tel"
+                  placeholder="Enter phone number"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-3 text-ink font-body focus:outline-none focus:border-purple transition-colors"
+                  required
+                />
+              </div>
+              <div>
+                <label className="font-body text-ink/60 text-sm block mb-1">Aadhar Number *</label>
+                <input
+                  type="text"
+                  placeholder="Enter Aadhar number"
+                  value={formData.aadhar}
+                  onChange={(e) => setFormData({ ...formData, aadhar: e.target.value })}
+                  className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-3 text-ink font-body focus:outline-none focus:border-purple transition-colors"
+                  required
+                />
+              </div>
+              <div>
+                <label className="font-body text-ink/60 text-sm block mb-1">Branch *</label>
+                <select
+                  value={formData.branch}
+                  onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
+                  className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-3 text-ink font-body focus:outline-none focus:border-purple transition-colors"
+                  required
+                >
+                  <option value="">Select branch...</option>
+                  {branches.map((branch) => (
+                    <option key={branch} value={branch}>{branch}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="font-body text-ink/60 text-sm block mb-1">Trial Date *</label>
+                <input
+                  type="date"
+                  value={formData.trial_date}
+                  onChange={(e) => setFormData({ ...formData, trial_date: e.target.value })}
+                  className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-3 text-ink font-body focus:outline-none focus:border-purple transition-colors"
+                  required
+                />
+              </div>
+              <div>
+                <label className="font-body text-ink/60 text-sm block mb-1">Trial Time *</label>
+                <input
+                  type="time"
+                  value={formData.trial_time}
+                  onChange={(e) => setFormData({ ...formData, trial_time: e.target.value })}
+                  className="w-full bg-cream border border-ink/10 rounded-lg px-4 py-3 text-ink font-body focus:outline-none focus:border-purple transition-colors"
+                  required
+                />
+              </div>
+              <div className="md:col-span-2 flex gap-4">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className={`bg-purple text-white px-8 py-3 rounded-lg font-heading uppercase tracking-wider hover:bg-purple-light transition-all ${
+                    submitting ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                >
+                  {submitting ? 'Updating...' : 'Update Trial'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowEditForm(false)
+                    setEditingTrial(null)
+                    setFormError('')
+                    setFormSuccess('')
+                    setFormData({
+                      name: '',
+                      phone: '',
+                      aadhar: '',
+                      branch: '',
+                      trial_date: '',
+                      trial_time: '',
+                    })
+                  }}
+                  className="bg-ink/10 text-ink px-8 py-3 rounded-lg font-body hover:bg-ink/20 transition-all"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* All Trials Table - WITH EDIT + DELETE BUTTONS */}
         <div className="bg-white border border-ink/10 rounded-lg p-6 shadow-sm">
           <h2 className="font-heading text-2xl text-ink mb-4">All Trials ({trials.length})</h2>
           {trials.length === 0 ? (
@@ -318,6 +555,7 @@ const Trials = () => {
                     <th className="text-left py-2 px-3 text-ink/60 font-semibold">Branch</th>
                     <th className="text-left py-2 px-3 text-ink/60 font-semibold">Date</th>
                     <th className="text-left py-2 px-3 text-ink/60 font-semibold">Time</th>
+                    <th className="text-left py-2 px-3 text-ink/60 font-semibold">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -329,6 +567,20 @@ const Trials = () => {
                       <td className="py-2 px-3 text-ink/60">{trial.branch}</td>
                       <td className="py-2 px-3 text-ink/60">{trial.trial_date}</td>
                       <td className="py-2 px-3 text-ink/60">{trial.trial_time}</td>
+                      <td className="py-2 px-3">
+                        <button
+                          onClick={() => handleEditClick(trial)}
+                          className="bg-purple/10 text-purple px-3 py-1 rounded text-xs font-body hover:bg-purple/20 transition-all mr-2"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDeleteTrial(trial.id, trial.name)}
+                          className="bg-red-500/10 text-red-500 px-3 py-1 rounded text-xs font-body hover:bg-red-500/20 transition-all"
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

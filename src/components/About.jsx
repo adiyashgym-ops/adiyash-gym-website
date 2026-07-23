@@ -142,7 +142,7 @@ const About = () => {
               <Link to="/owner" className="bg-white border border-ink/10 rounded-lg p-6 text-center shadow-sm hover:border-purple/50 transition-all hover:scale-[1.02] cursor-pointer block">
                 <img 
                   src="/team/vilas-kamathe.jpg" 
-                  alt="Vilas Kamateh" 
+                  alt="Vilas Kamathe" 
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-purple/20"
                 />
                 <h3 className="font-heading text-ink text-xl">Vilas Kamathe</h3>
