@@ -2,14 +2,14 @@ import { supabase } from './supabase'
 import { sendLeadToCRM } from './leadTracker'
 
 /**
- * Check if a person has already taken a trial.
+ * Check if a person has already taken a trial by phone number.
  */
-export const checkExistingTrial = async (aadhar) => {
+export const checkExistingTrial = async (phone) => {
   try {
     const { data, error } = await supabase
       .from('trials')
       .select('*')
-      .eq('aadhar', aadhar)
+      .eq('phone', phone)
       .order('created_at', { ascending: false })
 
     if (error) throw error
@@ -41,13 +41,12 @@ export const checkExistingTrial = async (aadhar) => {
 
 /**
  * Add a new trial record.
- * Aadhaar remains only in the website trial system.
+ * Now includes photo_url for the member's photo.
  */
 export const addTrial = async (trialData) => {
   try {
-    const existing = await checkExistingTrial(
-      trialData.aadhar
-    )
+    // Check if phone already exists
+    const existing = await checkExistingTrial(trialData.phone)
 
     if (existing.exists) {
       return {
@@ -64,8 +63,7 @@ export const addTrial = async (trialData) => {
 
     if (error) throw error
 
-    // CRM receives only name, mobile and branch.
-    // Do not wait or stop the trial record if CRM fails.
+    // CRM receives name, mobile and branch (no Aadhar)
     void sendLeadToCRM(
       trialData.name,
       trialData.phone,
@@ -87,21 +85,21 @@ export const addTrial = async (trialData) => {
 }
 
 /**
- * Search trials by Aadhaar number.
+ * Search trials by phone number (replaces Aadhar search).
  */
-export const searchTrialsByAadhar = async (aadhar) => {
+export const searchTrialsByPhone = async (phone) => {
   try {
     const { data, error } = await supabase
       .from('trials')
       .select('*')
-      .eq('aadhar', aadhar)
+      .eq('phone', phone)
       .order('created_at', { ascending: false })
 
     if (error) throw error
 
     return data || []
   } catch (error) {
-    console.error('Error searching trials:', error)
+    console.error('Error searching trials by phone:', error)
     return []
   }
 }
@@ -141,11 +139,86 @@ export const getTrialsByBranch = async (branch) => {
 
     return data || []
   } catch (error) {
-    console.error(
-      'Error fetching trials by branch:',
-      error
-    )
-
+    console.error('Error fetching trials by branch:', error)
     return []
+  }
+}
+
+/**
+ * Upload a trial member's photo to Supabase Storage.
+ * Returns the public URL of the uploaded photo.
+ */
+export const uploadTrialPhoto = async (file, phone) => {
+  try {
+    const fileExt = file.name.split('.').pop()
+    const fileName = `${phone}-${Date.now()}.${fileExt}`
+    const filePath = `trial-photos/${fileName}`
+
+    const { error } = await supabase.storage
+      .from('trial-photos')
+      .upload(filePath, file)
+
+    if (error) throw error
+
+    // Get public URL
+    const { data: urlData } = supabase.storage
+      .from('trial-photos')
+      .getPublicUrl(filePath)
+
+    return { success: true, url: urlData.publicUrl }
+  } catch (error) {
+    console.error('Error uploading photo:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+/**
+ * Delete a photo from Supabase Storage.
+ */
+export const deleteTrialPhoto = async (photoUrl) => {
+  try {
+    if (!photoUrl) return { success: true }
+
+    // Extract file path from URL
+    const path = photoUrl.split('/').pop()
+    if (!path) return { success: true }
+
+    const { error } = await supabase.storage
+      .from('trial-photos')
+      .remove([`trial-photos/${path}`])
+
+    if (error) throw error
+
+    return { success: true }
+  } catch (error) {
+    console.error('Error deleting photo:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+/**
+ * Update a trial record (including photo_url).
+ */
+export const updateTrial = async (id, trialData) => {
+  try {
+    const { data, error } = await supabase
+      .from('trials')
+      .update({
+        name: trialData.name,
+        phone: trialData.phone,
+        branch: trialData.branch,
+        trial_date: trialData.trial_date,
+        trial_time: trialData.trial_time,
+        photo_url: trialData.photo_url || null,
+      })
+      .eq('id', id)
+      .select()
+
+    if (error) throw error
+
+    return { success: true, data: data[0] }
+  } catch (error) {
+    console.error('Error updating trial:', error)
+    return { success: false, error: error.message }
   }
 }
