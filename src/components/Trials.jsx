@@ -65,14 +65,23 @@ const Trials = () => {
   // ===== WEBCAM FUNCTIONS =====
   const startWebcam = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { 
+          facingMode: 'user',
+          width: { ideal: 640 },
+          height: { ideal: 480 }
+        } 
+      })
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        videoRef.current.play()
+        videoRef.current.onloadedmetadata = () => {
+          videoRef.current.play()
+        }
       }
       setShowWebcam(true)
     } catch (err) {
       setFormError('❌ Could not access webcam. Please check permissions.')
+      console.error('Webcam error:', err)
       setTimeout(() => setFormError(''), 3000)
     }
   }
@@ -81,8 +90,8 @@ const Trials = () => {
     if (videoRef.current && canvasRef.current) {
       const canvas = canvasRef.current
       const video = videoRef.current
-      canvas.width = video.videoWidth
-      canvas.height = video.videoHeight
+      canvas.width = video.videoWidth || 640
+      canvas.height = video.videoHeight || 480
       canvas.getContext('2d').drawImage(video, 0, 0)
       const photoData = canvas.toDataURL('image/jpeg', 0.8)
       setCapturedPhoto(photoData)
@@ -112,14 +121,12 @@ const Trials = () => {
     const file = e.target.files[0]
     if (!file) return
 
-    // Check if it's an image
     if (!file.type.startsWith('image/')) {
       setFormError('❌ Please select an image file.')
       setTimeout(() => setFormError(''), 3000)
       return
     }
 
-    // Check file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       setFormError('❌ Image too large. Please select a file under 5MB.')
       setTimeout(() => setFormError(''), 3000)
@@ -132,7 +139,6 @@ const Trials = () => {
     }
     reader.readAsDataURL(file)
     
-    // Reset the input so the same file can be re-selected
     e.target.value = ''
   }
 
@@ -615,17 +621,19 @@ const Trials = () => {
           </div>
         )}
 
-        {/* Webcam Modal */}
+        {/* Webcam Modal - FIXED */}
         {showWebcam && (
           <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-xl p-6 max-w-lg w-full">
               <h3 className="font-heading text-xl text-ink mb-4">Take Photo</h3>
-              <div className="relative">
+              <div className="relative bg-black rounded-lg overflow-hidden" style={{ aspectRatio: '4/3' }}>
                 <video
                   ref={videoRef}
-                  className="w-full rounded-lg bg-black"
+                  className="absolute top-0 left-0 w-full h-full object-cover"
                   autoPlay
+                  playsInline
                   muted
+                  style={{ transform: 'scaleX(-1)' }}
                 />
                 <canvas ref={canvasRef} className="hidden" />
               </div>
