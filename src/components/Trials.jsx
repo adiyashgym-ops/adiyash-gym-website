@@ -36,8 +36,10 @@ const Trials = () => {
   // Webcam states
   const [showWebcam, setShowWebcam] = useState(false)
   const [capturedPhoto, setCapturedPhoto] = useState(null)
+  const [webcamError, setWebcamError] = useState(false)
   const videoRef = useRef(null)
   const canvasRef = useRef(null)
+  const streamRef = useRef(null)
 
   // File input ref for "Add Photo" option
   const fileInputRef = useRef(null)
@@ -64,7 +66,14 @@ const Trials = () => {
 
   // ===== WEBCAM FUNCTIONS =====
   const startWebcam = async () => {
+    setWebcamError(false)
     try {
+      // Stop any existing stream
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop())
+        streamRef.current = null
+      }
+
       const stream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
           facingMode: 'user',
@@ -72,16 +81,38 @@ const Trials = () => {
           height: { ideal: 480 }
         } 
       })
+      
+      streamRef.current = stream
+      
       if (videoRef.current) {
         videoRef.current.srcObject = stream
+        
+        // Wait for metadata to load before playing
         videoRef.current.onloadedmetadata = () => {
           videoRef.current.play()
+            .catch(err => {
+              console.error('Error playing video:', err)
+              setWebcamError(true)
+            })
         }
+        
+        // Force play if onloadedmetadata doesn't fire
+        setTimeout(() => {
+          if (videoRef.current && videoRef.current.paused) {
+            videoRef.current.play()
+              .catch(err => {
+                console.error('Error playing video (timeout):', err)
+                setWebcamError(true)
+              })
+          }
+        }, 500)
       }
+      
       setShowWebcam(true)
     } catch (err) {
-      setFormError('❌ Could not access webcam. Please check permissions.')
       console.error('Webcam error:', err)
+      setWebcamError(true)
+      setFormError('❌ Could not access webcam. Please check permissions.')
       setTimeout(() => setFormError(''), 3000)
     }
   }
@@ -92,28 +123,36 @@ const Trials = () => {
       const video = videoRef.current
       canvas.width = video.videoWidth || 640
       canvas.height = video.videoHeight || 480
-      canvas.getContext('2d').drawImage(video, 0, 0)
+      const ctx = canvas.getContext('2d')
+      // Mirror the image to match the video preview
+      ctx.translate(canvas.width, 0)
+      ctx.scale(-1, 1)
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
       const photoData = canvas.toDataURL('image/jpeg', 0.8)
       setCapturedPhoto(photoData)
       setShowWebcam(false)
       
-      const stream = video.srcObject
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop())
-        video.srcObject = null
+      // Stop the stream
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop())
+        streamRef.current = null
+      }
+      if (videoRef.current) {
+        videoRef.current.srcObject = null
       }
     }
   }
 
   const cancelWebcam = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop())
+      streamRef.current = null
+    }
     if (videoRef.current) {
-      const stream = videoRef.current.srcObject
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop())
-        videoRef.current.srcObject = null
-      }
+      videoRef.current.srcObject = null
     }
     setShowWebcam(false)
+    setWebcamError(false)
   }
 
   // ===== FILE UPLOAD FUNCTION =====
@@ -625,7 +664,12 @@ const Trials = () => {
         {showWebcam && (
           <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-xl p-6 max-w-lg w-full">
-              <h3 className="font-heading text-xl text-ink mb-4">Take Photo</h3>
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-heading text-xl text-ink">Take Photo</h3>
+                {webcamError && (
+                  <span className="text-red-500 text-xs font-body">Camera error</span>
+                )}
+              </div>
               <div className="relative bg-black rounded-lg overflow-hidden" style={{ aspectRatio: '4/3' }}>
                 <video
                   ref={videoRef}
@@ -636,11 +680,21 @@ const Trials = () => {
                   style={{ transform: 'scaleX(-1)' }}
                 />
                 <canvas ref={canvasRef} className="hidden" />
+                {webcamError && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/80">
+                    <p className="text-white font-body text-sm">Camera not available</p>
+                  </div>
+                )}
               </div>
               <div className="flex gap-3 mt-4">
                 <button
                   onClick={capturePhoto}
-                  className="bg-purple text-white px-6 py-2 rounded-lg font-heading uppercase tracking-wider hover:bg-purple-light transition-all"
+                  disabled={webcamError}
+                  className={`px-6 py-2 rounded-lg font-heading uppercase tracking-wider transition-all ${
+                    webcamError
+                      ? 'bg-ink/20 text-ink/40 cursor-not-allowed'
+                      : 'bg-purple text-white hover:bg-purple-light'
+                  }`}
                 >
                   Capture
                 </button>

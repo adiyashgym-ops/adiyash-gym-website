@@ -142,7 +142,7 @@ const AllLocations = () => {
                       </div>
                     )}
                     
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2">
                       <a
                         href={location.mapLink}
                         target="_blank"
@@ -169,6 +169,13 @@ const AllLocations = () => {
                       >
                         📸 Instagram
                       </a>
+                      <Link
+                        to={`/facilities/${location.id}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="bg-blue-500/10 text-blue-600 text-sm font-body px-4 py-2 rounded-lg hover:bg-blue-500/20 transition-all"
+                      >
+                        🏋️ Facilities
+                      </Link>
                     </div>
                   </div>
                 </div>

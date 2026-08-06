@@ -29,6 +29,7 @@ import MachinesList from './components/MachinesList'
 import MachinePage from './components/MachinePage'
 import ExercisePage from './components/ExercisePage'
 import Trials from './components/Trials'
+import Facilities from './components/Facilities'
 
 function App() {
   useEffect(() => {
@@ -60,6 +61,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/programs" element={<AllPrograms />} />
           <Route path="/locations" element={<AllLocations />} />
+          <Route path="/facilities/:branchId" element={<Facilities />} />
           <Route path="/offer" element={<OfferForm />} />
           <Route path="/select-branch" element={<SelectBranch />} />
           <Route path="/admin" element={<AdminLogin />} />
