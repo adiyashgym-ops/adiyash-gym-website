@@ -38,3 +38,7 @@ If a task ever needs changes on both sides of a connection, tell me clearly whic
 ## Branches
 
 Kurla, Kandivali, Marol (test branch - most new work happens here first), Vikhroli, Asalfa Unisex, Asalfa Ladies, Thane/V49.
+
+## Progress Log
+
+- **2026-09-17** — Fixed admin auth: password was exposed client-side via `VITE_ADMIN_PASSWORD`, and `/admin/dashboard` + `/admin/trials` had no login check (direct URL access bypassed login). Moved password check server-side (`api/admin-login.js`, `api/admin-verify.js`), pages now require a valid signed session token. Vercel env vars updated: `VITE_ADMIN_PASSWORD` deleted, `ADMIN_PASSWORD` and `ADMIN_SESSION_SECRET` added. Deployed and confirmed working.
