@@ -2,9 +2,10 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { supabase } from '../lib/supabase'
-import { 
-  getAllTrials, 
-  addTrial, 
+import { verifyAdminSession, logoutAdmin } from '../lib/adminAuth'
+import {
+  getAllTrials,
+  addTrial,
   searchTrialsByPhone,
   checkExistingTrial,
   uploadTrialPhoto,
@@ -16,6 +17,7 @@ const Trials = () => {
   const navigate = useNavigate()
   const [trials, setTrials] = useState([])
   const [loading, setLoading] = useState(true)
+  const [checkingSession, setCheckingSession] = useState(true)
   const [searchPhone, setSearchPhone] = useState('')
   const [searchResult, setSearchResult] = useState(null)
   const [showAddForm, setShowAddForm] = useState(false)
@@ -55,6 +57,20 @@ const Trials = () => {
   ]
 
   useEffect(() => {
+    const checkSession = async () => {
+      const valid = await verifyAdminSession()
+      if (!valid) {
+        navigate('/admin')
+        return
+      }
+      setCheckingSession(false)
+    }
+    checkSession()
+  }, [navigate])
+
+  useEffect(() => {
+    if (checkingSession) return
+
     const loadTrials = async () => {
       setLoading(true)
       const data = await getAllTrials(200)
@@ -62,7 +78,7 @@ const Trials = () => {
       setLoading(false)
     }
     loadTrials()
-  }, [])
+  }, [checkingSession])
 
   // ===== WEBCAM FUNCTIONS =====
   const startWebcam = async () => {
@@ -371,6 +387,7 @@ const Trials = () => {
   }
 
   const handleLogout = () => {
+    logoutAdmin()
     navigate('/')
   }
 

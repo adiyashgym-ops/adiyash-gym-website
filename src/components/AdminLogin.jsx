@@ -1,17 +1,30 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { loginAdmin } from '../lib/adminAuth'
 
 const AdminLogin = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (password === import.meta.env.VITE_ADMIN_PASSWORD) {
-      navigate('/admin/dashboard')
-    } else {
-      setError('Wrong password! Try again.')
+    setSubmitting(true)
+    setError('')
+
+    try {
+      const result = await loginAdmin(password)
+
+      if (result.success) {
+        navigate('/admin/dashboard')
+      } else {
+        setError(result.message || 'Wrong password! Try again.')
+      }
+    } catch (err) {
+      setError('Could not reach the server. Try again.')
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -32,9 +45,10 @@ const AdminLogin = () => {
           {error && <p className="text-red-500 text-sm font-body mb-4">{error}</p>}
           <button
             type="submit"
-            className="w-full bg-purple text-white py-3 rounded-lg font-heading uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-[1.02]"
+            disabled={submitting}
+            className="w-full bg-purple text-white py-3 rounded-lg font-heading uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-[1.02] disabled:opacity-60"
           >
-            Login
+            {submitting ? 'Checking...' : 'Login'}
           </button>
         </form>
       </div>

@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../lib/supabase'
+import { verifyAdminSession, logoutAdmin } from '../lib/adminAuth'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, Cell
 } from 'recharts'
 
 const AdminDashboard = () => {
+  const [checkingSession, setCheckingSession] = useState(true)
   const [offers, setOffers] = useState([])
   const [pendingOffers, setPendingOffers] = useState([])
   const [toast, setToast] = useState(null)
@@ -37,6 +39,20 @@ const AdminDashboard = () => {
   }
 
   useEffect(() => {
+    const checkSession = async () => {
+      const valid = await verifyAdminSession()
+      if (!valid) {
+        navigate('/admin')
+        return
+      }
+      setCheckingSession(false)
+    }
+    checkSession()
+  }, [navigate])
+
+  useEffect(() => {
+    if (checkingSession) return
+
     const loadOffers = async () => {
       try {
         const { data, error } = await supabase
@@ -51,7 +67,7 @@ const AdminDashboard = () => {
       }
     }
     loadOffers()
-  }, [])
+  }, [checkingSession])
 
   useEffect(() => {
     if (activeTab !== 'reports') return
@@ -281,7 +297,7 @@ const AdminDashboard = () => {
               📋 Trials
             </button>
             <button
-              onClick={() => navigate('/')}
+              onClick={() => { logoutAdmin(); navigate('/') }}
               className="bg-red-500/20 text-red-500 px-4 py-2 rounded-lg font-body hover:bg-red-500/30 transition-colors"
             >
               Logout
