@@ -16,7 +16,7 @@ const SelectBranch = () => {
     { id: 'asalfa-unisex', name: 'Asalfa Unisex', whatsapp: '918268652812' },
     { id: 'asalfa-ladies', name: 'Asalfa Ladies', whatsapp: '919869565863' },
     { id: 'marol', name: 'Marol', whatsapp: '918104579053' },
-    { id: 'vfour9', name: 'Vfour9', whatsapp: '918879410763' },
+    { id: 'vfour9', name: 'Thane(vfour9)', whatsapp: '918879410763' },
   ]
 
   const handleBranchSelect = (e) => {
