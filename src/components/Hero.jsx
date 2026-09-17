@@ -81,7 +81,7 @@ const Hero = () => {
             onClick={handleBookTrial}
             className="inline-block bg-purple text-white px-6 sm:px-8 md:px-10 py-2 sm:py-3 md:py-4 rounded-full font-heading text-sm sm:text-base md:text-lg uppercase tracking-wider hover:bg-purple-light transition-all hover:scale-105 shadow-2xl"
           >
-            Book a Free Trial
+            Book a Trial
           </button>
         </motion.div>
       </div>

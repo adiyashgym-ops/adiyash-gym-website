@@ -81,7 +81,7 @@ const LeadModal = ({ isOpen, onClose, branch, branchName, onSubmit }) => {
             <div className="text-4xl mb-3">💬</div>
             <h2 className="font-heading text-2xl text-ink">Connect to {branchName}</h2>
             <p className="font-body text-ink/50 text-sm mt-1">
-              Enter your details to book a free trial
+              Enter your details to book a trial
             </p>
           </div>
 
@@ -135,6 +135,7 @@ const LeadModal = ({ isOpen, onClose, branch, branchName, onSubmit }) => {
               <p className="font-body text-xs text-ink/60">⏰ Trial timing: 9:00 AM to 6:00 PM only</p>
               <p className="font-body text-xs text-ink/60">📅 Need to book 1 day before coming to the gym</p>
               <p className="font-body text-xs text-ink/60">❌ Not available on Sundays & festival holidays</p>
+              <p className="font-body text-xs text-ink/60">💰 Charges will be applicable</p>
             </div>
 
             {/* Terms & Conditions */}

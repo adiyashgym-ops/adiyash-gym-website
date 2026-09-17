@@ -426,7 +426,7 @@ export const siteConfig = {
   // ----- FAQ -----
   faqs: [
     { question: 'What are your gym timings?', answer: 'Most branches are open 24/7. Asalfa Ladies: 5:00 AM - 10:00 PM. Marol: 5:00 AM - 12:00 PM.' },
-    { question: 'How do I book a free trial?', answer: 'Click the "Join Now" button on any branch page and send us a WhatsApp message. We\'ll schedule your free trial within 24 hours.' },
+    { question: 'How do I book a trial?', answer: 'Click the "Join Now" button on any branch page and send us a WhatsApp message. We\'ll schedule your trial within 24 hours.' },
     { question: 'What\'s included in the membership?', answer: 'Full access to gym equipment, group classes, lockers, steam & shower, and complimentary fitness assessment.' },
     { question: 'Do I need to bring my own equipment?', answer: 'We provide all necessary equipment including weights, mats, and accessories. Just bring your workout clothes, shoes, and a water bottle!' },
     { question: 'Are there different membership plans?', answer: 'Yes! We offer flexible monthly, quarterly, and annual plans. Contact us on WhatsApp for details.' },
